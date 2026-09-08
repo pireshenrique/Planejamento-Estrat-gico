@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%" style="background: #0b4594; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#08387a" />
+      <stop offset="50%" stop-color="#0a4798" />
+      <stop offset="100%" stop-color="#072e66" />
+    </linearGradient>
+
+    <!-- World Card Gradient -->
+    <linearGradient id="worldCardGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#009ce0" />
+      <stop offset="100%" stop-color="#0084c2" />
+    </linearGradient>
+
+    <!-- Topography Grid Pattern -->
+    <pattern id="topoGrid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 0 40 Q 20 20 40 40 T 80 40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+      <path d="M 0 80 Q 20 60 40 80 T 80 80" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1280" height="720" fill="url(#bgGrad)" />
+  <rect width="1280" height="720" fill="url(#topoGrid)" />
+
+  <!-- Abstract Stylized Continents Silhouettes in Background -->
+  <g fill="rgba(255,255,255,0.06)" stroke="none">
+    <!-- North America -->
+    <path d="M 380 180 Q 420 150 490 160 Q 520 200 480 250 Q 440 280 410 320 Q 380 280 370 230 Z" />
+    <!-- South America -->
+    <path d="M 430 350 Q 490 360 480 440 Q 460 510 430 550 Q 400 480 410 400 Z" />
+    <!-- Europe -->
+    <path d="M 570 160 Q 640 150 670 190 Q 650 230 600 240 Q 560 210 570 160 Z" />
+    <!-- Africa -->
+    <path d="M 580 260 Q 660 250 680 330 Q 670 420 620 470 Q 570 410 570 330 Z" />
+    <!-- Middle East -->
+    <path d="M 690 220 Q 750 210 770 270 Q 730 300 690 270 Z" />
+    <!-- Asia -->
+    <path d="M 740 140 Q 880 120 960 200 Q 940 300 840 330 Q 760 300 730 220 Z" />
+    <!-- Oceania -->
+    <path d="M 900 420 Q 980 410 990 480 Q 930 520 890 470 Z" />
+  </g>
+
+  <!-- ================= HEADER SECTION ================= -->
+  <g id="header">
+    <!-- Top eyebrow label -->
+    <text x="640" y="58" text-anchor="middle" fill="#f59e0b" font-size="21" font-weight="700" letter-spacing="1.5">
+      WORLD ECONOMIC OUTLOOK UPDATE JULY 2026
+    </text>
+    
+    <!-- Main Headline -->
+    <text x="640" y="116" text-anchor="middle" fill="#ffffff" font-size="46" font-weight="900" letter-spacing="1.2">
+      GROWTH PROJECTIONS BY REGION
+    </text>
+
+    <!-- Subtitle -->
+    <text x="640" y="156" text-anchor="middle" fill="#a5c9f5" font-size="18" font-weight="600" letter-spacing="0.5">
+      (REAL GDP GROWTH, PERCENT CHANGE)
+    </text>
+  </g>
+
+  <!-- ================= WORLD CARD (LEFT PROMINENT BOX) ================= -->
+  <g id="worldCard" transform="translate(25, 218)">
+    <rect width="280" height="280" rx="6" fill="url(#worldCardGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,0.3))" />
+    
+    <!-- Title -->
+    <text x="140" y="46" text-anchor="middle" fill="#ffffff" font-size="24" font-weight="900" letter-spacing="1">
+      WORLD
+    </text>
+
+    <!-- Bar 2025: 3.5 -->
+    <text x="75" y="128" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800">3.5</text>
+    <rect x="57" y="138" width="36" height="70" rx="2" fill="#9eb5cf" />
+    <text x="75" y="226" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">2025</text>
+
+    <!-- Bar 2026: 3.0 -->
+    <text x="140" y="138" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800">3.0</text>
+    <rect x="122" y="148" width="36" height="60" rx="2" fill="#506782" />
+    <text x="140" y="226" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">2026</text>
+
+    <!-- Bar 2027: 3.4 -->
+    <text x="205" y="130" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800">3.4</text>
+    <rect x="187" y="140" width="36" height="68" rx="2" fill="#1a2a3a" />
+    <text x="205" y="226" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">2027</text>
+
+    <!-- Base Axis Line -->
+    <line x1="40" y1="208" x2="240" y2="208" stroke="#ffffff" stroke-width="2" />
+  </g>
+
+  <!-- ================= 1. UNITED STATES ================= -->
+  <g id="groupUS" transform="translate(390, 245)">
+    <text x="75" y="0" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="800" letter-spacing="0.5">
+      UNITED STATES
+    </text>
+    
+    <!-- 2025: 2.1 -->
+    <text x="30" y="32" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">2.1</text>
+    <rect x="18" y="38" width="24" height="42" rx="1" fill="#f8d5cf" />
+    <text x="30" y="94" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2025</text>
+
+    <!-- 2026: 2.3 -->
+    <text x="75" y="28" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">2.3</text>
+    <rect x="63" y="34" width="24" height="46" rx="1" fill="#f08b7a" />
+    <text x="75" y="94" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2026</text>
+
+    <!-- 2027: 2.2 -->
+    <text x="120" y="30" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">2.2</text>
+    <rect x="108" y="36" width="24" height="44" rx="1" fill="#de5846" />
+    <text x="120" y="94" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2027</text>
+
+    <line x1="10" y1="80" x2="140" y2="80" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <!-- ================= 2. EURO AREA ================= -->
+  <g id="groupEuroArea" transform="translate(570, 230)">
+    <text x="75" y="0" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="800" letter-spacing="0.5">
+      EURO AREA
+    </text>
+    
+    <!-- 2025: 1.4 -->
+    <text x="30" y="32" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">1.4</text>
+    <rect x="18" y="38" width="24" height="28" rx="1" fill="#ffffff" />
+    <text x="30" y="80" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2025</text>
+
+    <!-- 2026: 0.9 -->
+    <text x="75" y="42" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">0.9</text>
+    <rect x="63" y="48" width="24" height="18" rx="1" fill="#93c5fd" />
+    <text x="75" y="80" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2026</text>
+
+    <!-- 2027: 1.2 -->
+    <text x="120" y="36" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">1.2</text>
+    <rect x="108" y="42" width="24" height="24" rx="1" fill="#3b82f6" />
+    <text x="120" y="80" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2027</text>
+
+    <line x1="10" y1="66" x2="140" y2="66" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <!-- ================= 3. MIDDLE EAST AND CENTRAL ASIA ================= -->
+  <g id="groupMiddleEast" transform="translate(740, 192)">
+    <text x="85" y="0" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="800" letter-spacing="0.5">
+      MIDDLE EAST AND
+    </text>
+    <text x="85" y="18" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="800" letter-spacing="0.5">
+      CENTRAL ASIA
+    </text>
+    
+    <!-- 2025: 3.7 -->
+    <text x="35" y="85" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">3.7</text>
+    <rect x="23" y="91" width="24" height="62" rx="1" fill="#d9f99d" />
+    <text x="35" y="168" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2025</text>
+
+    <!-- 2026: 0.7 -->
+    <text x="85" y="135" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">0.7</text>
+    <rect x="73" y="141" width="24" height="12" rx="1" fill="#a3e635" />
+    <text x="85" y="168" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2026</text>
+
+    <!-- 2027: 6.5 (TALL SPIKE) -->
+    <text x="135" y="40" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="900">6.5</text>
+    <rect x="123" y="47" width="24" height="106" rx="1" fill="#65a30d" />
+    <text x="135" y="168" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2027</text>
+
+    <line x1="15" y1="153" x2="155" y2="153" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <!-- ================= 4. EMERGING AND DEVELOPING ASIA ================= -->
+  <g id="groupAsia" transform="translate(960, 210)">
+    <text x="75" y="0" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="800" letter-spacing="0.5">
+      EMERGING AND
+    </text>
+    <text x="75" y="18" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="800" letter-spacing="0.5">
+      DEVELOPING ASIA
+    </text>
+    
+    <!-- 2025: 5.6 -->
+    <text x="30" y="58" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">5.6</text>
+    <rect x="18" y="64" width="24" height="90" rx="1" fill="#fed7aa" />
+    <text x="30" y="168" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2025</text>
+
+    <!-- 2026: 5.0 -->
+    <text x="75" y="68" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">5.0</text>
+    <rect x="63" y="74" width="24" height="80" rx="1" fill="#fb923c" />
+    <text x="75" y="168" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2026</text>
+
+    <!-- 2027: 4.8 -->
+    <text x="120" y="72" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">4.8</text>
+    <rect x="108" y="78" width="24" height="76" rx="1" fill="#ea580c" />
+    <text x="120" y="168" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2027</text>
+
+    <line x1="10" y1="154" x2="140" y2="154" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <!-- ================= 5. LATIN AMERICA AND THE CARIBBEAN ================= -->
+  <g id="groupLatAm" transform="translate(440, 435)">
+    <text x="85" y="0" text-anchor="middle" fill="#f59e0b" font-size="13.5" font-weight="800" letter-spacing="0.5">
+      LATIN AMERICA AND
+    </text>
+    <text x="85" y="16" text-anchor="middle" fill="#f59e0b" font-size="13.5" font-weight="800" letter-spacing="0.5">
+      THE CARIBBEAN
+    </text>
+    
+    <!-- 2025: 2.4 -->
+    <text x="35" y="50" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">2.4</text>
+    <rect x="23" y="56" width="24" height="48" rx="1" fill="#ffffff" />
+    <text x="35" y="118" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2025</text>
+
+    <!-- 2026: 2.4 -->
+    <text x="85" y="50" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">2.4</text>
+    <rect x="73" y="56" width="24" height="48" rx="1" fill="#e9d5ff" />
+    <text x="85" y="118" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2026</text>
+
+    <!-- 2027: 2.7 -->
+    <text x="135" y="44" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">2.7</text>
+    <rect x="123" y="50" width="24" height="54" rx="1" fill="#d8b4fe" />
+    <text x="135" y="118" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2027</text>
+
+    <line x1="15" y1="104" x2="155" y2="104" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <!-- ================= 6. SUB-SAHARAN AFRICA ================= -->
+  <g id="groupAfrica" transform="translate(690, 415)">
+    <text x="85" y="0" text-anchor="middle" fill="#f59e0b" font-size="14" font-weight="800" letter-spacing="0.5">
+      SUB-SAHARAN AFRICA
+    </text>
+    
+    <!-- 2025: 4.5 -->
+    <text x="35" y="32" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">4.5</text>
+    <rect x="23" y="38" width="24" height="78" rx="1" fill="#a7f3d0" />
+    <text x="35" y="130" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2025</text>
+
+    <!-- 2026: 4.3 -->
+    <text x="85" y="36" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">4.3</text>
+    <rect x="73" y="42" width="24" height="74" rx="1" fill="#34d399" />
+    <text x="85" y="130" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2026</text>
+
+    <!-- 2027: 4.5 -->
+    <text x="135" y="32" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800">4.5</text>
+    <rect x="123" y="38" width="24" height="78" rx="1" fill="#059669" />
+    <text x="135" y="130" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">2027</text>
+
+    <line x1="15" y1="116" x2="155" y2="116" stroke="#ffffff" stroke-width="1.5" />
+  </g>
+
+  <!-- ================= FOOTER ================= -->
+  <g id="footer" transform="translate(0, 660)">
+    <text x="30" y="35" fill="#ffffff" font-size="20" font-weight="900" letter-spacing="0.5">
+      IMF.org/pubs
+    </text>
+    
+    <text x="640" y="20" fill="#a3c5ed" font-size="13" font-weight="500">
+      Source: IMF, World Economic Outlook Update, July 2026.
+    </text>
+    <text x="640" y="38" fill="#a3c5ed" font-size="13" font-weight="500">
+      Note: Order of bars for each group indicates (left to right): 2025 estimates, 2026 projections, and 2027 projections.
+    </text>
+  </g>
+</svg>

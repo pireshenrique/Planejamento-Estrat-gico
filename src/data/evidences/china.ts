@@ -1,0 +1,80 @@
+export const CHINA_EVIDENCES = [
+  {
+    id: 1,
+    tag: 'ECONOMIA',
+    dateStr: '21/04/2026',
+    title: 'China cresce 5% no primeiro trimestre e abre nova janela para a reindustrialização brasileira',
+    source: 'Money Times',
+    url: 'https://www.moneytimes.com.br/como-a-china-acelera-mudanca-estrutural-e-abre-janela-estrategica-para-reindustrializacao-do-brasil-jals/',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop',
+    factualSummary: 'PIB chinês cresceu 5% no primeiro trimestre de 2026. O avanço foi impulsionado por setores ligados à tecnologia, eletrificação, infraestrutura e transição energética.',
+    globalRelevance: 'Confirma a sustentação da expansão chinesa voltada para novas tecnologias (eletrificação) e demanda por minerais estratégicos.',
+    brazilImpact: 'Reforça a necessidade e o escoamento contínuo de materiais brasileiros e fornece janela de reinserção produtiva através de parcerias industriais globais.',
+    lorenzettiImpact: 'O consumo tracionado pela eletrificação chinesa pode demandar monitoramento sobre as cadeias globais de minerais industriais, o que pode refletir na precificação de insumos estruturais (p.ex. cobre).'
+  },
+  {
+    id: 2,
+    tag: 'INVESTIMENTOS',
+    dateStr: '29/05/2026',
+    title: 'Fundo Brasil-China aprova novos investimentos em infraestrutura, energia e indústria',
+    source: 'Ministério da Fazenda',
+    url: 'https://www.gov.br/fazenda/pt-br/assuntos/noticias/2026/maio/terceira-reuniao-do-fundo-brasil-china-ocorre-em-sao-paulo',
+    image: 'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=600&auto=format&fit=crop',
+    factualSummary: 'Brasil e China aprovaram o novo plano de trabalho 2026-2027 do Fundo Brasil-China, priorizando infraestrutura de transporte, logística, infraestrutura verde e digital.',
+    globalRelevance: 'Fortalece o financiamento bilateral fora da dependência de bancos e agências estritamente ocidentais.',
+    brazilImpact: 'Injeção de capital direto na estruturação portuária, ferroviária e parque industrial do Brasil, acelerando obras engavetadas.',
+    lorenzettiImpact: 'Pode representar oportunidade na demanda do setor construtivo civil pesado - área relevante para materiais elétricos -, caso venham a ser erguidas ou modernizadas grandes estruturas e polos industriais.'
+  },
+  {
+    id: 3,
+    tag: 'GEOPOLÍTICA',
+    dateStr: '31/05/2026',
+    title: 'Brasil e China reforçam diálogo estratégico e ampliam agenda comercial',
+    source: 'Agência Brasil',
+    url: 'https://agenciabrasil.ebc.com.br/internacional/noticia/2026-05/vieira-vai-pequim-para-reuniao-bilateral-com-governo-chines',
+    image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=600&auto=format&fit=crop',
+    factualSummary: 'O governo brasileiro participou do 5º Diálogo Estratégico Global Brasil-China em Pequim discutindo atração de aportes. O comércio bilateral foi reportado como superior a US$ 170 bilhões.',
+    globalRelevance: 'Consolidação das relações político-diplomáticas de estado a estado em fóruns globais de desenvolvimento.',
+    brazilImpact: 'A China consolida incontestavelmente sua posição como principal parceiro comercial estrutural.',
+    lorenzettiImpact: 'O alto nível de dependência ressalta que as oscilações cambiais ou da economia asiática podem impactar sensivelmente a estabilidade, os custos logísticos e os valores da importação e exportação de insumos utilizados na operação.'
+  },
+  {
+    id: 4,
+    tag: 'TECNOLOGIA',
+    dateStr: 'Maio de 2026',
+    title: 'Missão do Brasil na China busca acordos em telecomunicações e aeroespacial',
+    source: 'Ministério das Comunicações',
+    url: 'https://www.gov.br/mcom/pt-br/noticias/2026/maio/ministro-das-comunicacoes-vai-a-china-para-ampliar-conectividade-via-satelite-e-atrair-investimentos-em-infraestrutura-digital',
+    image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=600&auto=format&fit=crop',
+    factualSummary: 'Missão brasileira debateu com a China o avanço em internet via satélite, expansão do 5G, implantação da TV 3.0 e data centers locais.',
+    globalRelevance: 'Avanço chinês na oferta de serviços e arquiteturas digitais fundamentais em nações em desenvolvimento.',
+    brazilImpact: 'O parque de telecomunicações do Brasil tende a receber forte integração e adoção tecnológica padronizada pela Ásia.',
+    lorenzettiImpact: 'Pode indicar no médio prazo uma possível expansão em construções específicas nas áreas de telecomunicações, representando mercados indiretos com necessidade de fiações complexas e suportes elétricos.'
+  },
+  {
+    id: 5,
+    tag: 'IA & DADOS',
+    dateStr: 'Maio de 2026',
+    title: 'Brasil apresenta projetos de Data Centers para empresas de IA na Ásia',
+    source: 'Ministério das Comunicações',
+    url: 'https://www.gov.br/mcom/pt-br/noticias/2026/maio/na-china-ministro-das-comunicacoes-apresenta-oportunidades-de-investimentos-no-setor-de-tecnologia-e-telecomunicacoes-no-brasil',
+    image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=600&auto=format&fit=crop',
+    factualSummary: 'O Brasil focou em oferecer atração para Inteligência artificial e data centers com gigantes asiáticos.',
+    globalRelevance: 'Competição global das superpotências para estabelecimento geográfico dos grandes centros de processamento de IA.',
+    brazilImpact: 'Entrada de aportes financeiros específicos focados na cadeia industrial limpa e em tecnologia.',
+    lorenzettiImpact: 'A atração de capital para Data Centers pode sinalizar a oportunidade de nichos para atendimento de redes corporativas que exijam segurança reforçada e tecnologias elétricas complexas.'
+  },
+  {
+    id: 6,
+    tag: 'EXPORTAÇÕES',
+    dateStr: 'Maio de 2026',
+    title: 'Exportações brasileiras para a China crescem mais de 30%',
+    source: 'SECEX / Imprensa',
+    url: 'https://mtpress.com.br/agronegocio/china-lidera-avanco-da-balanca-comercial-brasileira-e-garante-superavit-de-us-105-bilhoes-em-abril/',
+    image: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=600&auto=format&fit=crop',
+    factualSummary: 'A China aumentou em 32,5% suas compras do Brasil, resultando em elevação massiva do superávit de comércio embasado em commodities e agronegócio.',
+    globalRelevance: 'Reajuste do fluxo logístico de matérias primas centrais deslocando estoques primários mundiais focados na reserva chinesa.',
+    brazilImpact: 'Reforço do Brasil como principal fornecedor de matérias-primas e energia limpa para a matriz asiática.',
+    lorenzettiImpact: 'Pode requerer monitoramento do custo e oferta para internalização de matérias-primas brutas utilizadas na fabricação nacional, dado o aumento de volume exportado reportado.'
+  }
+];

@@ -1,0 +1,6 @@
+{
+  "name": "Inteligência Estratégica Corporativa",
+  "description": "Portal executivo de acompanhamento macroeconômico, tendências e riscos estratégicos",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

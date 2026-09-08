@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* =========================================================================
+   AUTO-ADAPTAÇÃO UNIVERSAL PARA TODAS AS TELAS, MONITORES E SMART TVs
+   ========================================================================= */
+
+/* Escala base fluida calculada automaticamente pelo viewport */
+html {
+  font-size: 100%; /* Padrão 16px para Laptops e Telas 13"-15" (1280px-1440px) */
+  scroll-behavior: smooth;
+}
+
+/* Telas Full HD 1080p (1920px) e TVs 43"-55" */
+@media (min-width: 1900px) {
+  html {
+    font-size: 106%;
+  }
+}
+
+/* Monitores QHD / Ultrawide (2560px) e TVs 55"-65" */
+@media (min-width: 2400px) {
+  html {
+    font-size: 116%;
+  }
+}
+
+/* Telas 4K UHD (3840px+) e Telões de Sala de Reunião */
+@media (min-width: 3600px) {
+  html {
+    font-size: 135%;
+  }
+}
+
+/* Detecção automática de Smart TVs por User-Agent / TV displays */
+.smart-tv-detected {
+  font-size: 118% !important;
+}
+
+body {
+  @apply bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 font-sans antialiased;
+}
+
+/* Contenção visual que preserva proporções em TVs e Ultrawide */
+.app-container-max {
+  max-width: 1720px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+@media (min-width: 2560px) {
+  .app-container-max {
+    max-width: 2100px;
+  }
+}
+
+@media (min-width: 3600px) {
+  .app-container-max {
+    max-width: 2800px;
+  }
+}
+
+/* Ajustes para Gráficos Recharts em Telas Grandes */
+.recharts-responsive-container {
+  min-height: 280px;
+}
+
+@media (min-width: 1920px) {
+  .recharts-responsive-container {
+    min-height: 320px;
+  }
+}
+
+/* Impressão - A4 Paisagem (Landscape) com Fluxo Contínuo e Estrutura Desktop */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-sizing: border-box !important;
+  }
+
+  @page {
+    size: A4 landscape;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+  
+  html, body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    -webkit-text-size-adjust: 100% !important;
+    font-size: 10pt !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Reset Dark Mode em impressão para clareza e fidelidade */
+  .dark,
+  .dark body,
+  .dark main,
+  .dark #root {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  .dark * {
+    border-color: #e2e8f0 !important;
+  }
+
+  .dark .bg-slate-900,
+  .dark .bg-slate-950,
+  .dark .bg-\[\#0B1120\],
+  .dark .bg-\[\#070B14\],
+  .dark .bg-\[\#080f1e\],
+  .dark .bg-\[\#0c162c\],
+  .dark .bg-\[\#111827\],
+  .dark .bg-slate-800 {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+  }
+
+  .dark .text-white,
+  .dark .text-slate-100,
+  .dark .text-slate-200,
+  .dark .text-slate-300 {
+    color: #0f172a !important;
+  }
+
+  .dark .text-slate-400,
+  .dark .text-slate-500 {
+    color: #475569 !important;
+  }
+
+  /* Container Principal em Fluxo Normal de Documento */
+  .app-container-max {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    zoom: 1 !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  main {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* Remoção de alturas artificiais de viewport ou telas desktop */
+  .h-screen,
+  .min-h-screen,
+  .h-full,
+  .min-h-full {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* Seções com espaçamento moderado contínuo */
+  section {
+    margin-bottom: 5mm !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* Posições relativas/estáticas para não criar espaços vazios */
+  .sticky,
+  .fixed {
+    position: static !important;
+  }
+
+  /* Header e Seções superiores sem espaços vazios extras */
+  .flex-col.xl\:flex-row,
+  .flex-col.lg\:flex-row {
+    flex-direction: row !important;
+    align-items: stretch !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+    margin-bottom: 4mm !important;
+  }
+
+  /* KPI cards na barra superior lado a lado */
+  .flex.flex-wrap {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .flex.flex-wrap > div,
+  .flex-1.min-w-0 {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    width: auto !important;
+  }
+
+  /* GRIDS DESKTOP EXPLÍCITOS (Preservação de Colunas na Folha A4 Paisagem) */
+  .grid {
+    display: grid !important;
+    width: 100% !important;
+    gap: 1rem !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  /* Principais Notícias e Dados: 3 Colunas Desktop */
+  .grid-cols-1.md\:grid-cols-2.xl\:grid-cols-3,
+  .grid-cols-1.md\:grid-cols-3,
+  .xl\:grid-cols-3,
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  /* Blocos 01 e 02 (O que observar & Impacto para a empresa): 2 Colunas Desktop */
+  .grid-cols-1.lg\:grid-cols-2,
+  .grid-cols-1.md\:grid-cols-2,
+  .lg\:grid-cols-2,
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  /* Seções de 4 ou 5 colunas desktop */
+  .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4,
+  .grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4,
+  .lg\:grid-cols-4,
+  .xl\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.75rem !important;
+  }
+
+  .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-5,
+  .grid-cols-1.md\:grid-cols-3.lg\:grid-cols-5,
+  .lg\:grid-cols-5,
+  .xl\:grid-cols-5,
+  .print\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Impedir quebra APENAS em itens individuais pequenos (cards individuais) */
+  .print-break-inside-avoid,
+  .evidence-card-sync,
+  .group,
+  article,
+  figure,
+  .recharts-responsive-container,
+  table tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Redução de paddings excessivos para preenchimento harmônico */
+  .p-6, .p-7, .p-8, .sm\:p-7, .md\:p-8, .lg\:p-10 {
+    padding: 12px 16px !important;
+  }
+
+  .gap-8, .gap-10, .gap-14 {
+    gap: 1rem !important;
+  }
+
+  .mb-8, .mb-10, .mb-14, .mb-16 {
+    margin-bottom: 4mm !important;
+  }
+
+  /* Impedir títulos órfãos no fim da folha */
+  h1, h2, h3, h4, header, .border-b {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  /* Ocultar apenas controles puramente interativos de tela */
+  .print\:hidden,
+  button[aria-label="Toggle menu"],
+  button[title*="Restaurar"],
+  button[title*="Editar"],
+  input,
+  select,
+  .no-print,
+  [role="tooltip"] {
+    display: none !important;
+  }
+
+  /* Links e botões de acesso */
+  a[href] {
+    text-decoration: none !important;
+  }
+
+  /* Sombras limpas para impressão */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+
+/* Custom Scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; 
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1; 
+  border-radius: 4px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #334155; 
+}
