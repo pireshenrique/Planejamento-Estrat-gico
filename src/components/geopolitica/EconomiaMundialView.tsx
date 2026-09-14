@@ -249,7 +249,7 @@ export function EconomiaMundialView({ setActivePage }: EconomiaMundialViewProps)
           </span>
         </div>
            
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-5 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
           {currentData.evidences.map((ev) => (
             <EvidenceCard key={ev.id} evidence={ev} />
           ))}

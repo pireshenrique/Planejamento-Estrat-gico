@@ -17,120 +17,110 @@ export interface ProgramasSociaisTopic {
 }
 
 export const PROGRAMAS_SOCIAIS_TOPICS: { id: ProgramasSociaisTopicId; label: string; icon: LucideIcon }[] = [
-  { id: 'mcmv', label: 'MINHA CASA MINHA VIDA', icon: Home },
-  { id: 'reforma_brasil', label: 'Programa Reforma Brasil', icon: Hammer },
+  { id: 'mcmv', label: 'Minha Casa Minha Vida', icon: Home },
+  { id: 'reforma_brasil', label: 'Reforma Casa Brasil', icon: Hammer },
 ];
 
 export const PROGRAMAS_SOCIAIS_BY_ID: Record<ProgramasSociaisTopicId, ProgramasSociaisTopic> = {
   mcmv: {
     id: 'mcmv',
-    label: 'MINHA CASA MINHA VIDA',
+    label: 'Minha Casa Minha Vida',
     icon: Home,
-    headline: 'O programa Minha Casa, Minha Vida ampliou sua meta para 3 milhões de moradias até o final de 2026, amparado pelo orçamento histórico de R$ 142,1 bilhões do FGTS para a habitação, novos ciclos de contratação nas faixas 1 a 3 e a estruturação da Faixa 4 para famílias de classe média.',
-    statusSubtitle: 'Mais de 2,27 milhões de moradias financiadas até abril de 2026, meta ampliada para 3 milhões de unidades e R$ 142,1 bilhões do FGTS para habitação',
-    observeSummary: 'O Minha Casa, Minha Vida consolidou-se como o eixo central de sustentação da construção residencial no Brasil em 2026. Com aporte recorde do FGTS de R$ 142,1 bilhões para o crédito habitacional, o programa expandiu as faixas de renda e os tetos de avaliação dos imóveis (até R$ 400 mil na Faixa 3 e até R$ 600 mil na recém-instituída Faixa 4 de classe média). Enquanto o segmento de médio e alto padrão sofreu desaceleração decorrente de taxas de juros elevadas no mercado livre, as operações do MCMV registraram avanço nas vendas (+3,4% no 2T26), demonstrando maior resiliência sustentada por subsídios, descontos e funding compulsório.',
+    headline: 'O Minha Casa, Minha Vida ganhou peso central no mercado residencial brasileiro e já responde por mais da metade dos lançamentos e das vendas de imóveis novos no país. O programa combina financiamento mais acessível e metas elevadas de expansão, mas manter esse crescimento exigirá recursos suficientes para novas contratações nos próximos anos.',
+    statusSubtitle: 'Programa supera metade dos lançamentos e vendas de imóveis novos, enquanto expansão aumenta a necessidade de financiamento para os próximos anos',
+    observeSummary: 'O Minha Casa, Minha Vida tornou-se um dos principais motores do mercado residencial brasileiro, apoiado por juros de financiamento inferiores aos praticados fora do programa e pela ampliação do público atendido. Mais da metade dos lançamentos e das vendas de imóveis novos já está ligada ao programa, enquanto o estoque disponível continua relativamente baixo diante do ritmo de comercialização. A expansão deve continuar, mas metas elevadas de novas contratações aumentam a dependência de recursos do FGTS, da poupança e de fontes complementares.',
     observeTitle: 'Últimas notícias e dados apurados',
     observeNotes: [
-      'O Governo Federal e o Ministério das Cidades elevaram a meta global do Minha Casa, Minha Vida para a entrega de 3 milhões de moradias até o final de 2026, superando a estimativa preliminar de 2 milhões de unidades contratadas no início do ciclo plurianual.',
-      'Até o primeiro quadrimestre de 2026, o programa totalizou mais de 2,27 milhões de habitações financiadas em território nacional, correspondendo a um montante superior a R$ 300 bilhões em investimentos acumulados via FGTS e Orçamento Geral da União.',
-      'O Conselho Curador do FGTS aprovou o Orçamento Operacional para a área de habitação em 2026 no valor de R$ 142,1 bilhões, estabelecendo o maior volume financeiro nominal da história do fundo destinado à concessão de crédito habitacional, subsídios e descontos às famílias beneficiárias.',
-      'As faixas de renda familiar urbana foram atualizadas para o ciclo vigente: Faixa 1 (renda bruta de até R$ 3.200), Faixa 2 (de R$ 3.200,01 a R$ 5.000), Faixa 3 (de R$ 5.000,01 a R$ 9.600) e Faixa 4 para classe média (de R$ 9.600,01 a R$ 13.000, com teto de imóvel de até R$ 600 mil e taxas reguladas).',
-      'No segmento de habitação de interesse social com subsídio integral ou preponderante, o Ministério das Cidades abriu seleção via Fundo de Arrendamento Residencial (MCMV-FAR) para 110 mil novas unidades habitacionais urbanas, além de autorizar mais de 21,2 mil moradias no modelo MCMV-Entidades voltadas a famílias com renda de até R$ 2.850.',
-      'Nas apurações trimestrais das 14 principais incorporadoras de capital aberto, as vendas de unidades vinculadas ao Minha Casa, Minha Vida apresentaram alta de 3,4% no segundo trimestre de 2026, enquanto as vendas de médio e alto padrão recuaram 5,1% no mesmo período.'
+      'O Minha Casa, Minha Vida já responde por mais da metade dos lançamentos e das vendas de imóveis residenciais novos no Brasil e, na cidade de São Paulo, chega a aproximadamente dois terços dos negócios. O tamanho alcançado pelo programa significa que seu desempenho passou a influenciar uma parcela relevante das novas obras residenciais do país. Uma expansão ou desaceleração do MCMV, portanto, tende a ter efeitos mais amplos sobre a atividade da construção do que quando o programa representava uma parcela menor do mercado.',
+      'Uma das principais vantagens do Minha Casa, Minha Vida está no custo do financiamento. As taxas do programa variam aproximadamente entre 4,5% e 8,16% ao ano, enquanto financiamentos imobiliários fora dele estão próximos de 12% a 14%. Na prática, juros menores reduzem o peso das parcelas e permitem que mais famílias consigam financiar um imóvel, ajudando a explicar por que as vendas do programa permanecem mais fortes em um ambiente de crédito caro.',
+      'O crescimento do Minha Casa, Minha Vida ocorre ao mesmo tempo em que os segmentos de médio e médio-alto padrão enfrentam maior dificuldade com os juros elevados. Com o financiamento convencional mais caro, parte das incorporadoras passou a direcionar novos projetos para o programa habitacional. Assim, o aumento da participação do MCMV reflete tanto seu próprio crescimento quanto a perda de força de outros segmentos residenciais.',
+      'Mesmo com o aumento dos lançamentos, o estoque disponível do Minha Casa, Minha Vida continua relativamente ajustado ao ritmo das vendas. As unidades atualmente disponíveis correspondem a aproximadamente 7,6 meses de comercialização se o ritmo atual for mantido. Isso significa que, embora a quantidade de imóveis à venda tenha aumentado, ainda não há sinal de um estoque excessivo que, por si só, obrigue as incorporadoras a reduzir fortemente novos projetos.',
+      'O governo pretende manter um ritmo elevado de novas contratações, apoiado por um orçamento do programa superior a R$ 200 bilhões em 2026. A previsão era contratar aproximadamente 1 milhão de novas unidades em 2026 e uma projeção posterior passou a indicar cerca de 1,5 milhão para 2027. Esses números representam metas de contratação e não moradias já construídas ou entregues, mas mostram que a necessidade de financiamento continuará elevada.',
+      'A continuidade desse crescimento depende da capacidade de financiar volumes cada vez maiores. Em uma pesquisa com mais de 150 profissionais e investidores do setor, 25% avaliaram que pode haver limitação de crédito nos próximos anos e 44% apontaram a forte dependência do FGTS e da poupança como uma fragilidade. O risco é de médio prazo e não representa falta atual de recursos, mas indica que novas fontes de financiamento podem ser necessárias para manter a expansão planejada.'
     ],
     lorenzettiImpacts: [
-      'A ampliação da meta para 3 milhões de moradias e o orçamento de R$ 142,1 bilhões do FGTS podem gerar sustentação da demanda estrutural por chuveiros elétricos, torneiras e louças básicas instalados nas unidades entregues.',
-      'A expansão dos tetos de financiamento e a criação da Faixa 4 (renda até R$ 13.000 e teto de R$ 600 mil) pode criar oportunidades para linhas intermediárias de metais sanitários, duchas multitemperaturas e acessórios de maior valor agregado.',
-      'O cronograma contínuo de contratações do MCMV-FAR e MCMV-Entidades pode demandar acompanhamento da capacidade fabril e dos canais de suprimento direto a grandes construtoras do segmento econômico (como MRV, Direcional, Cury e Tenda).',
-      'A resiliência das vendas no segmento econômico em contraste com o médio/alto padrão pode demandar acompanhamento do mix de produção da Lorenzetti para preservar competitividade em itens de alto giro e grande escala.',
-      'Oscilações na liberação de recursos do FGTS ou restrições orçamentárias nos repasses do Tesouro Nacional podem representar risco de repactuação no cronograma físico de obras e nas etapas de acabamento predial.'
+      'Como o Minha Casa, Minha Vida já representa mais da metade dos lançamentos e das vendas de imóveis novos, o desempenho do programa passa a ter relação direta com uma parcela relevante da futura demanda da construção residencial. Para a Lorenzetti, a continuidade desse volume pode sustentar a procura por chuveiros, torneiras, metais sanitários e outros produtos instalados nas novas moradias conforme as obras avancem.',
+      'O financiamento mais barato dentro do Minha Casa, Minha Vida ajuda o segmento a manter maior força justamente quando compradores de imóveis de médio padrão enfrentam juros mais elevados. Para a Lorenzetti, essa mudança pode alterar a composição da demanda, aumentando a importância de produtos adequados a empreendimentos que precisam combinar preço competitivo, confiabilidade e fornecimento em grande escala.',
+      'O crescimento do Minha Casa, Minha Vida ao mesmo tempo em que os segmentos de médio e médio-alto padrão perdem força pode alterar a composição do mercado residencial nos próximos anos. Para a Lorenzetti, isso pode aumentar o peso relativo de empreendimentos com grande número de unidades e maior pressão por equilíbrio entre preço, desempenho e capacidade de fornecimento. Esse movimento pode influenciar não apenas o volume vendido, mas também quais linhas de produtos ganham maior importância no mix destinado às construtoras.',
+      'As metas elevadas de novas contratações podem ampliar o número de obras residenciais nos próximos anos, mas existe um intervalo entre a contratação do imóvel e a compra dos produtos utilizados no acabamento. Para a Lorenzetti, o aumento das contratações funciona como um possível indicador antecipado de demanda futura, e não como crescimento imediato das vendas de materiais.',
+      'A principal limitação para esse cenário está na capacidade de financiar a expansão por vários anos. Se FGTS, poupança e fontes complementares não acompanharem o aumento das contratações, o ritmo de novos projetos pode diminuir no futuro. Para a Lorenzetti, o efeito apareceria com atraso, porque obras já contratadas continuariam avançando antes de uma eventual redução na quantidade de novos empreendimentos.'
     ],
     evidences: [
       {
-        id: 'ev-mcmv-meta-3m-2026',
-        tag: 'MINISTÉRIO DAS CIDADES • META MCMV',
+        id: 'ev-mcmv-participacao-infomoney-2026',
+        tag: 'INFOMONEY / ESTADÃO CONTEÚDO • MERCADO RESIDENCIAL',
         dateStr: '2026',
-        title: 'Minha Casa, Minha Vida atinge 2,27 milhões de moradias financiadas e projeta 3 milhões até o fim de 2026',
-        headline: 'Meta do MCMV é ampliada para 3 milhões de unidades com R$ 300 bilhões em investimentos',
-        source: 'Ministério das Cidades / Governo Federal',
-        url: 'https://www.gov.br/cidades/pt-br/assuntos/habitacao/minha-casa-minha-vida',
-        summary: 'O Ministério das Cidades e a Secretaria Nacional de Habitação confirmaram que o Minha Casa, Minha Vida ultrapassou a marca de 2,27 milhões de moradias financiadas, totalizando R$ 300 bilhões em investimentos acumulados. O Governo Federal atualizou a meta global do programa para alcançar a marca de 3 milhões de habitações entregues ou contratadas até o final de 2026, impulsionando a redução do déficit habitacional quantitativo em todas as regiões do país.'
+        title: 'Minha Casa, Minha Vida amplia participação no mercado residencial apoiado por financiamento mais acessível',
+        headline: 'Programa responde por mais da metade dos lançamentos e vendas no país e 2/3 em SP, com estoque ajustado a 7,6 meses',
+        source: 'InfoMoney / Estadão Conteúdo',
+        url: 'https://www.infomoney.com.br/minhas-financas/minha-casa-minha-vida-domina-mercado-e-evidencia-fragilidade-nos-demais-setores/',
+        summary: 'O Minha Casa, Minha Vida já responde por mais da metade dos lançamentos e das vendas de imóveis residenciais novos no Brasil e, na cidade de São Paulo, representa aproximadamente dois terços dos negócios. Parte desse avanço está relacionada às condições de financiamento do programa, com juros entre aproximadamente 4,5% e 8,16% ao ano, diante de cerca de 12% a 14% no crédito imobiliário fora do programa. Ao mesmo tempo, segmentos de médio e médio-alto padrão perdem espaço diante dos juros elevados, levando mais incorporadoras a direcionarem projetos ao MCMV. Apesar do aumento dos lançamentos, o estoque nacional de aproximadamente 137 mil unidades representa cerca de 7,6 meses de vendas no ritmo atual, indicando que a oferta permanece relativamente ajustada à demanda.'
       },
       {
-        id: 'ev-mcmv-fgts-orcamento-2026',
-        tag: 'FGTS / CAIXA • FUNDING HABITACIONAL',
-        dateStr: '2026',
-        title: 'Orçamento Operacional do FGTS para habitação atinge recorde histórico de R$ 142,1 bilhões em 2026',
-        headline: 'Conselho Curador do FGTS assegura maior volume financeiro da história para o crédito habitacional popular',
-        source: 'Conselho Curador do FGTS / Caixa Econômica Federal',
-        url: 'https://www.caixa.gov.br/poder-publico/programas-governo/habitacao/minha-casa-minha-vida',
-        summary: 'O Conselho Curador do FGTS estabeleceu o Orçamento Operacional de 2026 para a habitação popular em R$ 142,1 bilhões, com recursos regionalizados para financiamento oneroso, subsídios e pró-moradia. O montante garante liquidez e continuidade aos contratos de financiamento habitacional, beneficiando famílias com renda bruta mensal de até R$ 8.600 nas faixas tradicionais e até R$ 13.000 na nova faixa intermediária.'
+        id: 'ev-mcmv-credito-forbes-2026',
+        tag: 'FORBES BRASIL • CRÉDITO HABITACIONAL',
+        dateStr: 'Julho/2026',
+        title: 'Expansão do Minha Casa, Minha Vida encontra risco de limitação futura das fontes de crédito',
+        headline: 'Pesquisa aponta que 25% dos executivos temem falta de crédito futuro e 44% veem dependência de FGTS e poupança',
+        source: 'Forbes Brasil',
+        url: 'https://forbes.com.br/forbes-money/forbes-real-estate/2026/07/falta-credito-minha-casa-vida-mcmv/',
+        summary: 'O Minha Casa, Minha Vida chegou a 2026 com orçamento recorde superior a R$ 200 bilhões e forte expansão de sua participação no mercado habitacional, mas cresce a preocupação sobre a capacidade de manter esse ritmo nos próximos anos. Em pesquisa com mais de 150 incorporadoras, construtoras, gestores e investidores, um em cada quatro executivos avaliou que pode faltar crédito para sustentar o crescimento projetado do programa, enquanto 44% apontaram como fragilidade a forte dependência do FGTS e da poupança. O risco está principalmente no médio prazo, porque retiradas extraordinárias reduziram a disponibilidade futura do FGTS e a poupança vem apresentando saídas líquidas de recursos. A situação não representa falta de financiamento atual, mas um risco para a continuidade da expansão caso novas fontes de recursos não ganhem escala.'
       },
       {
-        id: 'ev-mcmv-far-contratacoes-2026',
-        tag: 'HABITAÇÃO SUBSIDIADA • MCMV-FAR',
+        id: 'ev-mcmv-contratacoes-infomoney-2026',
+        tag: 'INFOMONEY • POLÍTICA HABITACIONAL',
         dateStr: '2026',
-        title: 'Ministério das Cidades abre seleção para 110 mil unidades habitacionais via Fundo de Arrendamento Residencial (FAR)',
-        headline: 'Novo ciclo do MCMV-FAR prioriza cidades médias e grandes com infraestrutura e equipamentos públicos',
-        source: 'Ministério das Cidades (Portaria MCid)',
-        url: 'https://www.gov.br/cidades/pt-br/noticias',
-        summary: 'Abertura do ciclo de contratação do MCMV-FAR prevê a seleção de 110 mil unidades habitacionais urbanas (100 mil para demanda geral e 10 mil para atendimento a situações de emergência e reassentamento). As propostas são operacionalizadas pela Caixa em modelo continuado com prioridade para terrenos localizados próximos a redes de saneamento, postos de saúde e escolas.'
+        title: 'Governo projeta manter o Minha Casa, Minha Vida em ritmo próximo de 1 milhão de novas unidades por ano',
+        headline: 'Ministro das Cidades projeta 1 milhão de unidades em 2026 e mais 1 milhão em 2027, respondendo por 85% dos lançamentos',
+        source: 'InfoMoney / Ministério das Cidades',
+        url: 'https://www.infomoney.com.br/politica/minha-casa-minha-vida-deve-contratar-1-milhao-de-imoveis-em-2026-e-mais-1-mi-em-2027/',
+        summary: 'O governo projetava contratar cerca de 1 milhão de novas unidades habitacionais em 2026 e mais 1 milhão em 2027, mantendo o Minha Casa, Minha Vida como principal programa de financiamento habitacional do país. A expansão foi favorecida pelo aumento das faixas de renda atendidas, que ampliou o programa também para famílias de classe média. Na declaração reproduzida pelo InfoMoney, o ministro das Cidades afirmou que o programa já respondia por aproximadamente 85% dos lançamentos imobiliários do país.'
       }
     ]
   },
   reforma_brasil: {
     id: 'reforma_brasil',
-    label: 'Programa Reforma Brasil',
+    label: 'Reforma Casa Brasil',
     icon: Hammer,
-    headline: 'O Programa Reforma Casa Brasil disponibiliza R$ 40 bilhões em linhas de crédito facilitado pela Caixa para financiar reformas, ampliações e melhorias estruturais e hidrossanitárias em residências urbanas de famílias em todo o país.',
-    statusSubtitle: 'Volume de R$ 40 bilhões em crédito e financiamentos de R$ 5 mil a R$ 50 mil por família em até 60 meses para compra de materiais e serviços',
-    observeSummary: 'Instituído pelo Governo Federal com operacionalização da Caixa Econômica Federal, o Programa Reforma Casa Brasil (Reforma Brasil) foi desenhado para atuar sobre o déficit habitacional qualitativo brasileiro — caracterizado por moradias que já existem, mas sofrem de banheiros precários, falta de instalações hidrossanitárias, coberturas inadequadas ou ausência de cômodos essenciais. Com R$ 40 bilhões em recursos (sendo R$ 30 bilhões oriundos do Fundo Social para famílias com renda de até R$ 9.600 e R$ 10 bilhões alocados pela Caixa via SBPE para rendas superiores), a linha viabiliza créditos entre R$ 5 mil e R$ 50 mil com amortização em até 60 meses e parcelas limitadas a 25% da renda familiar.',
+    headline: 'O Reforma Casa Brasil oferece crédito para famílias realizarem melhorias em imóveis já existentes, incluindo reformas elétricas, hidráulicas e de acabamento. O programa possui R$ 40 bilhões disponíveis, mas até julho de 2026 apenas 6,7% desse valor havia sido contratado, apesar de uma aceleração recente nas operações.',
+    statusSubtitle: 'Programa amplia acesso ao crédito para reformas, mas utilização ainda representa apenas 6,7% dos R$ 40 bilhões disponíveis',
+    observeSummary: 'O Reforma Casa Brasil pode estimular diretamente o mercado de materiais porque financia melhorias em imóveis já existentes, incluindo instalações elétricas, hidráulicas e acabamentos. As condições de acesso foram ampliadas em 2026 e o volume contratado começou a crescer, mas apenas R$ 2,7 bilhões dos R$ 40 bilhões disponíveis haviam sido utilizados até julho. O principal ponto de atenção é transformar essa grande capacidade de financiamento em reformas efetivamente realizadas e, posteriormente, em compras de materiais.',
     observeTitle: 'Últimas notícias e diretrizes operacionais',
     observeNotes: [
-      'O Programa Reforma Casa Brasil estrutura R$ 40 bilhões em linhas de financiamento para modernização habitacional, com R$ 30 bilhões garantidos pelo Fundo Social (famílias até R$ 9.600/mês) e R$ 10 bilhões originados do SBPE pela Caixa Econômica Federal para faixas superiores.',
-      'O crédito prevê tíquetes individuais de R$ 5.000 a R$ 50.000 por família, com prazo de amortização de até 60 meses (5 anos) e limitação de comprometimento mensal em 25% da renda bruta comprovada para resguardar a capacidade de pagamento.',
-      'Os recursos são destinados estritamente à aquisição de materiais de construção (incluindo louças sanitárias, torneiras, chuveiros elétricos, fiações, tubulações de água e esgoto), pagamento de mão de obra e contratação de serviços técnicos especializados.',
-      'A contratação foi modelada em plataforma digital simplificada pelos canais da Caixa Econômica Federal (aplicativo Habitação Caixa e agências bancárias), com atendimento prioritário inicial a municípios com mais de 300 mil habitantes, capitais e arranjos metropolitanos integrados.',
-      'Estudos do IBGE e da Fundação João Pinheiro identificam que o déficit habitacional qualitativo (inadequação de moradias, banheiros precários e sobrelotação) atinge mais de 11 milhões de domicílios brasileiros, superando em número absoluto o déficit quantitativo de novas habitações.',
-      'No âmbito regulatório, tramitam proposições legislativas no Congresso Nacional (como o PL 2.550) com o propósito de autorizar o uso direto de recursos do saldo do FGTS na compra de insumos de construção civil para melhorias habitacionais realizadas pelo próprio trabalhador.'
+      'O Reforma Casa Brasil financia melhorias em imóveis que já existem, incluindo instalações elétricas e hidráulicas, telhados, revestimentos, portas, janelas e ampliação de cômodos. Diferentemente de um financiamento para compra de imóvel, o dinheiro é destinado diretamente à reforma da moradia. Por isso, o programa pode gerar demanda por materiais durante a execução das obras.',
+      'As regras foram ampliadas em 2026 para facilitar o acesso ao programa. O financiamento pode chegar a R$ 50 mil, atender famílias com renda de até R$ 13 mil, ter juros a partir de 0,99% ao mês e prazo de até 72 meses. As condições aumentam o número potencial de famílias atendidas, mas não garantem que todo o crédito disponível será contratado.',
+      'O programa possui R$ 40 bilhões disponíveis para financiar reformas, mas até julho de 2026 aproximadamente R$ 2,7 bilhões haviam sido contratados, equivalente a 6,7% do total. Foram realizados cerca de 117 mil financiamentos, com valor médio próximo de R$ 23 mil. Isso mostra que o programa já alcançou um número relevante de famílias, mas ainda utiliza uma parcela pequena de sua capacidade financeira.',
+      'O ritmo de contratação apresentou melhora depois das mudanças nas regras. O valor acumulado passou de aproximadamente R$ 1,3 bilhão em maio para R$ 2,7 bilhões em julho, praticamente dobrando em dois meses. A aceleração é um sinal positivo, mas o período ainda é curto para concluir que o programa conseguirá utilizar uma parcela muito maior dos R$ 40 bilhões disponíveis.',
+      'O aumento das contratações ainda não foi suficiente para provocar uma recuperação ampla do mercado de materiais de construção. As vendas do setor caíram 3,4% no primeiro semestre de 2026 e a projeção de crescimento para o ano foi reduzida de 1,9% para 0,5%. Isso mostra que a existência de crédito para reformas ainda não se transformou, na mesma proporção, em maior venda de materiais.',
+      'Também existe diferença entre conceder o crédito e garantir que o valor seja utilizado na compra formal de materiais. Representantes do comércio questionaram a ausência de exigência de nota fiscal para comprovar essas compras e levantaram a possibilidade de parte dos recursos não chegar aos produtos esperados. Essa é uma preocupação do setor, e não uma comprovação de uso irregular, mas mostra por que o valor financiado não deve ser interpretado automaticamente como venda equivalente para fabricantes e varejistas.'
     ],
     lorenzettiImpacts: [
-      'A liberação de até R$ 40 bilhões em crédito para reforma pode gerar estímulo direto às vendas de chuveiros elétricos, torneiras, duchas higiênicas, registros e louças no varejo tradicional de materiais de construção e lojas de vizinhança.',
-      'A concentração das reformas em banheiros, cozinhas e instalações hidrossanitárias pode criar oportunidades para kits promocionais de reforma rápida integrando louças, metais e chuveiros elétricos.',
-      'O tíquete médio de financiamento (entre R$ 5 mil e R$ 50 mil) pode favorecer a substituição de equipamentos antigos por modelos com maior apelo de durabilidade, conforto e eficiência energética/hídrica.',
-      'A dispersão geográfica dos recursos em cidades com mais de 300 mil habitantes pode demandar acompanhamento da capilaridade da distribuição atacadista e do abastecimento dos pequenos e médios varejistas locais.',
-      'A velocidade efetiva de liberação dos R$ 40 bilhões pela Caixa e eventuais exigências documentais aos tomadores de crédito podem representar risco de desembolso financeiro inferior ao teto divulgado pelo governo.'
+      'Como o programa financia reformas elétricas, hidráulicas e de acabamento, ele possui ligação direta com categorias atendidas pela Lorenzetti. Conforme os financiamentos se transformem em obras, pode surgir demanda adicional por chuveiros, torneiras, registros, metais sanitários e outros produtos utilizados na renovação das moradias.',
+      'O Reforma Casa Brasil atua principalmente sobre imóveis já existentes, criando uma fonte de demanda diferente daquela gerada pela construção de novas moradias. Para a Lorenzetti, isso pode fortalecer o mercado de reposição e modernização de banheiros, cozinhas e instalações residenciais, ampliando as situações em que seus produtos podem ser adquiridos.',
+      'Os R$ 40 bilhões disponíveis representam o potencial financeiro do programa, mas ainda não representam demanda realizada por materiais. Como apenas 6,7% havia sido contratado até julho, para a Lorenzetti o indicador mais importante é acompanhar quanto desse orçamento realmente se transforma em financiamentos, reformas executadas e compras de produtos.',
+      'O valor contratado praticamente dobrou entre maio e julho, indicando que o programa começou a ganhar velocidade após a ampliação das regras. Se essa evolução continuar, a demanda por materiais de reforma pode aumentar nos períodos seguintes. Esse efeito ainda não está garantido e depende de novas contratações continuarem crescendo e se transformarem em obras efetivas.',
+      'As vendas de materiais de construção ainda caíram no primeiro semestre, mostrando que o programa não produziu até agora uma recuperação ampla do setor. Para a Lorenzetti, isso significa que o potencial do Reforma Casa Brasil deve ser separado de seu impacto comercial efetivo. A oportunidade aumenta à medida que mais crédito contratado chega às famílias e se transforma em compras nas categorias em que a empresa atua.'
     ],
     evidences: [
       {
-        id: 'ev-reforma-brasil-40bi-2026',
-        tag: 'CAIXA / GOVERNO FEDERAL • CRÉDITO REFORMA',
-        dateStr: '2025/2026',
-        title: 'Programa Reforma Casa Brasil disponibiliza R$ 40 bilhões em crédito para reforma e compra de materiais',
-        headline: 'Linha habitacional operada pela Caixa financia de R$ 5 mil a R$ 50 mil para reformas em até 60 meses',
-        source: 'Caixa Econômica Federal / Ministério das Cidades',
-        url: 'https://www.caixa.gov.br/voce/habitacao/Paginas/default.aspx',
-        summary: 'O Governo Federal e a Caixa Econômica Federal estruturaram o Programa Reforma Casa Brasil com R$ 40 bilhões em recursos disponíveis para combater o déficit qualitativo das habitações. São R$ 30 bilhões do Fundo Social para famílias com renda de até R$ 9.600 e R$ 10 bilhões via SBPE para faixas superiores. O financiamento cobre materiais de construção (louças, metais, instalações hidráulicas e elétricas) e serviços técnicos com pagamento em até 60 meses.'
-      },
-      {
-        id: 'ev-reforma-qualitativo-ibge-fjp',
-        tag: 'DÉFICIT QUALITATIVO • ESTUDOS HABITACIONAIS',
-        dateStr: '2025/2026',
-        title: 'Déficit qualitativo atinge mais de 11 milhões de domicílios no Brasil e impulsiona demanda por reformas',
-        headline: 'Inadequação de banheiros e instalações hidrossanitárias predomina nos domicílios urbanos das famílias de menor renda',
-        source: 'Fundação João Pinheiro / IBGE',
-        url: 'https://fjp.mg.gov.br/deficit-habitacional-no-brasil/',
-        summary: 'Levantamentos oficiais sobre a qualidade das habitações no Brasil apontam que as deficiências de infraestrutura interna, carência de banheiros exclusivos e problemas de instalações elétricas e hidráulicas superam o déficit quantitativo de novas moradias, fundamentando a criação de linhas federais de crédito específicas para modernização e reformas prediais.'
-      },
-      {
-        id: 'ev-fgts-materiais-pl2550',
-        tag: 'LEGISLAÇÃO E FGTS • PROJETO DE LEI',
+        id: 'ev-reforma-terra-regras-2026',
+        tag: 'TERRA ECONOMIA • LINHA DE CRÉDITO',
         dateStr: '2026',
-        title: 'Congresso debate autorização para saque de saldo do FGTS na compra de insumos e materiais de construção',
-        headline: 'Projetos legislativos propõem permitir uso direto do fundo para reforma e ampliação da casa própria',
-        source: 'Câmara dos Deputados / Congresso Nacional',
-        url: 'https://www.camara.leg.br/',
-        summary: 'Projetos de lei em tramitação no Congresso Nacional, incluindo o PL 2.550, analisam permissão para que titulares de contas vinculadas do FGTS utilizem parte dos recursos acumulados na aquisição direta de insumos de construção, louças e metais para obras de reforma residencial em imóveis próprios averbados.'
+        title: 'Crédito para reformas amplia acesso a melhorias residenciais e pode estimular demanda por materiais e serviços',
+        headline: 'Linha financia de R$ 10 mil a R$ 50 mil para instalações elétricas, hidráulicas e obras residenciais',
+        source: 'Terra Economia / Meu Negócio',
+        url: 'https://www.terra.com.br/economia/meu-negocio/reforma-casa-brasil-pode-desencalhar-imoveis-a-venda-e-ajudar-o-mercado-imobiliario,1abc28e179c9f25430dbde236792dad4823l9meg.html',
+        summary: 'O Reforma Casa Brasil oferece crédito de R$ 10 mil a R$ 50 mil para famílias realizarem melhorias em suas moradias, incluindo intervenções em instalações elétricas e hidráulicas, telhados, revestimentos, portas, janelas e até novos cômodos. Após mudanças nas regras, o programa passou a atender famílias com renda de até R$ 13 mil, com juros a partir de 0,99% ao mês e prazo de até 72 meses.'
+      },
+      {
+        id: 'ev-reforma-estadao-desempenho-2026',
+        tag: 'ESTADÃO • EXECUÇÃO ORÇAMENTÁRIA',
+        dateStr: 'Julho/2026',
+        title: 'Reforma Casa Brasil tem utilização abaixo do esperado e ainda não consegue impulsionar o setor de materiais na escala projetada',
+        headline: 'Programa concedeu R$ 2,7 bilhões (6,7% dos R$ 40 bilhões previstos) em cerca de 117 mil contratos até julho',
+        source: 'Estadão',
+        url: 'https://www.estadao.com.br/economia/programa-credito-reforma-imoveis-empaca-frustra-setor-materiais-construcao/',
+        summary: 'Apesar de possuir orçamento total de R$ 40 bilhões, o Reforma Casa Brasil havia concedido aproximadamente R$ 2,7 bilhões em crédito até meados de julho de 2026, equivalente a apenas 6,7% do total previsto. Foram realizados cerca de 117 mil contratos, com valor médio próximo de R$ 23 mil. O volume já havia dobrado em relação a maio, indicando alguma aceleração após mudanças nas condições, mas continuava muito abaixo da capacidade financeira disponibilizada para o programa.'
       }
     ]
   }

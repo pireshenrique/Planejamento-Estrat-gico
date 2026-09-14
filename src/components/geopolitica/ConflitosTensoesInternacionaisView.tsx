@@ -156,7 +156,7 @@ export function ConflitosTensoesInternacionaisView({ setActivePage }: ConflitosT
         </div>
            
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
-          {currentData.evidences.map((ev) => (
+          {currentData.evidences.map((ev: any) => (
             <EvidenceCard key={ev.id} evidence={ev} />
           ))}
         </div>

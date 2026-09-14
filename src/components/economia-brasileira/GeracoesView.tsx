@@ -1,5 +1,6 @@
 import React from 'react';
 import { DollarSign, Home, Heart, Target, BrainCircuit, ExternalLink, Activity, Briefcase, Users, Building, ShoppingCart, BarChart3, TrendingUp, AlertTriangle, Lightbulb, ArrowRight, RefreshCcw, Search } from 'lucide-react';
+import { EvidenceCard } from '../layout/EvidenceCard';
 
 interface GeracoesViewProps {
   setActivePage: (page: string) => void;
@@ -423,12 +424,29 @@ export function GeracoesView({ setActivePage }: GeracoesViewProps) {
         </section>
 
         {/* FOOTER */}
-        <div className="border-t border-slate-200 dark:border-slate-800 pt-8 flex justify-center pb-8 transition-colors">
-          <a href="https://www.deloitte.com/global/en/issues/work/genzmillennialsurvey.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            <ExternalLink className="w-5 h-5" />
-            Abrir PDF Original (Deloitte)
-          </a>
-        </div>
+        <section id="evidencias" className="border-t border-slate-200 dark:border-slate-800 pt-8 pb-8 transition-colors">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+            <div>
+              <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">EVIDÊNCIAS E FONTES</h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
+            <EvidenceCard
+              readOnly
+              evidence={{
+                id: 'geracoes-deloitte-2024',
+                tag: 'Relatório',
+                dateStr: '2024 / 2026',
+                title: 'Gen Z and Millennial Survey',
+                summary: 'Análise global e aprofundada sobre o comportamento e as expectativas das gerações Z e Millennials no mercado de trabalho e suas prioridades financeiras, ambientais e de bem-estar.',
+                source: 'Deloitte',
+                url: 'https://www.deloitte.com/global/en/issues/work/genzmillennialsurvey.html',
+                isPdf: false,
+                actionLabel: 'ACESSAR FONTE'
+              }}
+            />
+          </div>
+        </section>
 
     </div>
   );

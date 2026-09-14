@@ -328,8 +328,8 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
   return (
     <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200">
       {/* HEADER NO MESMO PADRÃO DA SONDAGEM CONJUNTURAL */}
-      <div className="flex flex-col xl:flex-row gap-6">
-        <div className="w-full xl:w-1/2 2xl:w-5/12 shrink-0">
+      <div className="flex flex-col gap-6">
+        <div>
           <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-2">
             <span 
               className="text-[13px] font-bold tracking-wider uppercase cursor-pointer hover:text-blue-600" 
@@ -351,7 +351,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
         </div>
 
         {/* CARDS SUPERIORES DA BALANÇA COMERCIAL */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-stretch">
           {/* Card 1: Déficit comercial */}
           <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
             <div className="flex items-center justify-between mb-2">

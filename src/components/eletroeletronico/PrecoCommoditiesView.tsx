@@ -204,15 +204,15 @@ export function PrecoCommoditiesView({ setActivePage }: PrecoCommoditiesViewProp
     <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200">
       
       {/* HEADER */}
-      <div className="flex flex-col xl:flex-row gap-6">
-        <div className="w-full xl:w-1/2 2xl:w-5/12 shrink-0">
+      <div className="flex flex-col gap-6">
+        <div>
           <h1 className="text-[30px] md:text-[34px] font-bold text-slate-900 dark:text-white tracking-tight mb-1 leading-tight">Preço de Commodities</h1>
           <p className="text-[17px] text-slate-600 dark:text-slate-400">
             Acompanhamento do choque de oferta, cotações em dólares e impacto em insumos industriais.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full items-stretch">
           <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3 h-full">
             <div className="w-10 h-10 bg-amber-50 dark:bg-amber-900/20 rounded-full flex items-center justify-center shrink-0">
               <Coins className="w-5 h-5 text-amber-600 dark:text-amber-400" />

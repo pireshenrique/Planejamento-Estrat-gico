@@ -21,3 +21,7 @@ export interface TendenciaEstrategica {
   evidencias: EvidenciaAssociada[];
   status: StatusAprovacao;
 }
+
+export interface PageProps {
+  setActivePage?: (page: string) => void;
+}

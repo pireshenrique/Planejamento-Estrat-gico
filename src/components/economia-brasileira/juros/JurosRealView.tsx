@@ -1,6 +1,7 @@
 import React from 'react';
 import { Landmark, Target, BarChart3, TrendingUp, Search, Info, ArrowUpRight, ArrowRight, ExternalLink, Globe, Trophy, Medal, CheckCircle2, FileText } from 'lucide-react';
 import { EvidenceCard } from '../../layout/EvidenceCard';
+import { HeaderKpiCard } from '../../layout/HeaderKpiCard';
 import { JUROS_REAL_EVIDENCES } from '../../../data/evidences/juros_real';
 import {
   JUROS_REAL_DATA,
@@ -14,66 +15,49 @@ interface JurosRealViewProps {
   setActivePage: (page: string) => void;
 }
 
-
-
 export function JurosRealView({ setActivePage }: JurosRealViewProps) {
   return (
     <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200">
       
       {/* HEADER */}
-      <div className="flex flex-col xl:flex-row gap-6">
-        <div className="w-full xl:w-1/2 2xl:w-5/12 shrink-0">
+      <div className="flex flex-col gap-6">
+        <div>
           <h1 className="text-[30px] md:text-[34px] font-bold text-slate-900 dark:text-white tracking-tight mb-1 leading-tight">Taxa de Juros Real</h1>
           <p className="text-[17px] text-slate-600 dark:text-slate-400">
             Acompanhamento do juro real brasileiro em perspectiva global e seu impacto no financiamento e crescimento.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full items-stretch">
           {/* CARD 1 — PRESENTE */}
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3 h-full">
-            <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/20 rounded-full flex items-center justify-center shrink-0">
-              <BarChart3 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[14px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">{JUROS_REAL_DATA.kpis.atual.title}</p>
-              <div className="flex items-baseline gap-2">
-                <h3 className="text-[26px] 2xl:text-[28px] font-black text-indigo-600 dark:text-indigo-400 leading-none">{JUROS_REAL_DATA.kpis.atual.value}</h3>
-              </div>
-              <p className="text-[14px] text-slate-400 mt-0.5 leading-tight">{JUROS_REAL_DATA.kpis.atual.subtitle}</p>
-              <p className="text-[12px] text-slate-400 mt-1 leading-tight font-medium">{JUROS_REAL_DATA.kpis.atual.detail}</p>
-            </div>
-          </div>
+          <HeaderKpiCard
+            title={JUROS_REAL_DATA.kpis.atual.title}
+            value={JUROS_REAL_DATA.kpis.atual.value}
+            context={JUROS_REAL_DATA.kpis.atual.subtitle}
+            explanation={JUROS_REAL_DATA.kpis.atual.detail}
+            icon={BarChart3}
+            color="indigo"
+          />
 
           {/* CARD 2 — FUTURO */}
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3 h-full">
-            <div className="w-10 h-10 bg-amber-50 dark:bg-amber-900/20 rounded-full flex items-center justify-center shrink-0">
-              <Target className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[14px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">{JUROS_REAL_DATA.kpis.projecaoIfi.title}</p>
-              <div className="flex items-baseline gap-2">
-                <h3 className="text-[26px] 2xl:text-[28px] font-black text-amber-600 dark:text-amber-400 leading-none">{JUROS_REAL_DATA.kpis.projecaoIfi.value}</h3>
-              </div>
-              <p className="text-[14px] text-slate-400 mt-0.5 leading-tight">{JUROS_REAL_DATA.kpis.projecaoIfi.subtitle}</p>
-              <p className="text-[12px] text-slate-400 mt-1 leading-tight font-medium">{JUROS_REAL_DATA.kpis.projecaoIfi.detail}</p>
-            </div>
-          </div>
+          <HeaderKpiCard
+            title={JUROS_REAL_DATA.kpis.projecaoIfi.title}
+            value={JUROS_REAL_DATA.kpis.projecaoIfi.value}
+            context={JUROS_REAL_DATA.kpis.projecaoIfi.subtitle}
+            explanation={JUROS_REAL_DATA.kpis.projecaoIfi.detail}
+            icon={Target}
+            color="amber"
+          />
 
           {/* CARD 3 — EFEITO NO CRÉDITO */}
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3 h-full">
-            <div className="w-10 h-10 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center shrink-0">
-              <TrendingUp className="w-5 h-5 text-slate-600 dark:text-slate-400" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[14px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">{JUROS_REAL_DATA.kpis.captacaoCorporativa.title}</p>
-              <div className="flex items-baseline gap-2">
-                <h3 className="text-[26px] 2xl:text-[28px] font-black text-slate-700 dark:text-slate-300 leading-none">{JUROS_REAL_DATA.kpis.captacaoCorporativa.value}</h3>
-              </div>
-              <p className="text-[14px] text-slate-400 mt-0.5 leading-tight">{JUROS_REAL_DATA.kpis.captacaoCorporativa.subtitle}</p>
-              <p className="text-[12px] text-slate-400 mt-1 leading-tight font-medium">{JUROS_REAL_DATA.kpis.captacaoCorporativa.detail}</p>
-            </div>
-          </div>
+          <HeaderKpiCard
+            title={JUROS_REAL_DATA.kpis.captacaoCorporativa.title}
+            value={JUROS_REAL_DATA.kpis.captacaoCorporativa.value}
+            context={JUROS_REAL_DATA.kpis.captacaoCorporativa.subtitle}
+            explanation={JUROS_REAL_DATA.kpis.captacaoCorporativa.detail}
+            icon={TrendingUp}
+            color="slate"
+          />
         </div>
       </div>
 
@@ -303,11 +287,11 @@ export function JurosRealView({ setActivePage }: JurosRealViewProps) {
         </div>
       </section>
 
-      {/* 3. OUTRAS NOTÍCIAS */}
+      {/* 3. EVIDÊNCIAS E FONTES */}
       <section id="evidencias" className="scroll-mt-12 relative mt-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
            <div>
-              <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">Outras Notícias</h2>
+              <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">EVIDÊNCIAS E FONTES</h2>
            </div>
         </div>
         

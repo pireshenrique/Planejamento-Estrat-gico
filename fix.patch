@@ -1,0 +1,9 @@
+--- src/components/cenario-mercadologico/JornadaExperienciaView.tsx
++++ src/components/cenario-mercadologico/JornadaExperienciaView.tsx
+@@ -531,5 +531,6 @@
+             <span className="text-[12px] text-slate-500">
+               “Consumidores pesquisam materiais de construção combinando lojas físicas e virtuais; YouTube é a principal mídia social”
++            </span>
++          </div>
+         </div>
+       </section>

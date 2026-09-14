@@ -1,234 +1,294 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { ResponsiveContainer } from '../layout/ResponsiveContainer';
+import { HeaderKpiCard } from '../layout/HeaderKpiCard';
+import { EvidenceCard } from '../layout/EvidenceCard';
 import { 
   Building2, 
-  Building, 
-  Truck, 
-  Droplets, 
-  Wifi, 
-  Zap, 
-  Shield, 
-  GraduationCap, 
-  HeartPulse, 
-  ArrowRight,
-  Sparkles
+  BarChart3, 
+  Target, 
+  TrendingUp,
+  Lightbulb,
+  Wallet,
+  Users,
+  Crown,
+  Star,
+  Sparkles,
+  Layers
 } from 'lucide-react';
 
 interface NovoPacViewProps {
   setActivePage: (page: string) => void;
 }
 
+const NOVO_PAC_DATA = {
+  kpis: {
+    investimentoTotal: {
+      title: "Investimento Previsto",
+      value: "R$ 1,7 Tri",
+      context: "Até 2026 e pós-2026",
+      explanation: "Montante total anunciado para obras estruturantes, mobilidade e sustentabilidade no país.",
+      source: "Governo Federal"
+    },
+    eixosAtuacao: {
+      title: "Eixos de Atuação",
+      value: "9",
+      context: "Áreas temáticas",
+      explanation: "Desde transição energética e infraestrutura social até saúde e conectividade.",
+      source: "Casa Civil"
+    },
+    cidadesAtingidas: {
+      title: "Alcance",
+      value: "5.500+",
+      context: "Municípios",
+      explanation: "Impacto logístico, urbano e social em praticamente todos os municípios brasileiros.",
+      source: "Programa Novo PAC"
+    }
+  }
+};
+
+const NOVO_PAC_EVIDENCES: any[] = [];
+
 export const NovoPacView: React.FC<NovoPacViewProps> = ({ setActivePage }) => {
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-
-  const subPages = [
-    {
-      id: 'Infraestrutura social inclusiva',
-      title: 'Infraestrutura Social Inclusiva',
-      category: 'Social & Comunitário',
-      icon: Building2,
-      headline: 'O governo federal projeta R$ 4,0 bilhões até 2026 para implantação de Centros Comunitários pela Vida (Convive), CEUs da Cultura e espaços esportivos, já contabilizando 50 obras concluídas e retomadas em 686 municípios atendidos.',
-      iconColor: 'text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 border-indigo-200 dark:border-indigo-800',
-      metrics: [
-        { label: 'Investimento Total', value: 'R$ 4,0 bi', detail: 'Recursos previstos' },
-        { label: 'Alcance', value: '686 mun.', detail: 'Cidades atendidas' },
-        { label: 'Entregas 2025', value: '50 obras', detail: 'Concluídas/retomadas' },
-      ],
-    },
-    {
-      id: 'Cidades Sustentáveis e Resilientes',
-      title: 'Cidades Sustentáveis e Resilientes',
-      category: 'Desenvolvimento Urbano',
-      icon: Building,
-      headline: 'Destinação de R$ 3,5 bilhões para obras estruturais de contenção de encostas críticas e macrodrenagem urbana, abrangendo 861 propostas selecionadas para mitigação de riscos geológicos e inundações em 686 cidades brasileiras.',
-      iconColor: 'text-emerald-600 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 border-emerald-200 dark:border-emerald-800',
-      metrics: [
-        { label: 'Resiliência', value: 'R$ 3,5 bi', detail: 'Prevenção de riscos' },
-        { label: 'Áreas Críticas', value: '686 mun.', detail: 'Zonas mapeadas' },
-        { label: 'Projetos', value: '861 aprovados', detail: 'Obras selecionadas' },
-      ],
-    },
-    {
-      id: 'Transporte Eficiente e Sustentável',
-      title: 'Transporte Eficiente e Sustentável',
-      category: 'Logística & Mobilidade',
-      icon: Truck,
-      headline: 'Carteira mobiliza R$ 369,4 bilhões para ampliação e duplicação da malha rodoviária federal, corredores ferroviários de carga e 33 propostas de mobilidade de média e alta capacidade em 28 grandes centros urbanos.',
-      iconColor: 'text-blue-600 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800',
-      metrics: [
-        { label: 'Total do Eixo', value: 'R$ 369,4 bi', detail: 'Investimento total' },
-        { label: 'Mobilidade Urbana', value: 'R$ 6,5 bi', detail: '33 propostas / 28 mun.' },
-        { label: 'Execução PPA', value: '23,1%', detail: 'Atingimento 2025' },
-      ],
-    },
-    {
-      id: 'Água para Todos',
-      title: 'Água para Todos',
-      category: 'Segurança Hídrica & Saneamento',
-      icon: Droplets,
-      headline: 'Investimento total de R$ 30,2 bilhões com foco em 371 empreendimentos de abastecimento de água, implantação de grandes canais e adutoras regionais, estações de tratamento de esgoto e cisternas no semiárido brasileiro.',
-      iconColor: 'text-cyan-600 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 border-cyan-200 dark:border-cyan-800',
-      metrics: [
-        { label: 'Investimento', value: 'R$ 30,2 bi', detail: 'Recursos totais' },
-        { label: 'Abastecimento', value: 'R$ 12,5 bi', detail: '371 empreendimentos' },
-        { label: 'Pós-2026', value: 'R$ 4,8 bi', detail: 'Carteira de longo prazo' },
-      ],
-    },
-    {
-      id: 'Inclusão Digital e Conectividade',
-      title: 'Inclusão Digital e Conectividade',
-      category: 'Telecom & Conectividade',
-      icon: Wifi,
-      headline: 'Alocação de R$ 23,6 bilhões para garantir banda larga de alta velocidade em 138 mil escolas públicas, expansão das redes móveis 4G/5G em rodovias e 13,2 mil km de infovias subfluviais com fibra óptica na Amazônia.',
-      iconColor: 'text-teal-600 dark:text-teal-300 bg-teal-50 dark:bg-teal-950 border-teal-200 dark:border-teal-800',
-      metrics: [
-        { label: 'Total do Eixo', value: 'R$ 23,6 bi', detail: 'Conectividade e TI' },
-        { label: 'Redes 4G/5G', value: 'R$ 14,2 bi', detail: 'Expansão de cobertura' },
-        { label: 'Infovias Amazônia', value: '13,2 mil km', detail: '9 rotas subfluviais' },
-      ],
-    },
-    {
-      id: 'Transição e Segurança Energética',
-      title: 'Transição e Segurança Energética',
-      category: 'Matriz Limpa & Transmissão',
-      icon: Zap,
-      headline: 'Maior carteira do programa com R$ 596,2 bilhões, contemplando 343 usinas de energia solar e eólica, R$ 156,8 bilhões em leilões de linhas de transmissão elétrica de grande porte e estruturação da cadeia de hidrogênio verde.',
-      iconColor: 'text-amber-600 dark:text-amber-300 bg-amber-50 dark:bg-amber-950 border-amber-200 dark:border-amber-800',
-      metrics: [
-        { label: 'Total do Eixo', value: 'R$ 596,2 bi', detail: 'Energia e Transição' },
-        { label: 'Renováveis', value: 'R$ 75,6 bi', detail: '343 usinas eólicas/solares' },
-        { label: 'Pós-2026', value: 'R$ 156,8 bi', detail: 'Leilões de transmissão' },
-      ],
-    },
-    {
-      id: 'Inovação para a Indústria da Defesa',
-      title: 'Inovação para a Indústria da Defesa',
-      category: 'Tecnologia Estratégica & BID',
-      icon: Shield,
-      headline: 'Aporte de R$ 52,8 bilhões distribuídos em 16 projetos estratégicos das Forças Armadas, envolvendo submarinos, blindados e caças, mobilizando mais de 1.000 empresas da cadeia nacional e impulsionando as exportações militares em 74%.',
-      iconColor: 'text-purple-600 dark:text-purple-300 bg-purple-50 dark:bg-purple-950 border-purple-200 dark:border-purple-800',
-      metrics: [
-        { label: 'Total do Eixo', value: 'R$ 52,8 bi', detail: '16 projetos de Defesa' },
-        { label: 'Conteúdo Local', value: '+R$ 4,8 bi', detail: '1.000 empresas na cadeia' },
-        { label: 'Exportações BID', value: 'US$ 3,1 bi', detail: 'Autorizações (+74%)' },
-      ],
-    },
-    {
-      id: 'Educação, Ciência e Tecnologia',
-      title: 'Educação, Ciência e Tecnologia',
-      category: 'Capital Humano & Pesquisa',
-      icon: GraduationCap,
-      headline: 'Recursos de R$ 1,6 bilhão destinados à construção de 100 novos campi de Institutos Federais (IFs), R$ 785 milhões para infraestrutura escolar indígena e ampliação do sistema de monitoramento de desastres do Cemaden em 1.295 municípios.',
-      iconColor: 'text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-950 border-sky-200 dark:border-sky-800',
-      metrics: [
-        { label: 'Infraestrutura IFs', value: 'R$ 1,6 bi', detail: '100 novos campi federais' },
-        { label: 'Educação Indígena', value: 'R$ 785 mi', detail: '117 escolas / 17 estados' },
-        { label: 'Cemaden Alertas', value: '1.295', detail: 'Municípios monitorados' },
-      ],
-    },
-    {
-      id: 'Saúde',
-      title: 'Saúde',
-      category: 'Complexo Econômico da Saúde',
-      icon: HeartPulse,
-      headline: 'Investimentos de R$ 37,2 bilhões para fortalecimento da rede pública de saúde, incluindo 541 novas Unidades Básicas de Saúde (UBS), 34 maternidades de referência, 30 policlínicas regionais e renovação contínua da frota do SAMU.',
-      iconColor: 'text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-950 border-rose-200 dark:border-rose-800',
-      metrics: [
-        { label: 'Total do Eixo', value: 'R$ 37,2 bi', detail: 'Total Novo PAC Saúde' },
-        { label: 'Atenção Básica', value: '541 un.', detail: '505 municípios atendidos' },
-        { label: 'Rede Materna', value: '34 mat.', detail: 'R$ 4,4 bi previstos' },
-      ],
-    },
-  ];
-
   return (
-    <div className="w-full font-sans text-slate-800 dark:text-slate-100 animate-in fade-in duration-300 pb-12" id="novo-pac-view-root">
+    <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200 animate-in fade-in slide-in-from-bottom-4 duration-500">
       
-      {/* CABEÇALHO COMPACTO ESTRATÉGICO */}
-      <div className="mb-4 bg-white dark:bg-slate-800 rounded-xl py-2.5 px-4 sm:py-3 sm:px-5 border border-slate-200 dark:border-slate-700 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shrink-0">
-            <Sparkles className="w-3 h-3 shrink-0" />
-            Eixos Estratégicos
-          </span>
-          <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight">
-            NOVO PAC — Programa de Aceleração do Crescimento
-          </h2>
+      {/* HEADER */}
+      <div className="flex flex-col xl:flex-row gap-6">
+        <div className="w-full xl:w-1/2 2xl:w-5/12 shrink-0">
+          <h1 className="text-[30px] md:text-[34px] font-bold text-slate-900 dark:text-white tracking-tight mb-1 leading-tight">
+            Novo PAC
+          </h1>
+          <p className="text-[17px] text-slate-600 dark:text-slate-400">
+            Acompanhamento do Programa de Aceleração do Crescimento, investimentos estruturantes e eixos estratégicos.
+          </p>
         </div>
-        <p className="text-xs text-slate-500 dark:text-slate-400 font-medium shrink-0">
-          Selecione o subtema desejado para acessar o detalhamento executivo.
-        </p>
+
+        <ResponsiveContainer minWidth="200px" gap="gap-3" className="flex-1">
+          {/* Card 1: Investimento Total */}
+          <HeaderKpiCard
+            title={NOVO_PAC_DATA.kpis.investimentoTotal.title}
+            value={NOVO_PAC_DATA.kpis.investimentoTotal.value}
+            context={NOVO_PAC_DATA.kpis.investimentoTotal.context}
+            explanation={NOVO_PAC_DATA.kpis.investimentoTotal.explanation}
+            source={NOVO_PAC_DATA.kpis.investimentoTotal.source}
+            icon={Wallet}
+            color="indigo"
+          />
+
+          {/* Card 2: Eixos */}
+          <HeaderKpiCard
+            title={NOVO_PAC_DATA.kpis.eixosAtuacao.title}
+            value={NOVO_PAC_DATA.kpis.eixosAtuacao.value}
+            context={NOVO_PAC_DATA.kpis.eixosAtuacao.context}
+            explanation={NOVO_PAC_DATA.kpis.eixosAtuacao.explanation}
+            source={NOVO_PAC_DATA.kpis.eixosAtuacao.source}
+            icon={Layers}
+            color="emerald"
+          />
+
+          {/* Card 3: Alcance */}
+          <HeaderKpiCard
+            title={NOVO_PAC_DATA.kpis.cidadesAtingidas.title}
+            value={NOVO_PAC_DATA.kpis.cidadesAtingidas.value}
+            context={NOVO_PAC_DATA.kpis.cidadesAtingidas.context}
+            explanation={NOVO_PAC_DATA.kpis.cidadesAtingidas.explanation}
+            source={NOVO_PAC_DATA.kpis.cidadesAtingidas.source}
+            icon={Target}
+            color="amber"
+          />
+        </ResponsiveContainer>
       </div>
 
-      {/* GRID DE CARDS COM VISUAL DE BOTÕES INTERATIVOS (3x3) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {subPages.map((sub) => {
-          const Icon = sub.icon;
-          const isHovered = hoveredCard === sub.id;
+      {/* EVIDÊNCIAS DE DESTAQUE (TOP 3) */}
+      <section id="evidencias-destaque" className="scroll-mt-12 relative mb-5">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+           <div>
+              <h2 className="text-[16px] font-bold text-slate-900 dark:text-white">Principais notícias e dados</h2>
+           </div>
+        </div>
+           
+        {NOVO_PAC_EVIDENCES.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
+            {NOVO_PAC_EVIDENCES.slice(0, 3).map((ev) => (
+              <EvidenceCard 
+                key={ev.id}
+                evidence={ev as any}
+                onDownloadPdf={undefined}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="bg-slate-50/50 dark:bg-slate-900/30 rounded-2xl border border-dashed border-slate-200 dark:border-slate-800 p-8 text-center">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+              Nenhuma notícia cadastrada no momento. Insira novas evidências para exibir nesta seção.
+            </p>
+          </div>
+        )}
+      </section>
 
-          return (
-            <button
-              key={sub.id}
-              type="button"
-              onClick={() => setActivePage(sub.id)}
-              onMouseEnter={() => setHoveredCard(sub.id)}
-              onMouseLeave={() => setHoveredCard(null)}
-              className="text-left w-full bg-white dark:bg-slate-800 hover:bg-slate-50/80 dark:hover:bg-slate-750 rounded-2xl p-5 border border-b-2 border-slate-200/90 dark:border-slate-700 dark:border-b-slate-600 hover:border-blue-400 dark:hover:border-blue-500 hover:border-b-blue-600 dark:hover:border-b-blue-500 shadow-[0_4px_16px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.12),0_4px_8px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.45)] dark:hover:shadow-[0_12px_32px_rgba(0,0,0,0.65),0_0_24px_rgba(59,130,246,0.15)] hover:ring-4 hover:ring-blue-500/10 dark:hover:ring-blue-400/20 active:scale-[0.99] active:translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between group relative select-none h-full"
-            >
-              <div className="w-full">
-                {/* IDENTIFICAÇÃO: ÍCONE + CATEGORIA + TÍTULO */}
-                <div className="flex items-start gap-3.5 mb-3.5">
-                  <div className={`w-12 h-12 rounded-xl border ${sub.iconColor} flex items-center justify-center shrink-0 group-hover:scale-105 group-active:scale-95 transition-transform duration-150 shadow-2xs`}>
-                    <Icon className="w-6 h-6" />
+      {/* 1. LEITURA ESTRATÉGICA */}
+      <section>
+        <div className="mb-0">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+            
+            {/* O que observar nos próximos meses */}
+            <div className="lg:col-span-7 relative bg-white dark:bg-[#111827] rounded-2xl border border-orange-100 dark:border-orange-900/30 p-8 shadow-sm flex flex-col">
+              <div className="absolute top-8 right-8 text-[44px] font-bold text-orange-50 dark:text-orange-900/20 leading-none pointer-events-none select-none">
+                01
+              </div>
+              <div className="flex-1 z-10">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-8 h-8 rounded-lg bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center text-orange-600 dark:text-orange-500">
+                    <Target className="w-4 h-4" />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-0.5 break-words group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                      {sub.category}
-                    </span>
-                    <h3 className="text-[17px] sm:text-lg font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors break-words">
-                      {sub.title}
-                    </h3>
-                  </div>
+                  <h3 className="text-[18px] font-black text-slate-900 dark:text-white tracking-tight uppercase">
+                    Focos de Oportunidade
+                  </h3>
                 </div>
 
-                {/* TEXTO / MANCHETE EXECUTIVA DA PÁGINA COM MAIS CONTEÚDO ESTRATÉGICO */}
-                <p className="text-[13.5px] sm:text-sm text-slate-600 dark:text-slate-300 font-normal leading-relaxed mb-4 break-words">
-                  {sub.headline}
+                <p className="text-[13.5px] text-slate-600 dark:text-slate-400 leading-relaxed mb-6 font-medium">
+                  Com o foco maciço em infraestrutura e sustentabilidade, há um impulso considerável para a economia de base e cadeia construtiva:
                 </p>
 
-                {/* LINHA DE MÉTRICAS EXECUTIVAS LIMPAS */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 py-2.5 px-3.5 mb-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80">
-                  {sub.metrics.map((m, mIdx) => (
-                    <div 
-                      key={mIdx} 
-                      className={`flex flex-col text-left ${mIdx < 2 ? 'sm:border-r sm:border-slate-200 sm:dark:border-slate-700/80 sm:pr-2' : ''}`}
-                    >
-                      <span className="text-[10.5px] font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400 block leading-snug break-words">
-                        {m.label}
-                      </span>
-                      <span className="text-[15px] sm:text-base font-black text-slate-900 dark:text-white tracking-tight my-0.5 leading-snug break-words">
-                        {m.value}
-                      </span>
-                      <span className="text-[11.5px] text-slate-600 dark:text-slate-300 font-medium block leading-snug break-words">
-                        {m.detail}
-                      </span>
+                {/* Box central */}
+                <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-5 border border-slate-100 dark:border-slate-800 relative mb-6">
+                  <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-1 h-12 bg-orange-500 rounded-r-md"></div>
+                  
+                  <div className="flex justify-center items-center">
+                    <div className="flex items-end gap-6 w-full max-w-sm justify-around">
+                      {/* Transição Energética */}
+                      <div className="flex flex-col items-center">
+                        <span className="text-[12px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+                          Energia Limpa
+                        </span>
+                        <span className="text-[22px] sm:text-[26px] font-black text-slate-700 dark:text-slate-200 tracking-tight leading-none mb-3">
+                          R$ 596 bi
+                        </span>
+                        <div className="w-4 h-4 rounded-full bg-slate-200 dark:bg-slate-700 border-2 border-white dark:border-slate-900 shadow-sm shrink-0" />
+                      </div>
+                      
+                      {/* Transporte */}
+                      <div className="flex flex-col items-center">
+                        <span className="text-[12px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+                          Transporte
+                        </span>
+                        <span className="text-[22px] sm:text-[26px] font-black text-amber-600 dark:text-amber-400 tracking-tight leading-none mb-3">
+                          R$ 369 bi
+                        </span>
+                        <div className="w-4 h-4 rounded-full bg-amber-400 dark:bg-amber-500 border-2 border-white dark:border-slate-900 shadow-sm shrink-0" />
+                      </div>
                     </div>
-                  ))}
+                  </div>
+                </div>
+
+                {/* Caixa de Interpretação: O QUE OBSERVAR */}
+                <div className="mt-4 p-3 rounded-xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-900/40">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider text-amber-700 dark:text-amber-400 block mb-0.5">
+                    O que observar
+                  </span>
+                  <p className="text-[12.5px] text-slate-700 dark:text-slate-300 leading-snug">
+                    <strong>A execução do orçamento impacta a demanda por insumos de infraestrutura, logística e tecnologia, mas as restrições fiscais podem desacelerar parte da agenda.</strong>
+                  </p>
                 </div>
               </div>
 
-              {/* BOTÃO DE AÇÃO NO RODAPÉ DO CARD */}
-              <div className="pt-3.5 border-t border-slate-100 dark:border-slate-700/80 w-full mt-auto">
-                <div className="w-full py-2.5 px-3.5 rounded-xl bg-slate-100 dark:bg-slate-700/90 border border-slate-200/80 dark:border-slate-600/80 group-hover:bg-blue-600 dark:group-hover:bg-blue-600 text-slate-700 dark:text-slate-100 group-hover:text-white dark:group-hover:text-white dark:group-hover:border-blue-500 transition-all duration-150 flex items-center justify-between font-bold text-[13.5px] sm:text-sm shadow-2xs group-hover:shadow-sm">
-                  <span>Acessar Subtema</span>
-                  <div className="w-6 h-6 rounded-lg bg-white/40 dark:bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors shrink-0 ml-1.5">
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-150 text-slate-700 dark:text-slate-100 group-hover:text-white" />
+              {/* Fonte */}
+              <div className="mt-5 pt-3 border-t border-slate-200/80 dark:border-slate-800 text-[11.5px] text-slate-400">
+                Fonte: Governo Federal — 2026
+              </div>
+            </div>
+
+            {/* BLOCO 4: O QUE PODE SUSTENTAR O PAC EM 2026? (DIREITA - 5 colunas) */}
+            <div className="lg:col-span-5 bg-slate-50/50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/80 rounded-2xl p-5 md:p-6 flex flex-col justify-between shadow-xs">
+              <div>
+                {/* Header */}
+                <div className="flex items-center gap-2 mb-4">
+                  <Star className="w-5 h-5 text-amber-500 fill-amber-400/30" />
+                  <h4 className="text-[14.5px] font-extrabold uppercase tracking-wider text-slate-900 dark:text-white">
+                    PRINCIPAIS VETORES DE INVESTIMENTO
+                  </h4>
+                </div>
+
+                {/* 3 VETORES EXPLICATIVOS */}
+                <div className="space-y-2.5">
+                  {/* Vetor 1: Parcerias Público-Privadas */}
+                  <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800">
+                    <div className="flex items-start gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                      <div>
+                        <span className="text-[12px] font-bold text-slate-900 dark:text-white block">
+                          1. Parcerias e Concessões
+                        </span>
+                        <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-snug mt-0.5">
+                          O modelo atual do PAC prioriza editais de concessão à iniciativa privada e PPPs para superar as limitações do orçamento público.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Vetor 2: Transição Energética */}
+                  <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800">
+                    <div className="flex items-start gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                      <div>
+                        <span className="text-[12px] font-bold text-slate-900 dark:text-white block">
+                          2. Transição Energética e Sustentabilidade
+                        </span>
+                        <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-snug mt-0.5">
+                          Obras voltadas a energias renováveis e adaptação climática urbana formam a maior fatia dos recursos previstos, atraindo financiamento internacional.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Vetor 3: Infraestrutura Logística */}
+                  <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800">
+                    <div className="flex items-start gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-500 mt-1.5 shrink-0" />
+                      <div>
+                        <span className="text-[12px] font-bold text-slate-900 dark:text-white block">
+                          3. Infraestrutura Logística
+                        </span>
+                        <p className="text-[12px] text-slate-600 dark:text-slate-400 leading-snug mt-0.5">
+                          Melhoria de portos, rodovias e malha ferroviária visa reduzir o custo Brasil e facilitar o escoamento do agronegócio e indústria de transformação.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                {/* Conclusão do painel */}
+                <div className="mt-3 pt-2.5 border-t border-slate-200/60 dark:border-slate-800 space-y-1">
+                  <p className="text-[12px] text-slate-700 dark:text-slate-300 font-medium leading-snug">
+                    O desempenho do Novo PAC depende diretamente do apetite de investidores privados e da capacidade de estruturação de bons projetos de concessão.
+                  </p>
+                </div>
               </div>
-            </button>
-          );
-        })}
-      </div>
+
+              {/* Fonte */}
+              <div className="mt-4 pt-2.5 border-t border-slate-200/80 dark:border-slate-800 text-[11.5px] text-slate-400">
+                Fonte: Inteligência Corporativa — 2026
+              </div>
+            </div>
+          </div>
+
+          {/* FAIXA DE INFERÊNCIA ESTRATÉGICA */}
+          <div className="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3.5 shadow-2xs mt-5">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <Lightbulb className="w-4 h-4" />
+            </div>
+            <div className="flex-1">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 block mb-0.5">
+                INFERÊNCIA ESTRATÉGICA
+              </span>
+              <p className="text-[13.5px] text-slate-800 dark:text-slate-200 leading-relaxed">
+                As empresas que atuam com soluções para cidades sustentáveis, saneamento e transição energética devem alinhar suas rotas tecnológicas aos editais do programa para capturar a demanda induzida.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
 
     </div>
   );

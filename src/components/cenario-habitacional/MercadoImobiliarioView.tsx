@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Compass, Building2, BarChart3, Maximize2, ZoomIn, X, ExternalLink } from 'lucide-react';
+import { Compass, BarChart3, Maximize2, ZoomIn, X, ExternalLink } from 'lucide-react';
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { MERCADO_IMOBILIARIO_DATA } from '../../data/cenario-habitacional/mercadoImobiliario';
 
@@ -9,7 +9,6 @@ interface MercadoImobiliarioViewProps {
 
 export function MercadoImobiliarioView({ setActivePage }: MercadoImobiliarioViewProps) {
   const currentData = MERCADO_IMOBILIARIO_DATA;
-  const ThemeIcon = currentData?.icon || Building2;
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
   useEffect(() => {
@@ -36,23 +35,6 @@ export function MercadoImobiliarioView({ setActivePage }: MercadoImobiliarioView
             </h1>
             <p className="text-sm sm:text-[16px] text-slate-600 dark:text-slate-400">
               O mercado imobiliário residencial apresentou sinais mistos no primeiro semestre de 2026. O volume de financiamento aumentou e as vendas ainda acumulavam crescimento no semestre, mas o segundo trimestre mostrou desaceleração de lançamentos e vendas, menor velocidade de comercialização dos imóveis e expectativas mais cautelosas para a construção em um ambiente de juros e custos elevados.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* BANNER INFORMATIVO DO TEMA ATIVO */}
-      <div className="bg-slate-50 dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl sm:rounded-2xl p-3.5 sm:p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-4 shadow-sm">
-        <div className="flex items-start gap-3 sm:gap-4">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
-            <ThemeIcon className="w-5 h-5 sm:w-6 sm:h-6" />
-          </div>
-          <div>
-            <h2 className="text-base sm:text-[18px] md:text-[20px] font-bold text-slate-900 dark:text-white mb-0.5 sm:mb-1 leading-tight">
-              {currentData.label}
-            </h2>
-            <p className="text-xs sm:text-[14px] text-slate-600 dark:text-slate-300 max-w-4xl">
-              {currentData.headline}
             </p>
           </div>
         </div>
@@ -186,7 +168,7 @@ export function MercadoImobiliarioView({ setActivePage }: MercadoImobiliarioView
           </span>
         </div>
            
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-5 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
           {currentData.evidences.map((ev) => (
             <EvidenceCard key={ev.id} evidence={ev} />
           ))}

@@ -76,8 +76,8 @@ export function ImposicaoSobretaxasView({ setActivePage }: ImposicaoSobretaxasVi
   return (
     <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200">
       {/* HEADER E BARRA DE IDENTIFICAÇÃO */}
-      <div className="flex flex-col xl:flex-row gap-6">
-        <div className="w-full xl:w-5/12 shrink-0">
+      <div className="flex flex-col gap-6">
+        <div>
           <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-2">
             <span className="text-[13px] font-bold tracking-wider uppercase">Indicadores Abinee</span>
             <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
@@ -92,7 +92,7 @@ export function ImposicaoSobretaxasView({ setActivePage }: ImposicaoSobretaxasVi
         </div>
 
         {/* METRIC CARDS OFICIAIS (DOCUMENTO ABINEE) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-stretch">
           {/* Card 1 */}
           <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
             <div className="flex items-center justify-between mb-2">

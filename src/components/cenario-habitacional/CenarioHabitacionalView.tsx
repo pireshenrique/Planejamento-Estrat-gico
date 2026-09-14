@@ -12,7 +12,8 @@ import {
   Building, 
   CheckCircle2, 
   Calendar,
-  ChevronRight 
+  ChevronRight,
+  User 
 } from 'lucide-react';
 
 interface CenarioHabitacionalViewProps {
@@ -29,9 +30,16 @@ export function CenarioHabitacionalView({ setActivePage }: CenarioHabitacionalVi
       description: 'Acompanhamento dos volumes de lançamentos, vendas de novas unidades, estoques e velocidade de vendas (VSO) nos segmentos econômico, médio e alto padrão nas principais regiões metropolitanas.'
     },
     {
+      id: 'deficit-habitacional',
+      title: 'Déficit Habitacional e Inadequação de Moradias',
+      icon: Home,
+      iconBg: 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-800/60',
+      description: 'Monitoramento da necessidade quantitativa de novas moradias (ônus de aluguel, coabitação e habitação precária) e do déficit qualitativo de infraestrutura e instalações hidrossanitárias no Brasil.'
+    },
+    {
       id: 'programas-sociais',
       title: 'Programas Habitacionais e Habitação de Interesse Social',
-      icon: Home,
+      icon: Building,
       iconBg: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/60',
       description: 'Acompanhamento do programa Minha Casa, Minha Vida (faixas de renda 1 a 4), contratações, subsídios públicos e parcerias federativas para redução do déficit habitacional brasileiro.'
     },
@@ -48,6 +56,13 @@ export function CenarioHabitacionalView({ setActivePage }: CenarioHabitacionalVi
       icon: Hammer,
       iconBg: 'bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-800/60',
       description: 'Mapeamento da evolução das metragens médias, número de pontos de água e banheiros por unidade habitacional, métodos construtivos industrializados e ciclo de reformas residenciais.'
+    },
+    {
+      id: 'lares-unipessoais',
+      title: 'Lares Unipessoais e Demografia Domiciliar',
+      icon: User,
+      iconBg: 'bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 border-teal-200 dark:border-teal-800/60',
+      description: 'Acompanhamento do avanço dos domicílios com apenas um morador (18,9% do total nacional), envelhecimento populacional e proliferação de tipologias compactas e studios.'
     }
   ];
 
@@ -130,7 +145,9 @@ export function CenarioHabitacionalView({ setActivePage }: CenarioHabitacionalVi
                 const AxisIcon = axis.icon;
                 const isProgramasSociais = axis.id === 'programas-sociais';
                 const isMercadoImobiliario = axis.id === 'mercado-lancamentos';
-                const isClickable = (isProgramasSociais || isMercadoImobiliario) && setActivePage;
+                const isDeficitHabitacional = axis.id === 'deficit-habitacional';
+                const isLaresUnipessoais = axis.id === 'lares-unipessoais';
+                const isClickable = (isProgramasSociais || isMercadoImobiliario || isDeficitHabitacional || isLaresUnipessoais) && setActivePage;
 
                 return (
                   <div 
@@ -140,6 +157,10 @@ export function CenarioHabitacionalView({ setActivePage }: CenarioHabitacionalVi
                         setActivePage('Programas Sociais');
                       } else if (isMercadoImobiliario && setActivePage) {
                         setActivePage('Mercado Imobiliário');
+                      } else if (isDeficitHabitacional && setActivePage) {
+                        setActivePage('Déficit Habitacional');
+                      } else if (isLaresUnipessoais && setActivePage) {
+                        setActivePage('Lares Unipessoais');
                       }
                     }}
                     className={`p-3.5 sm:p-4 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/20 transition-all flex flex-col justify-between ${

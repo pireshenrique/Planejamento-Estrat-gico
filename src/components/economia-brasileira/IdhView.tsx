@@ -807,7 +807,7 @@ export function IdhView({ setActivePage }: IdhViewProps) {
           </div>
         </div>
            
-        <ResponsiveContainer minWidth="300px" gap="gap-5" className="w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
           {IDH_EVIDENCES.map((ev) => (
             <EvidenceCard 
               key={ev.id} 
@@ -815,7 +815,7 @@ export function IdhView({ setActivePage }: IdhViewProps) {
               onDownloadPdf={ev.isPdf ? handleDownloadPdf : undefined}
             />
           ))}
-        </ResponsiveContainer>
+        </div>
       </section>
 
     </div>

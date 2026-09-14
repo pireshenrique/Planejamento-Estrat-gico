@@ -664,12 +664,12 @@ export const RendimentoBrasileiroView: React.FC<RendimentoBrasileiroViewProps> =
         </div>
       </section>
 
-      {/* 3. OUTRAS NOTÍCIAS */}
+      {/* 3. EVIDÊNCIAS E FONTES */}
       {RENDIMENTO_EVIDENCES.length > 3 && (
         <section id="evidencias" className="scroll-mt-12 relative mt-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
             <div>
-              <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">Outras Notícias</h2>
+              <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">EVIDÊNCIAS E FONTES</h2>
             </div>
           </div>
              

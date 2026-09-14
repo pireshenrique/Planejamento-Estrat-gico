@@ -31,7 +31,7 @@ export function ProgramasSociaisView({ setActivePage }: ProgramasSociaisViewProp
           </div>
         </div>
 
-        {/* BARRA DE NAVEGAÇÃO DOS PROGRAMAS SOCIAIS: MINHA CASA MINHA VIDA e Programa Reforma Brasil */}
+        {/* BARRA DE NAVEGAÇÃO DOS PROGRAMAS SOCIAIS: Minha Casa Minha Vida e Programa Reforma Brasil */}
         <div className="w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 p-1.5 sm:p-2 bg-indigo-50/30 dark:bg-slate-800/40 border border-indigo-100/60 dark:border-slate-700/60 rounded-2xl w-full shadow-inner">
             {PROGRAMAS_SOCIAIS_TOPICS.map((topic) => {
@@ -123,7 +123,7 @@ export function ProgramasSociaisView({ setActivePage }: ProgramasSociaisViewProp
               ))}
             </div>
             <div className="space-y-1.5 sm:space-y-2">
-              <div className="font-bold text-slate-900 dark:text-white mb-2">Possíveis impactos para a Lorenzetti:</div>
+              <div className="font-bold text-slate-900 dark:text-white mb-2">Possíveis impactos para a Lorenzetti</div>
               {currentData.lorenzettiImpacts.map((imp, idx) => (
                 <div key={`imp-${idx}`} className="flex items-start gap-2 sm:gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-blue-400 shrink-0 mt-1.5" />
@@ -132,6 +132,84 @@ export function ProgramasSociaisView({ setActivePage }: ProgramasSociaisViewProp
               ))}
             </div>
           </div>
+
+          {/* TABELA-RESUMO EXECUTIVA (MINHA CASA, MINHA VIDA) */}
+          {selectedTopic === 'mcmv' && (
+            <div className="mt-3.5 sm:mt-5 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30">
+              <table className="w-full text-left border-collapse text-xs sm:text-[13px]">
+                <thead>
+                  <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-100/80 dark:bg-slate-800/60 text-slate-800 dark:text-slate-200">
+                    <th className="py-2 px-3 sm:px-4 font-bold w-[22%] sm:w-[20%]">
+                      Indicador
+                    </th>
+                    <th className="py-2 px-3 sm:px-4 font-bold w-[38%] sm:w-[40%]">
+                      Situação atual
+                    </th>
+                    <th className="py-2 px-3 sm:px-4 font-bold w-[40%]">
+                      O que significa
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200/80 dark:divide-slate-800/80 text-slate-700 dark:text-slate-300">
+                  <tr className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-2 px-3 sm:px-4 font-semibold text-slate-900 dark:text-white align-top">
+                      Participação no mercado
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug">
+                      Mais da metade dos lançamentos e das vendas de imóveis novos no Brasil
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug text-slate-600 dark:text-slate-300">
+                      O Minha Casa, Minha Vida já possui peso relevante sobre o ritmo da construção residencial.
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-2 px-3 sm:px-4 font-semibold text-slate-900 dark:text-white align-top">
+                      Custo do financiamento
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug">
+                      MCMV entre 4,5% e 8,16% ao ano, diante de aproximadamente 12% a 14% fora do programa
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug text-slate-600 dark:text-slate-300">
+                      O crédito mais barato ajuda a explicar a maior capacidade de compra das famílias atendidas e a força das vendas do programa.
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-2 px-3 sm:px-4 font-semibold text-slate-900 dark:text-white align-top">
+                      Estoque disponível
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug">
+                      Equivalente a aproximadamente 7,6 meses de vendas no ritmo atual
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug text-slate-600 dark:text-slate-300">
+                      A oferta ainda permanece relativamente ajustada à velocidade de comercialização, sem sinal de excesso relevante de estoque.
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-2 px-3 sm:px-4 font-semibold text-slate-900 dark:text-white align-top">
+                      Contratações projetadas
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug">
+                      Cerca de 1 milhão de unidades em 2026 e aproximadamente 1,5 milhão projetadas para 2027
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug text-slate-600 dark:text-slate-300">
+                      As metas indicam continuidade da expansão, mas representam contratações planejadas e não moradias já construídas ou entregues.
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors">
+                    <td className="py-2 px-3 sm:px-4 font-semibold text-slate-900 dark:text-white align-top">
+                      Principal risco
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug">
+                      Forte dependência do FGTS, da poupança e de fontes complementares de financiamento
+                    </td>
+                    <td className="py-2 px-3 sm:px-4 align-top leading-snug text-slate-600 dark:text-slate-300">
+                      O ponto de atenção não é falta imediata de crédito, mas a capacidade de financiar a expansão do programa por vários anos.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </section>
 
@@ -151,7 +229,7 @@ export function ProgramasSociaisView({ setActivePage }: ProgramasSociaisViewProp
           </span>
         </div>
            
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-5 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
           {currentData.evidences.map((ev) => (
             <EvidenceCard key={ev.id} evidence={ev} />
           ))}

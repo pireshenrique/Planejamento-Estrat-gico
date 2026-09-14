@@ -208,7 +208,7 @@ export const EstadosUnidosView = ({ setActivePage }: { setActivePage: (page: str
 
           <div className="flex flex-col lg:flex-row print:flex-row items-start gap-8">
             {/* Lista de Evidências */}
-            <div className="flex flex-col gap-5 flex-1 w-full relative z-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full relative z-0">
               {EUA_EVIDENCES.map((ev) => (
             <EvidenceCard key={ev.id} evidence={ev} />
           ))}

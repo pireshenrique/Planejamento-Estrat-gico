@@ -14,7 +14,7 @@ export interface HeaderKpiCardProps {
   secondaryHighlight?: string;
   secondaryHighlightColor?: HeaderKpiColor;
   explanation: string;
-  source: string;
+  source?: string;
   icon: LucideIcon;
   color?: HeaderKpiColor;
   className?: string;
@@ -134,9 +134,11 @@ export const HeaderKpiCard: React.FC<HeaderKpiCardProps> = ({
       </p>
 
       {/* 5. FONTE */}
-      <div className="text-[9.5px] text-slate-400 dark:text-slate-500 mt-auto pt-1.5 border-t border-slate-100 dark:border-slate-800 leading-tight">
-        {source.startsWith('Fonte:') ? source : `Fonte: ${source}`}
-      </div>
+      {source && (
+        <div className="text-[9.5px] text-slate-400 dark:text-slate-500 mt-auto pt-1.5 border-t border-slate-100 dark:border-slate-800 leading-tight">
+          {source.startsWith('Fonte:') ? source : `Fonte: ${source}`}
+        </div>
+      )}
     </div>
   );
 };

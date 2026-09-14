@@ -423,8 +423,8 @@ export function SondagemConjunturalView({ setActivePage }: SondagemConjunturalVi
   return (
     <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200">
       {/* HEADER */}
-      <div className="flex flex-col xl:flex-row gap-6">
-        <div className="w-full xl:w-1/2 2xl:w-5/12 shrink-0">
+      <div className="flex flex-col gap-6">
+        <div>
           <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 mb-2">
             <span className="text-[13px] font-bold tracking-wider uppercase cursor-pointer hover:text-blue-600" onClick={() => setActivePage('Indústria do Setor Eletroeletrônico')}>Indústria Eletroeletrônica</span>
             <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
@@ -434,7 +434,7 @@ export function SondagemConjunturalView({ setActivePage }: SondagemConjunturalVi
           <p className="text-[17px] text-slate-600 dark:text-slate-400">Acompanhamento do Nível de Atividade, Custos de Insumos e Expectativas (Abinee / Decon)</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full items-stretch">
           <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex items-start gap-3 h-full">
             <div className="w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center shrink-0">
               <Activity className="w-5 h-5 text-blue-600 dark:text-blue-400" />

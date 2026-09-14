@@ -15,6 +15,10 @@ export interface Evidence {
   author?: string;
   fileName?: string;
   pdfUrl?: string;
+  pageUrl?: string;
+  downloadLabel?: string;
+  actionLabel?: string;
+  secondaryActionLabel?: string;
   [key: string]: any;
 }
 
@@ -45,7 +49,14 @@ export function EvidenceCard({
         if (!initialEvidence.author) {
           delete parsed.author;
         }
-        return { ...initialEvidence, ...parsed };
+        return {
+          ...initialEvidence,
+          ...parsed,
+          fileName: initialEvidence.fileName,
+          pdfUrl: initialEvidence.pdfUrl,
+          isPdf: initialEvidence.isPdf,
+          author: initialEvidence.author || parsed.author,
+        };
       }
     } catch {
       // fallback
@@ -71,7 +82,14 @@ export function EvidenceCard({
             // ignore
           }
         }
-        setEvidence({ ...initialEvidence, ...parsed });
+        setEvidence({
+          ...initialEvidence,
+          ...parsed,
+          fileName: initialEvidence.fileName,
+          pdfUrl: initialEvidence.pdfUrl,
+          isPdf: initialEvidence.isPdf,
+          author: initialEvidence.author || parsed.author,
+        });
         setIsCustomized(true);
       } else {
         setEvidence(initialEvidence);
@@ -119,15 +137,12 @@ export function EvidenceCard({
     }
 
     try {
-      const fileName = evidence.fileName || evidence.pdfUrl || evidence.url || 'documento.pdf';
-      let targetUrl = fileName;
-      if (!targetUrl.startsWith('/') && !targetUrl.startsWith('http')) {
-        targetUrl = '/' + targetUrl;
-      }
+      const fileName = evidence.fileName || (evidence.pdfUrl ? evidence.pdfUrl.replace(/^\//, '') : '') || 'documento.pdf';
+      const downloadEndpoint = `/download-pdf?file=${encodeURIComponent(fileName)}`;
       
       const link = document.createElement('a');
-      link.href = encodeURI(targetUrl);
-      link.download = evidence.fileName || 'documento.pdf';
+      link.href = downloadEndpoint;
+      link.download = fileName;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -143,35 +158,31 @@ export function EvidenceCard({
 
   return (
     <div 
-      className={`bg-white dark:bg-[#111827] border ${
-        evidence.isPdf 
-          ? 'border-blue-300 dark:border-blue-800/80 shadow-md ring-1 ring-blue-500/20' 
-          : 'border-slate-200 dark:border-slate-800'
-      } rounded-xl p-3.5 sm:p-4 flex flex-col gap-2.5 sm:gap-3 shadow-xs hover:shadow-md transition-all h-full relative group`}
+      className="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col gap-0 h-[480px] relative group"
     >
-      <div className="flex-1 flex flex-col py-0.5 sm:py-1">
+      <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         
-        {/* Título da Evidência */}
-        <h3 className="text-[15.5px] sm:text-[17px] font-bold text-slate-900 dark:text-slate-100 mb-1 sm:mb-1.5 leading-snug">
+        {/* Título da Evidência (Tema) */}
+        <h3 className="text-[17px] sm:text-[18px] font-bold text-slate-900 dark:text-slate-100 leading-snug shrink-0">
           {readOnly ? (
             evidence.title
           ) : (
             <InlineEditable
               value={evidence.title}
               onSave={(val) => updateField('title', val)}
-              placeholder="Título da evidência..."
+              placeholder="Tema da evidência..."
               multiline
               rows={2}
-              textClassName="text-[15.5px] sm:text-[17px] font-bold text-slate-900 dark:text-slate-100 leading-snug"
-              inputClassName="text-[15.5px] sm:text-[17px] font-bold"
+              textClassName="text-[17px] sm:text-[18px] font-bold text-slate-900 dark:text-slate-100 leading-snug"
+              inputClassName="text-[17px] sm:text-[18px] font-bold"
             />
           )}
         </h3>
         
         {/* Trecho Literal / Resumo Executivo */}
-        <div className="mt-1 text-[13.5px] sm:text-[14px] leading-relaxed text-slate-600 dark:text-slate-400">
+        <div className="mt-3 text-[14px] sm:text-[15px] leading-relaxed text-slate-600 dark:text-slate-400 flex-1 overflow-y-auto pr-1">
           {readOnly ? (
-            <p className="line-clamp-4">{textContent}</p>
+            <p>{textContent}</p>
           ) : (
             <InlineEditable
               value={textContent}
@@ -179,176 +190,153 @@ export function EvidenceCard({
                 if (evidence.summary !== undefined) updateField('summary', val);
                 else updateField('headline', val);
               }}
-              placeholder="Clique para preencher o trecho da evidência ou resumo executivo..."
+              placeholder="Clique para preencher o resumo executivo..."
               multiline
               rows={4}
-              textClassName="text-[14px] leading-relaxed text-slate-600 dark:text-slate-400"
+              textClassName="text-[14px] sm:text-[15px] leading-relaxed text-slate-600 dark:text-slate-400"
             />
           )}
         </div>
-
-        {/* Informações adicionais de PDF / Autor */}
-        {evidence.isPdf && Boolean(evidence.author && evidence.author.trim() !== '') && (
-          <div className="mt-3 p-3 rounded-xl bg-blue-50/80 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 flex flex-col gap-1.5">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2 text-[12px] font-bold text-blue-900 dark:text-blue-300">
-                <Building2 className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-                <span>Autores: </span>
-                {readOnly ? (
-                  <span>{authorText}</span>
-                ) : (
-                  <InlineEditable
-                    value={authorText}
-                    onSave={(val) => updateField('author', val)}
-                    placeholder="Nome dos autores ou instituição"
-                    textClassName="text-[12px] font-bold text-blue-900 dark:text-blue-300"
-                  />
-                )}
-              </div>
-              <span className="text-[11px] font-extrabold text-blue-700 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/60 px-2 py-0.5 rounded shrink-0">
-                PDF Anexado
-              </span>
-            </div>
-          </div>
-        )}
       </div>
 
-      {/* Container de Data (Acima do Rodapé) */}
-      <div className="mt-3 mb-2 flex items-center gap-1.5 text-[13px] font-medium text-slate-400">
-        <Calendar className="w-3.5 h-3.5" />
+      {/* Container de Data */}
+      <div className="mt-6 mb-4 flex items-center gap-2 text-[13px] font-medium text-slate-500 dark:text-slate-400 shrink-0">
+        <Calendar className="w-4 h-4" />
         {readOnly ? (
           evidence.dateStr || evidence.date || ''
         ) : (
           <InlineEditable
             value={evidence.dateStr || evidence.date || ''}
             onSave={(val) => updateField('dateStr', val)}
-            placeholder="Data"
-            textClassName="text-[13px] font-medium text-slate-400"
+            placeholder="Data (ex: 2025)"
+            textClassName="text-[13px] font-medium text-slate-500 dark:text-slate-400"
           />
         )}
       </div>
 
-      {/* Rodapé: Fonte Oficial + Link ou Download */}
-      <div className="pt-2 mt-auto border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2 flex-wrap sm:flex-nowrap">
-        <div className="flex items-center gap-2 truncate max-w-full sm:max-w-[70%]">
-          <Globe className="w-4 h-4 text-blue-500 shrink-0" />
+      {/* Rodapé: Fonte Oficial + Ação */}
+      <div className="pt-4 mt-auto border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap shrink-0">
+        
+        {/* Lado Esquerdo: Fonte */}
+        <div className="flex items-center gap-2 truncate max-w-full sm:max-w-[65%]">
+          <Globe className="w-4 h-4 text-blue-600 dark:text-blue-500 shrink-0" />
           {readOnly ? (
-            <span className="text-[13px] font-semibold text-slate-600 dark:text-slate-300 truncate">
+            <span className="text-[14px] font-semibold text-slate-700 dark:text-slate-300 truncate">
               {evidence.source}
             </span>
           ) : (
             <InlineEditable
               value={evidence.source}
               onSave={(val) => updateField('source', val)}
-              placeholder="Fonte / Veículo oficial..."
-              textClassName="text-[13px] font-semibold text-slate-600 dark:text-slate-300 truncate"
+              placeholder="Fonte oficial..."
+              textClassName="text-[14px] font-semibold text-slate-700 dark:text-slate-300 truncate"
             />
           )}
         </div>
 
-        {evidence.isPdf ? (
-          <div className="flex items-center gap-1.5 shrink-0 ml-auto">
-            {isCustomized && !readOnly && (
-              <button
-                onClick={handleResetOriginal}
-                className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors"
-                title="Restaurar originais"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-              </button>
-            )}
-            {onViewPdf && (
-              <button
-                onClick={onViewPdf}
-                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-[12px] font-bold transition-colors cursor-pointer shrink-0"
-                title="Visualizar documento em tela cheia"
-              >
-                Visualizar
-                <Eye className="w-3.5 h-3.5" />
-              </button>
-            )}
+        {/* Lado Direito: Botão de Ação */}
+        <div className="flex items-center gap-3 shrink-0 ml-auto">
+          {isCustomized && !readOnly && (
             <button
-              onClick={handleDownloadPdf}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[12px] font-bold transition-all shadow-xs cursor-pointer shrink-0"
-              title="Baixar arquivo PDF original"
+              onClick={handleResetOriginal}
+              className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors"
+              title="Restaurar originais"
             >
-              Download PDF
-              <Download className="w-3.5 h-3.5" />
+              <RotateCcw className="w-4 h-4" />
             </button>
-          </div>
-        ) : (
-          <div className="flex items-center gap-2 shrink-0 ml-auto">
-            {isCustomized && !readOnly && (
-              <button
-                onClick={handleResetOriginal}
-                className="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors"
-                title="Restaurar originais"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-              </button>
-            )}
-            {evidence.url ? (
-              <a 
-                href={evidence.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-[12px] font-bold transition-colors cursor-pointer shrink-0"
-              >
-                Acessar link
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            ) : null}
+          )}
+          
+          {evidence.isPdf ? (
+            <a
+              href={evidence.pdfUrl || (evidence.fileName ? `/${evidence.fileName}` : '#')}
+              target="_blank"
+              rel="noopener noreferrer"
+              download={
+                evidence.fileName || 
+                (evidence.pdfUrl ? evidence.pdfUrl.replace(/^\//, '') : 'documento.pdf')
+              }
+              onClick={(e) => {
+                if (onDownloadPdf) {
+                  e.preventDefault();
+                  onDownloadPdf();
+                }
+              }}
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-[13px] font-bold transition-colors cursor-pointer shrink-0"
+              title="Baixar arquivo PDF"
+            >
+              BAIXAR PDF
+              <Download className="w-3.5 h-3.5" />
+            </a>
+          ) : (
+            <>
+              {evidence.url ? (
+                <a 
+                  href={evidence.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-[13px] font-bold transition-colors cursor-pointer shrink-0"
+                >
+                  ACESSAR FONTE
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              ) : null}
 
-            {!readOnly && (
-              <div className="relative">
-                {editingUrl ? (
-                  <div 
-                    className="absolute right-0 bottom-8 z-30 w-72 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-2.5 rounded-xl shadow-xl flex flex-col gap-2"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <span className="text-[11px] font-bold text-slate-600 dark:text-slate-300">URL do link da fonte:</span>
-                    <input
-                      type="url"
-                      value={tempUrl}
-                      onChange={(e) => setTempUrl(e.target.value)}
-                      placeholder="https://..."
-                      className="w-full px-2 py-1 text-[12px] border border-blue-400 rounded-md dark:bg-slate-800 dark:text-white"
-                      autoFocus
-                    />
-                    <div className="flex justify-end gap-1">
-                      <button
-                        onClick={() => setEditingUrl(false)}
-                        className="px-2 py-0.5 text-[11px] text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded"
-                      >
-                        Fechar
-                      </button>
-                      <button
-                        onClick={() => {
-                          updateField('url', tempUrl);
-                          setEditingUrl(false);
-                        }}
-                        className="px-2 py-0.5 text-[11px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded"
-                      >
-                        Salvar Link
-                      </button>
+              {!readOnly && (
+                <div className="relative">
+                  {editingUrl ? (
+                    <div 
+                      className="absolute right-0 bottom-10 z-30 w-72 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 p-3 rounded-xl shadow-xl flex flex-col gap-2"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span className="text-[12px] font-bold text-slate-600 dark:text-slate-300">URL do link da fonte:</span>
+                      <input
+                        type="url"
+                        value={tempUrl}
+                        onChange={(e) => setTempUrl(e.target.value)}
+                        placeholder="https://..."
+                        className="w-full px-2 py-1.5 text-[13px] border border-slate-300 dark:border-slate-600 rounded-md dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        autoFocus
+                      />
+                      <div className="flex justify-end gap-2 mt-1">
+                        <button
+                          onClick={() => setEditingUrl(false)}
+                          className="px-3 py-1 text-[12px] font-medium text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                        >
+                          Cancelar
+                        </button>
+                        <button
+                          onClick={() => {
+                            updateField('url', tempUrl);
+                            setEditingUrl(false);
+                          }}
+                          className="px-3 py-1 text-[12px] font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                        >
+                          Salvar
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setTempUrl(evidence.url || '');
-                      setEditingUrl(true);
-                    }}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                    title="Editar URL da fonte"
-                  >
-                    <LinkIcon className="w-3.5 h-3.5" />
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-        )}
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setTempUrl(evidence.url || '');
+                        setEditingUrl(true);
+                      }}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-slate-800 transition-colors"
+                      title="Editar URL da fonte"
+                    >
+                      <LinkIcon className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              )}
+            </>
+          )}
+          
+          {/* Ícone decorativo de link ao lado do botão, conforme a imagem de referência (opcional, mas presente na imagem) */}
+          {readOnly && (
+             <LinkIcon className="w-4 h-4 text-slate-400 shrink-0 opacity-60" />
+          )}
+        </div>
       </div>
     </div>
   );

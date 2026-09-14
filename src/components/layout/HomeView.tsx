@@ -1,12 +1,30 @@
-import React from 'react';
-import { Search, ArrowRight, Activity, FileText, MessageSquare, TrendingUp, ChevronRight, AlertTriangle, RefreshCw, Target, Users, DollarSign, Settings, Truck, BarChart2, Megaphone, Lightbulb, Leaf, Globe2, Briefcase, Building, Home, Info, ShieldAlert, Zap, Building2, Cpu } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, ArrowRight, Activity, FileText, MessageSquare, TrendingUp, ChevronRight, AlertTriangle, RefreshCw, Target, Users, DollarSign, Settings, Truck, BarChart2, Megaphone, Lightbulb, Leaf, Globe2, Briefcase, Building, Home, Info, ShieldAlert, Zap, Building2, Cpu, Clock } from 'lucide-react';
 import { ResponsiveContainer } from './ResponsiveContainer';
+import { getStrategicReportData, subscribeToReportUpdates, StrategicReportData } from '../../data/strategicReportState';
+import { getPortalMetricsSummary, PortalMetricsSummary } from '../../data/portalMetrics';
+import { StrategicChatbot } from './StrategicChatbot';
 
 interface HomeViewProps {
   setActivePage: (page: string) => void;
 }
 
 export function HomeView({ setActivePage }: HomeViewProps) {
+  const [reportData, setReportData] = useState<StrategicReportData>(getStrategicReportData());
+  const [metrics, setMetrics] = useState<PortalMetricsSummary>(getPortalMetricsSummary());
+
+  useEffect(() => {
+    setReportData(getStrategicReportData());
+    setMetrics(getPortalMetricsSummary());
+
+    const unsubscribe = subscribeToReportUpdates((updated) => {
+      setReportData(updated);
+      setMetrics(getPortalMetricsSummary());
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-10 pb-6 sm:pb-10">
       {/* Header and Search */}
@@ -14,23 +32,8 @@ export function HomeView({ setActivePage }: HomeViewProps) {
         <div className="text-[15px] sm:text-[17px] font-medium text-slate-500 dark:text-slate-400 mb-3.5 sm:mb-6 max-w-2xl leading-relaxed">
           Base consolidada de tendências, cenários e evidências estratégicas para apoiar as decisões da Lorenzetti.
         </div>
-        <div className="relative mb-3 sm:mb-4">
-          <input 
-            type="text" 
-            placeholder="Pesquisar tema, país, indicador ou assunto..." 
-            className="w-full h-11 sm:h-[52px] pl-4 sm:pl-5 pr-12 sm:pr-14 text-[15px] sm:text-[17px] border border-slate-300 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 bg-white dark:bg-[#121c32] placeholder:text-slate-400 dark:text-slate-400 shadow-sm transition-all"
-          />
-          <Search className="w-5 h-5 text-slate-400 dark:text-slate-400 absolute right-4 sm:right-5 top-3 sm:top-4" />
-        </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-          <span className="text-xs sm:text-[15px] font-medium text-slate-500 dark:text-slate-400 mr-1 sm:mr-2">Exemplos:</span>
-          {['Conflitos e Tensões Internacionais', 'Inteligência Artificial', 'PIB', 'Inflação', 'Câmbio / dólar', 'Data Centers', 'Smart Home'].map(tag => (
-            <button key={tag} onClick={() => setActivePage(tag)} className="group flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 bg-white dark:bg-[#121c32] border border-slate-200 dark:border-slate-700/50 border-b-[3px] border-b-slate-300 dark:border-b-slate-800 rounded-xl text-xs sm:text-[14px] font-bold text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 hover:border-blue-300 dark:hover:border-blue-700 hover:border-b-blue-400 dark:hover:border-b-blue-800 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-all shadow-sm active:border-b-[1px] active:translate-y-[2px] cursor-pointer">
-              <span>{tag}</span>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
-            </button>
-          ))}
-        </div>
+        
+        <StrategicChatbot />
       </div>
 
       {/* 1 RESUMO EXECUTIVO */}
@@ -45,21 +48,25 @@ export function HomeView({ setActivePage }: HomeViewProps) {
             </div>
             <div className="flex-[2] min-w-[260px] flex flex-col justify-center">
                <div className="text-sm sm:text-[16px] text-slate-700 dark:text-slate-300 leading-relaxed font-medium mb-2.5 sm:mb-4">
-                 O horizonte 2027-2037 será marcado por transformações profundas em escala global. A aceleração tecnológica, as tensões geopolíticas, a transição para uma economia sustentável e as mudanças demográficas redesenharão mercados, cadeias produtivas e comportamentos sociais.
+                 {reportData.resumoExecutivo.paragrafo1}
                </div>
                <div className="text-sm sm:text-[16px] text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
-                 Empresas que anteciparem tendências e adaptarem suas estratégias terão vantagem competitiva sustentável.
+                 {reportData.resumoExecutivo.paragrafo2}
+               </div>
+               <div className="mt-2.5 sm:mt-3 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                 <Clock className="w-3.5 h-3.5 text-slate-400" />
+                 <span>Última análise: {reportData.ultimaAnalise}</span>
                </div>
             </div>
             <div className="shrink-0 flex-1 min-w-[240px] md:max-w-[350px] flex flex-col gap-3.5 sm:gap-5 border-t md:border-t-0 mt-3 md:mt-0 pt-4 md:pt-0 md:border-l border-slate-100 dark:border-slate-800/50 md:pl-6 lg:pl-8 py-1 sm:py-2">
-               <button  className="bg-gradient-to-r from-blue-600 to-blue-800 text-white flex items-center justify-between px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold hover:from-blue-500 hover:to-blue-700 shadow-md shadow-blue-500/20 border-b-[4px] border-blue-900 transition-all active:border-b-0 active:translate-y-1 w-full">
+               <button onClick={() => setActivePage('Relatório Estratégico')} className="bg-gradient-to-r from-blue-600 to-blue-800 text-white flex items-center justify-between px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold hover:from-blue-500 hover:to-blue-700 shadow-md shadow-blue-500/20 border-b-[4px] border-blue-900 transition-all active:border-b-0 active:translate-y-1 w-full">
                   Ver relatório completo <ArrowRight className="w-4 h-4 ml-2" />
                </button>
                <div className="grid grid-cols-1 gap-2.5 sm:gap-3.5 pl-1 sm:pl-2">
-                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><Activity className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> 10 Macrotendências</div>
-                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> 98 Subtemas</div>
-                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><Search className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> 1.248 Evidências</div>
-                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><MessageSquare className="w-3.5 h-3.5 text-slate-400 dark:text-slate-400" /></div> 215 Fontes</div>
+                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><Activity className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> {(reportData.leiturasEstrategicas?.length || reportData.macrotendencias?.length || 7)} Macrotendências</div>
+                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> {metrics.subtemasCount} Subtemas</div>
+                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><Search className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> {metrics.evidenciasCount.toLocaleString('pt-BR')} Evidências</div>
+                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><MessageSquare className="w-3.5 h-3.5 text-slate-400 dark:text-slate-400" /></div> {metrics.fontesCount} Fontes</div>
                </div>
             </div>
         </div>

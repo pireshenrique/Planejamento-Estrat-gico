@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { HomeView } from './HomeView';
+import { StrategicReportView } from './StrategicReportView';
 
 // Geopolítica
 import { ConflitosTensoesInternacionaisView } from '../geopolitica/ConflitosTensoesInternacionaisView';
@@ -12,6 +13,7 @@ import { AsiaView } from '../geopolitica/AsiaView';
 import { EuropaView } from '../geopolitica/EuropaView';
 
 // Economia Brasileira
+import { CenarioMacroeconomicoView } from '../economia-brasileira/CenarioMacroeconomicoView';
 import { PibView } from '../economia-brasileira/pib/PibView';
 import { InflacaoView } from '../economia-brasileira/InflacaoView';
 import { ReformaTributariaView } from '../economia-brasileira/ReformaTributariaView';
@@ -46,27 +48,65 @@ import { PrecoCommoditiesView } from '../eletroeletronico/PrecoCommoditiesView';
 
 // Novo PAC
 import { NovoPacView } from '../novo-pac/NovoPacView';
-import { InfraestruturaSocialInclusivaView } from '../novo-pac/InfraestruturaSocialInclusivaView';
-import { CidadesSustentaveisResilientesView } from '../novo-pac/CidadesSustentaveisResilientesView';
-import { TransporteEficienteSustentavelView } from '../novo-pac/TransporteEficienteSustentavelView';
-import { AguaParaTodosView } from '../novo-pac/AguaParaTodosView';
-import { InclusaoDigitalConectividadeView } from '../novo-pac/InclusaoDigitalConectividadeView';
-import { TransicaoSegurancaEnergeticaView } from '../novo-pac/TransicaoSegurancaEnergeticaView';
-import { InovacaoIndustriaDefesaView } from '../novo-pac/InovacaoIndustriaDefesaView';
-import { EducacaoCienciaTecnologiaView } from '../novo-pac/EducacaoCienciaTecnologiaView';
-import { SaudeView } from '../novo-pac/SaudeView';
 
 // Commodities
 import { CommoditiesView } from '../commodities/CommoditiesView';
 import { CenarioLogisticoView } from '../cenario-logistico/CenarioLogisticoView';
 import { CenarioHabitacionalView } from '../cenario-habitacional/CenarioHabitacionalView';
+import { CenarioMercadologicoView } from '../cenario-mercadologico/CenarioMercadologicoView';
 import { MercadoImobiliarioView } from '../cenario-habitacional/MercadoImobiliarioView';
+import { DeficitHabitacionalView } from '../cenario-habitacional/DeficitHabitacionalView';
 import { ProgramasSociaisView } from '../cenario-habitacional/ProgramasSociaisView';
+import { LaresUnipessoaisView } from '../cenario-habitacional/LaresUnipessoaisView';
 
 // Backups & Testes
 
-import { Home, TrendingUp, Globe2, ChevronDown, ChevronRight, ChevronLeft, Search, Bell, Info, Calendar, MapPin, Target, Users, ExternalLink, ArrowRight, ArrowLeft, ArrowUp, FileText, CheckCircle, Globe, Activity, Briefcase, Building, AlertTriangle, Leaf, ShieldAlert, Sun, Moon, Menu, X, Zap, Printer, Cpu, Box, BarChart3, ArrowUpRight, Landmark, CreditCard, Factory, Building2, HardHat, Truck, Package, PiggyBank, Coins, Layers, Shield, Droplet, Hexagon, Sparkles, Wind, Share2, Cable, Battery, Brain, Settings, Server, Wifi, Swords, Map, Banknote, Ship, Anchor, GitBranch, Droplets, Recycle, Scale, Smartphone, HeartPulse, Thermometer, CloudLightning, CloudRain, LineChart, ShoppingCart, ArrowRightLeft, DollarSign, Store, Waves, Award, GraduationCap, Maximize2, Minimize2, Vote } from 'lucide-react';
+import { Home, TrendingUp, Globe2, ChevronDown, ChevronRight, ChevronLeft, Search, Bell, Info, Calendar, MapPin, Target, Users, ExternalLink, ArrowRight, ArrowLeft, ArrowUp, FileText, CheckCircle, Globe, Activity, Briefcase, Building, AlertTriangle, Leaf, ShieldAlert, Sun, Moon, Menu, X, Zap, Printer, Cpu, Box, BarChart3, ArrowUpRight, Landmark, CreditCard, Factory, Building2, HardHat, Truck, Package, PiggyBank, Coins, Layers, Shield, Droplet, Hexagon, Sparkles, Wind, Share2, Cable, Battery, Brain, Settings, Server, Wifi, Swords, Map, Banknote, Ship, Anchor, GitBranch, Droplets, Recycle, Scale, Smartphone, HeartPulse, Thermometer, CloudLightning, CloudRain, LineChart, ShoppingCart, ArrowRightLeft, DollarSign, Store, Waves, Award, GraduationCap, Maximize2, Minimize2, Vote, User, ShoppingBag, Lightbulb } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+
+// New Mercadologico imports
+import { PerfilConsumoView } from '../cenario-mercadologico/PerfilConsumoView';
+import { JornadaExperienciaView } from '../cenario-mercadologico/JornadaExperienciaView';
+import { VarejoCanaisView } from '../cenario-mercadologico/VarejoCanaisView';
+import { ProdutoInovacaoView } from '../cenario-mercadologico/ProdutoInovacaoView';
+import { TransformacaoVarejoView } from '../cenario-mercadologico/TransformacaoVarejoView';
+import { TendenciasProdutoView } from '../cenario-mercadologico/TendenciasProdutoView';
+import { CasaConectadaView } from '../cenario-mercadologico/CasaConectadaView';
+import { TransformacoesSociaisView } from '../cenario-mercadologico/TransformacoesSociaisView';
+import { EcommerceView } from '../cenario-mercadologico/EcommerceView';
+
+// Carreira e Gerações
+import { PerfilGeracoesView } from '../carreira-geracoes/PerfilGeracoesView';
+import { MudancaCarreirasView } from '../carreira-geracoes/MudancaCarreirasView';
+import { EmpreendedorismoView } from '../carreira-geracoes/EmpreendedorismoView';
+import { Escala6x1View } from '../carreira-geracoes/Escala6x1View';
+
+// Ambiente de Trabalho e Bem-Estar
+import { SaudeMentalView } from '../ambiente-trabalho/SaudeMentalView';
+import { Nr1View } from '../ambiente-trabalho/Nr1View';
+import { DiversidadeInclusaoView } from '../ambiente-trabalho/DiversidadeInclusaoView';
+import { AssedioTrabalhoView } from '../ambiente-trabalho/AssedioTrabalhoView';
+
+// Meio Ambiente e Clima
+import { FenomenosClimaticosView } from '../meio-ambiente-clima/FenomenosClimaticosView';
+import { MudancasClimaticasView } from '../meio-ambiente-clima/MudancasClimaticasView';
+import { AquecimentoGlobalView } from '../meio-ambiente-clima/AquecimentoGlobalView';
+
+// ESG
+import { TopEmpresasEsgView } from '../esg/TopEmpresasEsgView';
+import { ConcorrentesEsgView } from '../esg/ConcorrentesEsgView';
+
+// Energia e Infraestrutura
+import { EnergiaRenovavelView } from '../energia-infraestrutura/EnergiaRenovavelView';
+import { MercadoCarbonoView } from '../energia-infraestrutura/MercadoCarbonoView';
+import { MarcosRegulatoriosView } from '../energia-infraestrutura/MarcosRegulatoriosView';
+import { DataCentersInfraView } from '../energia-infraestrutura/DataCentersInfraView';
+
+// Trabalho e Qualificação
+import { MaoDeObraQualificadaView } from '../trabalho-qualificacao/MaoDeObraQualificadaView';
+import { SoftSkillsView } from '../trabalho-qualificacao/SoftSkillsView';
+import { IaFuturoTrabalhoView } from '../trabalho-qualificacao/IaFuturoTrabalhoView';
+import { AutomacaoView } from '../trabalho-qualificacao/AutomacaoView';
 
 const EVIDENCES = [
   {
@@ -191,17 +231,14 @@ const sidebarGroups = [
     name: 'Economia Brasileira',
     icon: LineChart,
     children: [
-      { name: 'PIB', children: ['PIB Agropecuária', 'PIB Indústria', 'PIB Serviços', 'PIB Consumo das Famílias', 'PIB Investimentos', 'PIB Governo'] }, 
+      'Cenário Macroeconômico',
       'Exportação', 
-      'Inflação', 
-      { name: 'Juros / Selic', children: ['Taxa de Juros Real'] }, 
-      'Câmbio / dólar', 
       'Emprego e Desemprego', 
       'Rendimento do Brasileiro', 
       'Endividamento das Famílias e Empresas', 
-      { name: 'Indústria do Setor Eletroeletrônico', children: ['Confiança do Consumidor', 'Produção da Indústria', 'Sondagem Conjuntural', 'Imposição de Sobretaxas', 'Balanço Comercial', 'Preço de Commodities'] }, 
+      'Indústria do Setor Eletroeletrônico', 
       'IDH',
-      { name: 'Novo PAC', children: ['Infraestrutura social inclusiva', 'Cidades Sustentáveis e Resilientes', 'Transporte Eficiente e Sustentável', 'Água para Todos', 'Inclusão Digital e Conectividade', 'Transição e Segurança Energética', 'Inovação para a Indústria da Defesa', 'Educação, Ciência e Tecnologia', 'Saúde'] },
+      'Novo PAC',
       'Reforma Tributária',
       'Eleições'
     ]
@@ -214,16 +251,144 @@ const sidebarGroups = [
   {
     name: 'Cenário Habitacional',
     icon: Home,
-    children: ['Mercado Imobiliário', 'Programas Sociais']
+    children: ['Mercado Imobiliário', 'Déficit Habitacional', 'Programas Sociais', 'Lares Unipessoais']
+  },
+  {
+    name: 'Cenário Mercadológico',
+    icon: Store,
+    children: [
+      'Perfil de Consumo',
+      'Jornada de Compra',
+      'Varejo e Canais',
+      'Produto e Inovação',
+      'Estilos de Vida'
+    ]
+  },
+  {
+    name: 'Meio Ambiente e Clima',
+    icon: Leaf,
+    children: [
+      'Fenômenos Climáticos',
+      'Mudanças Climáticas',
+      'Aquecimento Global'
+    ]
+  },
+  {
+    name: 'ESG',
+    icon: Award,
+    children: [
+      'Top Empresas ESG',
+      'Concorrentes ESG'
+    ]
+  },
+  {
+    name: 'Energia e Infraestrutura',
+    icon: Zap,
+    children: [
+      'Energia Renovável',
+      'Mercado de Carbono',
+      'Marcos Regulatórios',
+      'Data Centers (Energia)'
+    ]
+  },
+  {
+    name: 'Carreira e Gerações',
+    icon: Briefcase,
+    children: [
+      'Perfil das gerações',
+      'Mudança de carreiras',
+      'Empreendedorismo',
+      'Escala 6x1'
+    ]
+  },
+  {
+    name: 'Ambiente de Trabalho e Bem-Estar',
+    icon: HeartPulse,
+    children: [
+      'Saúde mental no trabalho',
+      'NR-1',
+      'Diversidade e inclusão',
+      'Assédio no ambiente de trabalho'
+    ]
+  },
+  {
+    name: 'Trabalho e Qualificação',
+    icon: GraduationCap,
+    children: [
+      'Mão de obra qualificada',
+      'Soft skills',
+      'IA e o futuro do trabalho',
+      'Automação'
+    ]
   }
 ];
+
+// Mapeamento exclusivo para os rótulos curtos exibidos na navegação da Sidebar (Cenário Mercadológico e outros)
+const sidebarDisplayLabels: Record<string, string> = {
+  'Perfil de Consumo': 'Perfil de Consumo',
+  'Jornada de Compra': 'Jornada de Compra',
+  'Jornada e Experiência': 'Jornada de Compra',
+  'Varejo e Canais': 'Varejo e Canais',
+  'Produto e Inovação': 'Produto e Inovação',
+  'Estilos de Vida': 'Estilos de Vida',
+  'Transformações Sociais': 'Estilos de Vida',
+  'Transformação do Varejo': 'Varejo em Transformação',
+  'Tendências de Produto': 'Produto e Valor',
+  'Casa Conectada': 'Casa Conectada',
+  'E-commerce': 'E-commerce',
+  'Data Centers (Energia)': 'Data Centers'
+};
+
+const getSidebarItemLabel = (name: string): string => {
+  return sidebarDisplayLabels[name] || name;
+};
 
 export function StrategicPortal() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const customPageRoutes: Record<string, string> = {
+    // Meio Ambiente e Clima
+    'Fenômenos Climáticos': '/meio-ambiente-clima/fenomenos-climaticos',
+    'Mudanças Climáticas': '/meio-ambiente-clima/mudancas-climaticas',
+    'Aquecimento Global': '/meio-ambiente-clima/aquecimento-global',
+
+    // ESG
+    'Top Empresas ESG': '/esg/top-empresas',
+    'Concorrentes ESG': '/esg/concorrentes',
+
+    // Energia e Infraestrutura
+    'Energia Renovável': '/energia-infraestrutura/energia-renovavel',
+    'Mercado de Carbono': '/energia-infraestrutura/mercado-carbono',
+    'Marcos Regulatórios': '/energia-infraestrutura/marcos-regulatorios',
+    'Data Centers (Energia)': '/energia-infraestrutura/data-centers',
+
+    // Carreira e Gerações
+    'Perfil das gerações': '/carreira-geracoes/perfil-geracoes',
+    'Mudança de carreiras': '/carreira-geracoes/mudanca-carreiras',
+    'Empreendedorismo': '/carreira-geracoes/empreendedorismo',
+    'Escala 6x1': '/carreira-geracoes/escala-6x1',
+
+    // Ambiente de Trabalho e Bem-Estar
+    'Saúde mental no trabalho': '/ambiente-trabalho/saude-mental',
+    'NR-1': '/ambiente-trabalho/nr-1',
+    'Diversidade e inclusão': '/ambiente-trabalho/diversidade-inclusao',
+    'Assédio no ambiente de trabalho': '/ambiente-trabalho/assedio',
+
+    // Trabalho e Qualificação
+    'Mão de obra qualificada': '/trabalho-qualificacao/mao-de-obra-qualificada',
+    'Soft skills': '/trabalho-qualificacao/soft-skills',
+    'IA e o futuro do trabalho': '/trabalho-qualificacao/ia-futuro-trabalho',
+    'Automação': '/trabalho-qualificacao/automacao',
+
+    // Relatório Estratégico
+    'Relatório Estratégico': '/relatorio-estrategico',
+    'Relatório Estratégico 2027-2037': '/relatorio-estrategico',
+  };
+
   const pageToPath = (page: string) => {
     if (page === 'Home') return '/';
+    if (customPageRoutes[page]) return customPageRoutes[page];
     return "/" + page.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   };
 
@@ -250,11 +415,130 @@ export function StrategicPortal() {
         });
       }
     });
+
+    // Manter rotas antigas para redirecionamento transparente e links existentes
+    const legacyPages = [
+      'PIB', 'Inflação', 'Juros / Selic', 'Taxa de Juros Real', 'Câmbio / dólar',
+      'Jornada de Compra', 'Jornada e Experiência',
+      'Varejo e Canais', 'Transformação do Varejo', 'Varejo em Transformação', 'E-commerce',
+      'Produto e Inovação', 'Tendências de Produto', 'Produto e Valor', 'Casa Conectada',
+      'Estilos de Vida', 'Transformações Sociais'
+    ];
+    legacyPages.forEach(p => pages.push(p));
+
     return Array.from(new Set(pages));
   }, []);
 
   const pathToPage = (path: string) => {
     const currentPath = path === "/" ? "/" : path;
+
+    const customRouteMap: Record<string, string> = {
+      // Meio Ambiente e Clima
+      '/meio-ambiente-clima/fenomenos-climaticos': 'Fenômenos Climáticos',
+      '/fenomenos-climaticos': 'Fenômenos Climáticos',
+      '/meio-ambiente-clima/mudancas-climaticas': 'Mudanças Climáticas',
+      '/mudancas-climaticas': 'Mudanças Climáticas',
+      '/meio-ambiente-clima/aquecimento-global': 'Aquecimento Global',
+      '/aquecimento-global': 'Aquecimento Global',
+
+      // ESG
+      '/esg/top-empresas': 'Top Empresas ESG',
+      '/top-empresas-esg': 'Top Empresas ESG',
+      '/esg/concorrentes': 'Concorrentes ESG',
+      '/concorrentes-esg': 'Concorrentes ESG',
+
+      // Energia e Infraestrutura
+      '/energia-infraestrutura/energia-renovavel': 'Energia Renovável',
+      '/energia-renovavel': 'Energia Renovável',
+      '/energia-infraestrutura/mercado-carbono': 'Mercado de Carbono',
+      '/mercado-carbono': 'Mercado de Carbono',
+      '/mercado-de-carbono': 'Mercado de Carbono',
+      '/energia-infraestrutura/marcos-regulatorios': 'Marcos Regulatórios',
+      '/marcos-regulatorios': 'Marcos Regulatórios',
+      '/energia-infraestrutura/data-centers': 'Data Centers (Energia)',
+
+      // Carreira e Gerações
+      '/carreira-geracoes/perfil-geracoes': 'Perfil das gerações',
+      '/carreira-geracoes/perfil-das-geracoes': 'Perfil das gerações',
+      '/perfil-das-geracoes': 'Perfil das gerações',
+      '/perfil-geracoes': 'Perfil das gerações',
+      
+      '/carreira-geracoes/mudanca-carreiras': 'Mudança de carreiras',
+      '/carreira-geracoes/mudanca-de-carreiras': 'Mudança de carreiras',
+      '/mudanca-carreiras': 'Mudança de carreiras',
+      '/mudanca-de-carreiras': 'Mudança de carreiras',
+      
+      '/carreira-geracoes/empreendedorismo': 'Empreendedorismo',
+      '/empreendedorismo': 'Empreendedorismo',
+      
+      '/carreira-geracoes/escala-6x1': 'Escala 6x1',
+      '/escala-6x1': 'Escala 6x1',
+      
+      // Ambiente de Trabalho e Bem-Estar
+      '/ambiente-trabalho/saude-mental': 'Saúde mental no trabalho',
+      '/ambiente-trabalho/saude-mental-no-trabalho': 'Saúde mental no trabalho',
+      '/saude-mental-no-trabalho': 'Saúde mental no trabalho',
+      '/saude-mental': 'Saúde mental no trabalho',
+      
+      '/ambiente-trabalho/nr-1': 'NR-1',
+      '/ambiente-trabalho/nr1': 'NR-1',
+      '/nr-1': 'NR-1',
+      '/nr1': 'NR-1',
+      
+      '/ambiente-trabalho/diversidade-inclusao': 'Diversidade e inclusão',
+      '/ambiente-trabalho/diversidade-e-inclusao': 'Diversidade e inclusão',
+      '/diversidade-e-inclusao': 'Diversidade e inclusão',
+      '/diversidade-inclusao': 'Diversidade e inclusão',
+      
+      '/ambiente-trabalho/assedio': 'Assédio no ambiente de trabalho',
+      '/ambiente-trabalho/assedio-no-ambiente-de-trabalho': 'Assédio no ambiente de trabalho',
+      '/assedio-no-ambiente-de-trabalho': 'Assédio no ambiente de trabalho',
+      '/assedio': 'Assédio no ambiente de trabalho',
+
+      // Trabalho e Qualificação
+      '/trabalho-qualificacao/mao-de-obra-qualificada': 'Mão de obra qualificada',
+      '/trabalho-qualificacao/mao-de-obra': 'Mão de obra qualificada',
+      '/mao-de-obra-qualificada': 'Mão de obra qualificada',
+      
+      '/trabalho-qualificacao/soft-skills': 'Soft skills',
+      '/soft-skills': 'Soft skills',
+      
+      '/trabalho-qualificacao/ia-futuro-trabalho': 'IA e o futuro do trabalho',
+      '/trabalho-qualificacao/ia-e-o-futuro-do-trabalho': 'IA e o futuro do trabalho',
+      '/ia-futuro-trabalho': 'IA e o futuro do trabalho',
+      '/ia-e-o-futuro-do-trabalho': 'IA e o futuro do trabalho',
+      
+      '/trabalho-qualificacao/automacao': 'Automação',
+      '/automacao': 'Automação',
+
+      '/trabalho-qualificacao': 'Trabalho e Qualificação',
+
+      // Relatório Estratégico
+      '/relatorio-estrategico': 'Relatório Estratégico',
+      '/relatorio': 'Relatório Estratégico',
+    };
+
+    if (customRouteMap[currentPath]) {
+      return customRouteMap[currentPath];
+    }
+
+    if (currentPath === '/perfil-de-consumo') return 'Perfil de Consumo';
+    if (currentPath === '/jornada-de-compra' || currentPath === '/jornada-e-experiencia') return 'Jornada de Compra';
+    if (
+      currentPath === '/varejo-e-canais' || 
+      currentPath === '/varejo-em-transformacao' || 
+      currentPath === '/transformacao-do-varejo' || 
+      currentPath === '/e-commerce' || 
+      currentPath === '/ecommerce'
+    ) return 'Varejo e Canais';
+    if (
+      currentPath === '/produto-e-inovacao' || 
+      currentPath === '/produto-e-valor' || 
+      currentPath === '/tendencias-de-produto' || 
+      currentPath === '/casa-conectada'
+    ) return 'Produto e Inovação';
+    if (currentPath === '/estilos-de-vida' || currentPath === '/transformacoes-sociais') return 'Estilos de Vida';
+
     const match = allNavPages.find(p => pageToPath(p) === currentPath);
     return match || "Home";
   };
@@ -275,7 +559,14 @@ export function StrategicPortal() {
     'Geopolítica & Economia Global': false,
     'Economia Brasileira': false,
     'Tecnologia e Novos Mercados': false,
-    'Cenário Habitacional': false
+    'Cenário Habitacional': false,
+    'Cenário Mercadológico': false,
+    'Meio Ambiente e Clima': false,
+    'ESG': false,
+    'Energia e Infraestrutura': false,
+    'Carreira e Gerações': false,
+    'Ambiente de Trabalho e Bem-Estar': false,
+    'Trabalho e Qualificação': false
   });
 
   // Auto-expandir grupo e subgrupo pai quando activePage mudar
@@ -458,6 +749,99 @@ export function StrategicPortal() {
         </div>
       );
     }
+    if (page === 'Déficit Habitacional' || page === 'Deficit Habitacional' || page === 'DÉFICIT HABITACIONAL') {
+      return (
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0">Home</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <button onClick={() => setActivePage('Cenário Habitacional')} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer shrink-0">Cenário Habitacional</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-[#0c162c] dark:text-white font-bold shrink-0">Déficit Habitacional</span>
+        </div>
+      );
+    }
+    if ([
+      'Perfil de Consumo', 'Jornada de Compra', 'Jornada e Experiência', 
+      'Varejo e Canais', 'Produto e Inovação', 'Estilos de Vida', 
+      'Transformações Sociais', 'Transformação do Varejo', 'Varejo em Transformação', 
+      'Tendências de Produto', 'Produto e Valor', 'Casa Conectada', 'E-commerce'
+    ].includes(page)) {
+      return (
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0">Home</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-slate-500 dark:text-slate-400 shrink-0">Cenário Mercadológico</span>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-[#0c162c] dark:text-white font-bold shrink-0">{page}</span>
+        </div>
+      );
+    }
+    if (['Fenômenos Climáticos', 'Mudanças Climáticas', 'Aquecimento Global'].includes(page)) {
+      return (
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0">Home</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-slate-500 dark:text-slate-400 shrink-0">Meio Ambiente e Clima</span>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-[#0c162c] dark:text-white font-bold shrink-0">{page}</span>
+        </div>
+      );
+    }
+    if (['Top Empresas ESG', 'Concorrentes ESG'].includes(page)) {
+      return (
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0">Home</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-slate-500 dark:text-slate-400 shrink-0">ESG</span>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-[#0c162c] dark:text-white font-bold shrink-0">{page}</span>
+        </div>
+      );
+    }
+    if (['Energia Renovável', 'Mercado de Carbono', 'Marcos Regulatórios', 'Data Centers (Energia)'].includes(page)) {
+      return (
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0">Home</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-slate-500 dark:text-slate-400 shrink-0">Energia e Infraestrutura</span>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-[#0c162c] dark:text-white font-bold shrink-0">{page === 'Data Centers (Energia)' ? 'Data Centers' : page}</span>
+        </div>
+      );
+    }
+    if (['Perfil das gerações', 'Mudança de carreiras', 'Empreendedorismo', 'Escala 6x1'].includes(page)) {
+      return (
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0">Home</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-slate-500 dark:text-slate-400 shrink-0">Carreira e Gerações</span>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-[#0c162c] dark:text-white font-bold shrink-0">{page}</span>
+        </div>
+      );
+    }
+    if (['Saúde mental no trabalho', 'NR-1', 'Diversidade e inclusão', 'Assédio no ambiente de trabalho'].includes(page)) {
+      return (
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0">Home</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-slate-500 dark:text-slate-400 shrink-0">Ambiente de Trabalho e Bem-Estar</span>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-[#0c162c] dark:text-white font-bold shrink-0">{page}</span>
+        </div>
+      );
+    }
+    if (['Mão de obra qualificada', 'Soft skills', 'IA e o futuro do trabalho', 'Automação'].includes(page)) {
+      return (
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0 cursor-pointer">Home</button>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-slate-500 dark:text-slate-400 shrink-0">Trabalho e Qualificação</span>
+          <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+          <span className="text-[#0c162c] dark:text-white font-bold shrink-0">{page}</span>
+        </div>
+      );
+    }
     return (
       <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm md:text-[15px] font-medium text-slate-500 dark:text-slate-400 overflow-x-auto whitespace-nowrap pb-1 max-w-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <button onClick={() => setActivePage('Home')} className="px-2.5 py-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all font-medium text-xs sm:text-sm active:border-b-[1px] active:translate-y-[2px] shrink-0">Home</button>
@@ -540,6 +924,7 @@ export function StrategicPortal() {
       'Transmissão elétrica': Cable,
       'Infraestrutura urbana': Building2,
       // Economia Brasileira
+      'Cenário Macroeconômico': LineChart,
       'PIB': BarChart3,
       'Exportação': Globe,
       'Investimentos': TrendingUp,
@@ -576,12 +961,33 @@ export function StrategicPortal() {
       // Construção Civil e Habitação
       'Cenário Habitacional': Home,
       'Cenario Habitacional': Home,
+      'Cenário Mercadológico': Store,
+      'Cenario Mercadologico': Store,
+      'Perfil de Consumo': Users,
+      'Jornada de Compra': ShoppingBag,
+      'Jornada e Experiência': ShoppingBag,
+      'Varejo e Canais': Store,
+      'Transformação do Varejo': Store,
+      'Varejo em Transformação': Store,
+      'E-commerce': ShoppingCart,
+      'Produto e Inovação': Lightbulb,
+      'Tendências de Produto': Lightbulb,
+      'Produto e Valor': Lightbulb,
+      'Casa Conectada': Cpu,
+      'Estilos de Vida': Users,
+      'Transformações Sociais': Users,
       'Programas Sociais': Home,
       'Programas sociais': Home,
       'PROGRAMAS SOCIAIS': Home,
       'Mercado imobiliário': Building2,
       'Mercado Imobiliário': Building2,
       'MERCADO IMOBILIÁRIO': Building2,
+      'Déficit Habitacional': Home,
+      'Deficit Habitacional': Home,
+      'DÉFICIT HABITACIONAL': Home,
+      'Lares Unipessoais': User,
+      'Lares unipessoais': User,
+      'LARES UNIPESSOAIS': User,
       'Lançamentos imobiliários': Building,
       'Vendas de imóveis': Banknote,
       'Minha Casa Minha Vida': Home,
@@ -640,6 +1046,33 @@ export function StrategicPortal() {
       // Commodities
       'Commodities e Insumos Globais': Package,
       'Commodities': Coins,
+      // Carreira e Gerações
+      'Perfil das gerações': Users,
+      'Mudança de carreiras': TrendingUp,
+      'Empreendedorismo': Lightbulb,
+      'Escala 6x1': Calendar,
+      // Ambiente de Trabalho e Bem-Estar
+      'Saúde mental no trabalho': HeartPulse,
+      'NR-1': FileText,
+      'Diversidade e inclusão': Users,
+      'Assédio no ambiente de trabalho': ShieldAlert,
+      // Meio Ambiente e Clima
+      'Fenômenos Climáticos': CloudLightning,
+      'Mudanças Climáticas': Thermometer,
+      'Aquecimento Global': Sun,
+      // ESG
+      'Top Empresas ESG': Award,
+      'Concorrentes ESG': Shield,
+      // Energia e Infraestrutura
+      'Energia Renovável': Zap,
+      'Mercado de Carbono': Leaf,
+      'Marcos Regulatórios': Scale,
+      'Data Centers (Energia)': Server,
+      // Trabalho e Qualificação
+      'Mão de obra qualificada': GraduationCap,
+      'Soft skills': Sparkles,
+      'IA e o futuro do trabalho': Brain,
+      'Automação': Cpu,
     };
 
     const IconComponent = icons[child];
@@ -709,6 +1142,14 @@ export function StrategicPortal() {
                   <Home className="w-4 h-4 shrink-0" /> {!isSidebarCollapsed && <span>Home</span>}
                 </div>
                 {!isSidebarCollapsed && <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${activePage === 'Home' ? 'text-blue-500 opacity-100' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1'}`} />}
+              </button>
+            </li>
+            <li>
+              <button onClick={() => setActivePage('Relatório Estratégico')} className={`w-full flex items-center justify-between px-6 py-2.5 text-sm font-medium transition-all group ${activePage === 'Relatório Estratégico' ? 'text-white bg-white/10 border-r-4 border-blue-500' : 'text-slate-400 hover:text-white hover:bg-white/5 active:bg-white/10 cursor-pointer'}`}>
+                <div className="flex items-center gap-3">
+                  <FileText className="w-4 h-4 shrink-0 text-blue-400" /> {!isSidebarCollapsed && <span>Relatório Estratégico</span>}
+                </div>
+                {!isSidebarCollapsed && <ChevronRight className={`w-4 h-4 shrink-0 transition-transform ${activePage === 'Relatório Estratégico' ? 'text-blue-500 opacity-100' : 'opacity-0 group-hover:opacity-100 group-hover:translate-x-1'}`} />}
               </button>
             </li>
             
@@ -798,7 +1239,7 @@ export function StrategicPortal() {
                                     <div className="shrink-0 mt-0.5">
                                       {getSubthemeIcon(childName as string)}
                                     </div>
-                                    <span className="whitespace-normal break-words leading-tight flex-1">{childName as string}</span>
+                                    <span className="whitespace-normal break-words leading-tight flex-1">{getSidebarItemLabel(childName as string)}</span>
                                   </div>
                                 </button>
                                 {isSubGroup && (
@@ -831,7 +1272,7 @@ export function StrategicPortal() {
                                         }`}
                                       >
                                         <div className="w-1.5 h-1.5 rounded-full bg-current shrink-0 opacity-60" />
-                                        <span className="whitespace-normal break-words leading-tight">{subChild}</span>
+                                        <span className="whitespace-normal break-words leading-tight">{getSidebarItemLabel(subChild)}</span>
                                       </button>
                                     </li>
                                   ))}
@@ -1002,10 +1443,12 @@ export function StrategicPortal() {
             } as React.CSSProperties}
           >
             
-            {activePage === 'Home' ? (
+            {activePage === 'Relatório Estratégico' || activePage === 'Relatório Estratégico 2027-2037' ? (
+              <StrategicReportView setActivePage={setActivePage} />
+            ) : activePage === 'Home' ? (
               <HomeView setActivePage={setActivePage} />
-            ) : activePage === 'PIB' ? (
-              <PibView setActivePage={setActivePage} />
+            ) : activePage === 'Cenário Macroeconômico' || activePage === 'PIB' || activePage === 'Inflação' || activePage === 'Juros / Selic' || activePage === 'Taxa de Juros Real' || activePage === 'Câmbio / dólar' ? (
+              <CenarioMacroeconomicoView setActivePage={setActivePage} activePage={activePage} />
             ) : activePage === 'PIB Agropecuária' ? (
               <AgropecuariaView setActivePage={setActivePage} />
             ) : activePage === 'PIB Indústria' ? (
@@ -1020,58 +1463,20 @@ export function StrategicPortal() {
               <ExportacoesView setActivePage={setActivePage} />
             ) : activePage === 'PIB Consumo das Famílias' ? (
               <ConsumoView setActivePage={setActivePage} />
-            ) : activePage === 'Juros / Selic' ? (
-              <JurosView setActivePage={setActivePage} />
-            ) : activePage === 'Taxa de Juros Real' ? (
-              <JurosRealView setActivePage={setActivePage} />
-            ) : activePage === 'Inflação' ? (
-              <InflacaoView setActivePage={setActivePage} />
             ) : activePage === 'Reforma Tributária' || activePage === 'Reforma tributária' || activePage === 'REFORMA TRIBUTÁRIA' ? (
               <ReformaTributariaView setActivePage={setActivePage} />
             ) : activePage === 'Eleições' || activePage === 'Eleicoes' || activePage === 'ELEIÇÕES' || activePage === 'eleicoes' ? (
               <EleicoesView setActivePage={setActivePage} />
             ) : activePage === 'IDH' ? (
               <IdhView setActivePage={setActivePage} />
-            ) : activePage === 'Câmbio / dólar' ? (
-              <CambioView setActivePage={setActivePage} />
-            ) : activePage === 'Confiança do Consumidor' ? (
-              <ConfiancaConsumidorView setActivePage={setActivePage} />
-            ) : activePage === 'Produção da Indústria' ? (
-              <ProducaoIndustriaView setActivePage={setActivePage} />
-            ) : activePage === 'Sondagem Conjuntural' || activePage === 'SONDAGEM CONJUNTURAL' ? (
-              <SondagemConjunturalView setActivePage={setActivePage} />
-            ) : activePage === 'Imposição de Sobretaxas' || activePage === 'IMPOSIÇÃO DE SOBRETAXAS' ? (
-              <ImposicaoSobretaxasView setActivePage={setActivePage} />
-            ) : activePage === 'Balanço Comercial' || activePage === 'BALANÇO COMERCIAL' ? (
-              <BalancoComercialView setActivePage={setActivePage} />
-            ) : activePage === 'Preço de Commodities' || activePage === 'PREÇO DE COMMODITIES' ? (
-              <PrecoCommoditiesView setActivePage={setActivePage} />
-            ) : activePage === 'Indústria do Setor Eletroeletrônico' ? (
-              <IndustriaEletroeletronicoView setActivePage={setActivePage} />
+            ) : activePage === 'Indústria do Setor Eletroeletrônico' || activePage === 'Confiança do Consumidor' || activePage === 'Confiança do consumidor' || activePage === 'Produção da Indústria' || activePage === 'Sondagem Conjuntural' || activePage === 'SONDAGEM CONJUNTURAL' || activePage === 'Imposição de Sobretaxas' || activePage === 'IMPOSIÇÃO DE SOBRETAXAS' || activePage === 'Balanço Comercial' || activePage === 'BALANÇO COMERCIAL' || activePage === 'Preço de Commodities' || activePage === 'PREÇO DE COMMODITIES' ? (
+              <IndustriaEletroeletronicoView setActivePage={setActivePage} activePage={activePage} />
             ) : activePage === 'Emprego e Desemprego' || activePage === 'Emprego e desemprego' || activePage === 'Empregos e Desempregos' || activePage === 'Empregos e Desempregos no Brasil' || activePage === 'Emprego e renda' || activePage === 'Empregos' || activePage === 'Emprego' || activePage === 'Desempregos' || activePage === 'Desemprego' ? (
               <EmpregosDesempregosView setActivePage={setActivePage} activePage={activePage} />
             ) : activePage === 'Rendimento do Brasileiro' || activePage === 'Rendimento' || activePage === 'RENDIMENTO DO BRASILEIRO' ? (
               <RendimentoBrasileiroView setActivePage={setActivePage} />
             ) : activePage === 'Endividamento das Famílias e Empresas' || activePage === 'Endividamento das famílias e empresas' || activePage === 'Endividamento das Famílias' || activePage === 'Endividamento das famílias' || activePage === 'Endividamento das Empresas' || activePage === 'Endividamento das empresas' || activePage === 'Endividamento' || activePage === 'Produção industrial' ? (
               <EndividamentoFamiliasEmpresasView setActivePage={setActivePage} activePage={activePage} />
-            ) : activePage === 'Infraestrutura social inclusiva' ? (
-              <InfraestruturaSocialInclusivaView setActivePage={setActivePage} />
-            ) : activePage === 'Cidades Sustentáveis e Resilientes' ? (
-              <CidadesSustentaveisResilientesView setActivePage={setActivePage} />
-            ) : activePage === 'Transporte Eficiente e Sustentável' ? (
-              <TransporteEficienteSustentavelView setActivePage={setActivePage} />
-            ) : activePage === 'Água para Todos' ? (
-              <AguaParaTodosView setActivePage={setActivePage} />
-            ) : activePage === 'Inclusão Digital e Conectividade' ? (
-              <InclusaoDigitalConectividadeView setActivePage={setActivePage} />
-            ) : activePage === 'Transição e Segurança Energética' ? (
-              <TransicaoSegurancaEnergeticaView setActivePage={setActivePage} />
-            ) : activePage === 'Inovação para a Indústria da Defesa' || activePage === 'Inovacao para a Indústria da Defesa' ? (
-              <InovacaoIndustriaDefesaView setActivePage={setActivePage} />
-            ) : activePage === 'Educação, Ciência e Tecnologia' || activePage === 'Educação, ciência e tecnologia' || activePage === 'Educacao, Ciencia e Tecnologia' ? (
-              <EducacaoCienciaTecnologiaView setActivePage={setActivePage} />
-            ) : activePage === 'Saúde' || activePage === 'Saude' || activePage === 'SAÚDE' ? (
-              <SaudeView setActivePage={setActivePage} />
             ) : activePage === 'Conflitos e Tensões Internacionais' || activePage === 'Conflitos e Tensoes Internacionais' || activePage === 'Geopolítica & Economia Global' || activePage === 'EUA x China' || activePage === 'Rússia x Ucrânia' || activePage === 'Guerra Ucrânia e Rússia' || activePage === 'Guerra Ucrania e Russia' ? (
               <ConflitosTensoesInternacionaisView setActivePage={setActivePage} />
             ) : activePage === 'Economia Mundial' || activePage === 'Economia mundial' || activePage === 'ECONOMIA MUNDIAL' ? (
@@ -1095,12 +1500,78 @@ export function StrategicPortal() {
               <CommoditiesView setActivePage={setActivePage} />
             ) : activePage === 'Cenário Habitacional' || activePage === 'Cenário habitacional' || activePage === 'Cenario Habitacional' || activePage === 'CENÁRIO HABITACIONAL' ? (
               <CenarioHabitacionalView setActivePage={setActivePage} />
-            ) : activePage === 'Programas Sociais' || activePage === 'Programas sociais' || activePage === 'PROGRAMAS SOCIAIS' || activePage === 'Minha Casa Minha Vida' || activePage === 'Programa Reforma Brasil' ? (
+            ) : activePage === 'Cenário Mercadológico' || activePage === 'Cenário mercadológico' || activePage === 'Cenario Mercadologico' || activePage === 'CENÁRIO MERCADOLÓGICO' ? (
+              <CenarioMercadologicoView setActivePage={setActivePage} />
+            ) : activePage === 'Perfil de Consumo' ? (
+              <PerfilConsumoView setActivePage={setActivePage} />
+            ) : activePage === 'Jornada de Compra' || activePage === 'Jornada e Experiência' ? (
+              <JornadaExperienciaView setActivePage={setActivePage} />
+            ) : activePage === 'Varejo e Canais' || activePage === 'Transformação do Varejo' || activePage === 'Varejo em Transformação' || activePage === 'E-commerce' ? (
+              <VarejoCanaisView 
+                setActivePage={setActivePage} 
+                initialTab={location.pathname === '/e-commerce' || location.pathname === '/ecommerce' ? 'ecommerce' : 'varejo'} 
+              />
+            ) : activePage === 'Produto e Inovação' || activePage === 'Tendências de Produto' || activePage === 'Produto e Valor' || activePage === 'Casa Conectada' ? (
+              <ProdutoInovacaoView 
+                setActivePage={setActivePage} 
+                initialTab={location.pathname === '/casa-conectada' ? 'casaconectada' : 'produto'} 
+              />
+            ) : activePage === 'Estilos de Vida' || activePage === 'Transformações Sociais' ? (
+              <TransformacoesSociaisView setActivePage={setActivePage} />
+            ) : activePage === 'Programas Sociais' || activePage === 'Programas sociais' || activePage === 'PROGRAMAS SOCIAIS' || activePage === 'Minha Casa Minha Vida' || activePage === 'Programa Reforma Brasil' || activePage === 'Reforma Casa Brasil' ? (
               <ProgramasSociaisView setActivePage={setActivePage} />
             ) : activePage === 'Mercado Imobiliário' || activePage === 'Mercado imobiliário' || activePage === 'MERCADO IMOBILIÁRIO' || activePage === 'Mercado Imobiliario' || activePage === 'Mercado imobiliario' ? (
               <MercadoImobiliarioView setActivePage={setActivePage} />
+            ) : activePage === 'Déficit Habitacional' || activePage === 'Deficit Habitacional' || activePage === 'DÉFICIT HABITACIONAL' || activePage === 'deficit-habitacional' ? (
+              <DeficitHabitacionalView setActivePage={setActivePage} />
+            ) : activePage === 'Lares Unipessoais' || activePage === 'Lares unipessoais' || activePage === 'LARES UNIPESSOAIS' || activePage === 'lares-unipessoais' ? (
+              <LaresUnipessoaisView setActivePage={setActivePage} />
             ) : activePage === 'Novo PAC' || activePage === 'NOVO PAC' || activePage === 'Novo Pac' || activePage === 'Novo PAC (Original)' ? (
               <NovoPacView setActivePage={setActivePage} />
+            ) : activePage === 'Perfil das gerações' || activePage === 'Carreira e Gerações' || activePage === 'Carreira e gerações' || activePage === 'carreira-geracoes' ? (
+              <PerfilGeracoesView setActivePage={setActivePage} />
+            ) : activePage === 'Mudança de carreiras' ? (
+              <MudancaCarreirasView setActivePage={setActivePage} />
+            ) : activePage === 'Empreendedorismo' ? (
+              <EmpreendedorismoView setActivePage={setActivePage} />
+            ) : activePage === 'Escala 6x1' ? (
+              <Escala6x1View setActivePage={setActivePage} />
+            ) : activePage === 'Saúde mental no trabalho' || activePage === 'Saúde Mental no Trabalho' || activePage === 'Saude mental no trabalho' || activePage === 'Saude Mental no Trabalho' || activePage === 'saude-mental' ? (
+              <SaudeMentalView setActivePage={setActivePage} />
+            ) : activePage === 'NR-1' ? (
+              <Nr1View setActivePage={setActivePage} />
+            ) : activePage === 'Diversidade e inclusão' ? (
+              <DiversidadeInclusaoView setActivePage={setActivePage} />
+            ) : activePage === 'Assédio no ambiente de trabalho' ? (
+              <AssedioTrabalhoView setActivePage={setActivePage} />
+            ) : activePage === 'Fenômenos Climáticos' ? (
+              <FenomenosClimaticosView setActivePage={setActivePage} />
+            ) : activePage === 'Mudanças Climáticas' ? (
+              <MudancasClimaticasView setActivePage={setActivePage} />
+            ) : activePage === 'Aquecimento Global' ? (
+              <AquecimentoGlobalView setActivePage={setActivePage} />
+            ) : activePage === 'Top Empresas ESG' ? (
+              <TopEmpresasEsgView setActivePage={setActivePage} />
+            ) : activePage === 'Concorrentes ESG' ? (
+              <ConcorrentesEsgView setActivePage={setActivePage} />
+            ) : activePage === 'Energia Renovável' ? (
+              <EnergiaRenovavelView setActivePage={setActivePage} />
+            ) : activePage === 'Mercado de Carbono' ? (
+              <MercadoCarbonoView setActivePage={setActivePage} />
+            ) : activePage === 'Marcos Regulatórios' ? (
+              <MarcosRegulatoriosView setActivePage={setActivePage} />
+            ) : activePage === 'Data Centers (Energia)' ? (
+              <DataCentersInfraView setActivePage={setActivePage} />
+            ) : activePage === 'Mão de obra qualificada' ? (
+              <MaoDeObraQualificadaView setActivePage={setActivePage} />
+            ) : activePage === 'Soft skills' ? (
+              <SoftSkillsView setActivePage={setActivePage} />
+            ) : activePage === 'IA e o futuro do trabalho' ? (
+              <IaFuturoTrabalhoView setActivePage={setActivePage} />
+            ) : activePage === 'Automação' ? (
+              <AutomacaoView setActivePage={setActivePage} />
+            ) : activePage === 'Trabalho e Qualificação' ? (
+              <MaoDeObraQualificadaView setActivePage={setActivePage} />
             ) : (
               <div className="flex flex-col gap-4 sm:gap-6">
                 {getBreadcrumb(activePage)}

@@ -177,15 +177,15 @@ export function JurosView({ setActivePage }: JurosViewProps) {
     <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200">
       
       {/* HEADER */}
-      <div className="flex flex-col xl:flex-row gap-6">
-        <div className="w-full xl:w-1/2 2xl:w-5/12 shrink-0">
-            <h1 className="text-[30px] md:text-[34px] font-bold text-slate-900 dark:text-white tracking-tight mb-1 leading-tight">Juros e Política Monetária (Selic)</h1>
+      <div className="flex flex-col gap-6">
+        <div>
+          <h1 className="text-[30px] md:text-[34px] font-bold text-slate-900 dark:text-white tracking-tight mb-1 leading-tight">Juros e Política Monetária (Selic)</h1>
           <p className="text-[17px] text-slate-600 dark:text-slate-400">
             Acompanhamento das decisões do Copom, custo de crédito e impactos na economia.
           </p>
         </div>
 
-        <ResponsiveLayoutContainer minWidth="200px" gap="gap-3" className="flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full items-stretch">
           {/* Card 1 */}
           <HeaderKpiCard
             title={JUROS_DATA.kpis.focus.title}
@@ -218,7 +218,7 @@ export function JurosView({ setActivePage }: JurosViewProps) {
             icon={TrendingUp}
             color="slate"
           />
-        </ResponsiveLayoutContainer>
+        </div>
       </div>
 
       {/* EVIDÊNCIAS DE DESTAQUE (TOP 3) */}
@@ -391,7 +391,7 @@ export function JurosView({ setActivePage }: JurosViewProps) {
       <section id="evidencias" className="scroll-mt-12 relative mt-4">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
            <div>
-              <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">Outras Notícias</h2>
+              <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">EVIDÊNCIAS E FONTES</h2>
            </div>
         </div>
               

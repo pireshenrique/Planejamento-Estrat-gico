@@ -503,7 +503,7 @@ export const DesempregosView: React.FC<DesempregosViewProps> = ({
         <section id="evidencias-outras" className="scroll-mt-12 relative mt-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
              <div>
-                <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">Outras Notícias</h2>
+                <h2 className="text-[13px] font-bold tracking-widest text-slate-900 dark:text-white uppercase mb-2">EVIDÊNCIAS E FONTES</h2>
              </div>
           </div>           
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
