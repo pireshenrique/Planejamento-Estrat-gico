@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const ENERGIA_RENOVAVEL_PAGE: StrategicPageContext = {
   pageId: 'ene-renovavel',
+  portalRouteId: "ene-renovavel",
   pageTitle: 'Energia Renovável',
   theme: 'Energia e Infraestrutura',
   subtheme: 'Energia Renovável e Matriz Elétrica',

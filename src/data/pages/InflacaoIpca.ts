@@ -3,6 +3,7 @@ import { INFLACAO_DATA } from '../economia-brasileira/inflacao';
 
 export const INFLACAO_IPCA_PAGE: StrategicPageContext = {
   pageId: 'eco-inflacao',
+  portalRouteId: "eco-macro",
   pageTitle: 'Inflação / IPCA',
   theme: 'Economia Brasileira',
   subtheme: 'Cenário Macroeconômico',

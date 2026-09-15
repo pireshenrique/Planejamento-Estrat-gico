@@ -6,6 +6,7 @@ const allEvidences = ASIA_TOPICS.flatMap(t => t.evidences || []);
 
 export const GEOPOLITICA_ASIA_PAGE: StrategicPageContext = {
   pageId: 'geo-asia',
+  portalRouteId: "geo-asia",
   pageTitle: 'Geopolítica: Ásia',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'Ásia',

@@ -9,6 +9,7 @@ const kpis = JUROS_REAL_DATA.kpis;
 
 export const JUROS_REAL_PAGE: StrategicPageContext = {
   pageId: 'juros-real',
+  portalRouteId: "eco-macro",
   pageTitle: 'Taxa de Juros Real',
   theme: 'Economia Brasileira',
   subtheme: 'Cenário Macroeconômico',

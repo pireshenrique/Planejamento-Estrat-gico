@@ -8,6 +8,7 @@ import { StrategicPageContext } from './types';
  */
 export const PERFIL_CONSUMO_PAGE: StrategicPageContext = {
   pageId: 'perfil-consumo',
+  portalRouteId: "mer-perfil",
   pageTitle: 'Perfil de Consumo',
   theme: 'Cenário Mercadológico',
   subtheme: 'Perfil de Consumo',

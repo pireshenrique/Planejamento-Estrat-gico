@@ -6,6 +6,7 @@ const pageData = LARES_UNIPESSOAIS_DATA;
 
 export const LARES_UNIPESSOAIS_PAGE: StrategicPageContext = {
   pageId: 'hab-lares-unipessoais',
+  portalRouteId: "hab-lares",
   pageTitle: 'Lares Unipessoais & Imóveis Compactos',
   theme: 'Cenário Habitacional',
   subtheme: 'Lares Unipessoais',

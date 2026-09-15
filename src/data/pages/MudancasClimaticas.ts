@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const MUDANCAS_CLIMATICAS_PAGE: StrategicPageContext = {
   pageId: 'amb-mudancas',
+  portalRouteId: "amb-mudancas",
   pageTitle: 'Mudanças Climáticas',
   theme: 'Meio Ambiente e Clima',
   subtheme: 'Mudanças Climáticas & Emissões',

@@ -9,6 +9,7 @@ import { CHINA_EVIDENCES } from '../evidences/china';
  */
 export const CHINA_PAGE: StrategicPageContext = {
   pageId: 'china',
+  portalRouteId: "geo-asia",
   pageTitle: 'China',
   theme: 'Economia Mundial',
   subtheme: 'China',

@@ -9,6 +9,7 @@ const allEvidences = topics.flatMap(t => t.evidences);
 
 export const COMMODITIES_PAGE: StrategicPageContext = {
   pageId: 'geo-commodities',
+  portalRouteId: "geo-commodities",
   pageTitle: 'Commodities & Insumos Críticos',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'Commodities',

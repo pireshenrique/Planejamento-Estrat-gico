@@ -6,6 +6,7 @@ const allEvidences = AFRICA_TOPICS.flatMap(t => t.evidences || []);
 
 export const GEOPOLITICA_AFRICA_PAGE: StrategicPageContext = {
   pageId: 'geo-africa',
+  portalRouteId: "geo-africa",
   pageTitle: 'Geopolítica: África',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'África',

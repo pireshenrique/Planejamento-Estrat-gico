@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const AQUECIMENTO_GLOBAL_PAGE: StrategicPageContext = {
   pageId: 'amb-aquecimento',
+  portalRouteId: "amb-aquecimento",
   pageTitle: 'Aquecimento Global',
   theme: 'Meio Ambiente e Clima',
   subtheme: 'Aquecimento Global & Temperaturas',

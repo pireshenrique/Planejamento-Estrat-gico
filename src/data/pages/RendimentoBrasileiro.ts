@@ -5,6 +5,7 @@ const kpis = RENDIMENTO_DATA.kpis;
 
 export const RENDIMENTO_BRASILEIRO_PAGE: StrategicPageContext = {
   pageId: 'rendimento-brasileiro',
+  portalRouteId: "eco-rendimento",
   pageTitle: 'Rendimento do Brasileiro',
   theme: 'Economia Brasileira',
   subtheme: 'Rendimento do Brasileiro',

@@ -5,6 +5,7 @@ const emp = ENDIVIDAMENTO_DATA.empresas;
 
 export const ENDIVIDAMENTO_EMPRESAS_PAGE: StrategicPageContext = {
   pageId: 'endividamento-empresas',
+  portalRouteId: "eco-endividamento",
   pageTitle: 'Endividamento das Empresas',
   theme: 'Economia Brasileira',
   subtheme: 'Endividamento',

@@ -3,6 +3,7 @@ import { CAMBIO_DATA } from '../economia-brasileira/cambio';
 
 export const CAMBIO_PAGE: StrategicPageContext = {
   pageId: 'eco-cambio',
+  portalRouteId: "eco-macro",
   pageTitle: 'Câmbio / Dólar',
   theme: 'Economia Brasileira',
   subtheme: 'Cenário Macroeconômico',

@@ -5,6 +5,7 @@ const kpis = JUROS_DATA.kpis;
 
 export const JUROS_SELIC_PAGE: StrategicPageContext = {
   pageId: 'juros-selic',
+  portalRouteId: "eco-macro",
   pageTitle: 'Juros / Selic',
   theme: 'Economia Brasileira',
   subtheme: 'Cenário Macroeconômico',

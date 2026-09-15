@@ -57,6 +57,7 @@ export interface PageSource {
 
 export interface StrategicPageContext {
   pageId: string;
+  portalRouteId: string;
   pageTitle: string;
   theme: string;
   subtheme?: string;

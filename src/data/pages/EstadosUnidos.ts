@@ -8,6 +8,7 @@ import { EUA_EVIDENCES } from '../evidences/eua';
  */
 export const ESTADOS_UNIDOS_PAGE: StrategicPageContext = {
   pageId: 'estados-unidos',
+  portalRouteId: "geo-america-norte",
   pageTitle: 'Estados Unidos',
   theme: 'Economia Mundial',
   subtheme: 'Estados Unidos',

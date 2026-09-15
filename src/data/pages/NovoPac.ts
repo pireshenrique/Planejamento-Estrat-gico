@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const NOVO_PAC_PAGE: StrategicPageContext = {
   pageId: 'eco-pac',
+  portalRouteId: "eco-pac",
   pageTitle: 'Novo PAC',
   theme: 'Economia Brasileira',
   subtheme: 'Novo PAC',

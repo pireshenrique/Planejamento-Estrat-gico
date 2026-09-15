@@ -9,6 +9,7 @@ const allEvidences = topics.flatMap(t => t.evidences);
 
 export const PROGRAMAS_SOCIAIS_PAGE: StrategicPageContext = {
   pageId: 'hab-programas',
+  portalRouteId: "hab-programas",
   pageTitle: 'Programas Sociais & Habitação Popular',
   theme: 'Cenário Habitacional',
   subtheme: 'Programas Sociais',

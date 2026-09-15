@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const MERCADO_CARBONO_PAGE: StrategicPageContext = {
   pageId: 'ene-carbono',
+  portalRouteId: "ene-carbono",
   pageTitle: 'Mercado de Carbono',
   theme: 'Energia e Infraestrutura',
   subtheme: 'Mercado Regulado de Carbono & SBCE',

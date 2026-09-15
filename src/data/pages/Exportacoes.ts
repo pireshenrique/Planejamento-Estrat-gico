@@ -3,6 +3,7 @@ import { EXPORTACOES_EVIDENCES } from '../evidences/exportacoes';
 
 export const EXPORTACOES_PAGE: StrategicPageContext = {
   pageId: 'eco-exportacao',
+  portalRouteId: "eco-exportacao",
   pageTitle: 'Exportações Brasileiras',
   theme: 'Economia Brasileira',
   subtheme: 'Exportação',

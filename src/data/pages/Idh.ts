@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const IDH_PAGE: StrategicPageContext = {
   pageId: 'eco-idh',
+  portalRouteId: "eco-idh",
   pageTitle: 'Índice de Desenvolvimento Humano (IDH)',
   theme: 'Economia Brasileira',
   subtheme: 'IDH',

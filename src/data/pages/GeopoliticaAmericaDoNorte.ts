@@ -6,6 +6,7 @@ const allEvidences = NORTH_AMERICA_TOPICS.flatMap(t => t.evidences || []);
 
 export const GEOPOLITICA_AMERICA_DO_NORTE_PAGE: StrategicPageContext = {
   pageId: 'geo-america-norte',
+  portalRouteId: "geo-america-norte",
   pageTitle: 'Geopolítica: América do Norte',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'América do Norte',

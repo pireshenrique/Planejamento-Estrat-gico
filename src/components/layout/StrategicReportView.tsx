@@ -23,7 +23,9 @@ import {
   Database,
   Download,
   Copy,
-  Check
+  Check,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import {
   getStrategicReportData,
@@ -60,8 +62,78 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
   const [showSourcesModal, setShowSourcesModal] = useState(false);
   const [allSources, setAllSources] = useState<string[]>([]);
 
-  // Modal de auditoria de evidências de uma leitura específica
+  // Modal de fundamentação executiva de uma leitura específica
   const [selectedLeituraAudit, setSelectedLeituraAudit] = useState<LeituraEstrategica | null>(null);
+  const [showTechnicalDetails, setShowTechnicalDetails] = useState(false);
+
+  // Mapeamento confiável de supportingPageId para rota ativa do portal
+  const pageIdToRouteMap: Record<string, string> = {
+    'jornada-compra': 'Jornada de Compra',
+    'perfil-consumo': 'Perfil de Consumo',
+    'eco-macro-pib': 'PIB',
+    'eco-exportacao': 'Exportação',
+    'eco-idh': 'IDH',
+    'eco-pac': 'Novo PAC',
+    'eco-reforma-tributaria': 'Reforma Tributária',
+    'eco-eleicoes': 'Eleições',
+    'endividamento-familias': 'Endividamento das Famílias e Empresas',
+    'endividamento-empresas': 'Endividamento das Famílias e Empresas',
+    'rendimento-brasileiro': 'Rendimento do Brasileiro',
+    'juros-real': 'Taxa de Juros Real',
+    'juros-selic': 'Juros / Selic',
+    'eco-cambio': 'Câmbio / dólar',
+    'eco-emprego': 'Emprego e Desemprego',
+    'eco-inflacao': 'Inflação',
+    'eco-eletroeletronico': 'Indústria do Setor Eletroeletrônico',
+    'hab-deficit': 'Déficit Habitacional',
+    'hab-lares-unipessoais': 'Lares Unipessoais',
+    'hab-mercado': 'Mercado Imobiliário',
+    'hab-programas': 'Programas Sociais',
+    'amb-fenomenos': 'Fenômenos Climáticos',
+    'amb-mudancas': 'Mudanças Climáticas',
+    'amb-aquecimento': 'Aquecimento Global',
+    'ene-renovavel': 'Energia Renovável',
+    'ene-carbono': 'Mercado de Carbono',
+    'ene-marcos': 'Marcos Regulatórios',
+    'ene-datacenters': 'Data Centers (Energia)',
+    'geo-commodities': 'Commodities',
+    'geo-logistica': 'Cenário Logístico',
+    'geo-africa': 'África',
+    'geo-america-norte': 'América do Norte',
+    'geo-america-latina': 'América Latina',
+    'geo-asia': 'Ásia',
+    'geo-conflitos': 'Conflitos e Tensões Internacionais',
+    'geo-economia-mundial': 'Economia Mundial',
+    'geo-europa': 'Europa',
+    'china': 'China',
+    'estados-unidos': 'América do Norte',
+    'casa-conectada': 'Casa Conectada',
+    'ecommerce': 'E-commerce',
+    'tendencias-produto': 'Tendências de Produto',
+    'transformacao-varejo': 'Transformação do Varejo',
+    'transformacoes-sociais': 'Transformações Sociais',
+    'esg-top': 'Top Empresas ESG',
+    'esg-concorrentes': 'Concorrentes ESG',
+    'car-perfil': 'Perfil das gerações',
+    'car-mudanca': 'Mudança de carreiras',
+    'car-empreendedorismo': 'Empreendedorismo',
+    'car-escala': 'Escala 6x1',
+    'tra-saude': 'Saúde mental no trabalho',
+    'tra-nr1': 'NR-1',
+    'tra-diversidade': 'Diversidade e inclusão',
+    'tra-assedio': 'Assédio no ambiente de trabalho',
+    'tq-maodeobra': 'Mão de obra qualificada',
+    'tq-softskills': 'Soft skills',
+    'tq-iafuturo': 'IA e o futuro do trabalho',
+    'tq-automacao': 'Automação'
+  };
+
+  const handleNavigateToPage = (pageId: string, pageTitle?: string) => {
+    if (!setActivePage) return;
+    const targetRoute = pageIdToRouteMap[pageId] || pageTitle || pageId;
+    setSelectedLeituraAudit(null);
+    setActivePage(targetRoute);
+  };
 
   // Modal de detalhes de governança do relatório
   const [showGovernanceModal, setShowGovernanceModal] = useState(false);
@@ -576,14 +648,29 @@ export const PUBLISHED_AT: string | null = ${JSON.stringify(now)};
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setSelectedLeituraAudit(leitura)}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-[#0c162c] dark:text-slate-200 font-semibold text-[11px] transition-colors border border-slate-200 dark:border-slate-700 print:hidden"
-                    title="Auditar evidências documentais que sustentam esta macrotendência"
-                  >
-                    <BookOpen className="w-3.5 h-3.5 text-blue-600" />
-                    <span>Auditar Fundamentação ({leitura.fundamentacao ? leitura.fundamentacao.length : (leitura.evidenceIds?.length || 2)})</span>
-                  </button>
+                  {(() => {
+                    const pagesCount = leitura.supportingPageIds?.length || 0;
+                    const factsCount = leitura.fundamentacao?.length || leitura.supportingFactIds?.length || 0;
+                    const labelText = pagesCount > 0 && factsCount > 0
+                      ? `Ver Fundamentação (${pagesCount} ${pagesCount === 1 ? 'página' : 'páginas'} · ${factsCount} ${factsCount === 1 ? 'fato' : 'fatos'})`
+                      : pagesCount > 0
+                      ? `Ver Fundamentação (${pagesCount} ${pagesCount === 1 ? 'página' : 'páginas'})`
+                      : 'Ver Fundamentação';
+
+                    return (
+                      <button
+                        onClick={() => {
+                          setSelectedLeituraAudit(leitura);
+                          setShowTechnicalDetails(false);
+                        }}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-700 dark:bg-slate-800 dark:hover:bg-slate-700 text-[#0c162c] dark:text-slate-200 font-semibold text-[11px] transition-colors border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-500 cursor-pointer print:hidden"
+                        title="Ver páginas do portal e fatos que fundamentam esta leitura estratégica"
+                      >
+                        <BookOpen className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                        <span>{labelText}</span>
+                      </button>
+                    );
+                  })()}
                 </div>
               </div>
             </article>
@@ -835,139 +922,245 @@ export const PUBLISHED_AT: string | null = ${JSON.stringify(now)};
       </section>
 
       {/* =========================================================================
-          MODAL: AUDITORIA DE RASTREABILIDADE DA LEITURA ESTRATÉGICA (REGRA 20)
+          MODAL: FUNDAMENTAÇÃO EXECUTIVA DA LEITURA ESTRATÉGICA (VER FUNDAMENTAÇÃO)
+          Hierarquia: MACROTENDÊNCIA -> PÁGINA DO PORTAL -> FATO/INDICADOR -> FONTE
           ========================================================================= */}
       {selectedLeituraAudit && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-white dark:bg-[#121c32] w-full max-w-3xl max-h-[85vh] rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden">
-            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/30">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <ShieldCheck className="w-5 h-5 text-blue-600" />
+          <div className="bg-white dark:bg-[#121c32] w-full max-w-3xl max-h-[88vh] rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden">
+            
+            {/* CABEÇALHO EXECUTIVO */}
+            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-start justify-between bg-slate-50/60 dark:bg-slate-800/40">
+              <div className="space-y-1 pr-4">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />
                   <h3 className="text-base font-bold text-[#0c162c] dark:text-white">
-                    Auditoria de Fundamentação
+                    Fundamentação da Análise Estratégica
                   </h3>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-mono font-medium">
-                  {selectedLeituraAudit.id} — {selectedLeituraAudit.titulo}
+                <div className="flex flex-wrap items-center gap-2 text-xs">
+                  <span className="font-semibold text-blue-700 dark:text-blue-300">
+                    {selectedLeituraAudit.id}
+                  </span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
+                  <span className="font-medium text-slate-700 dark:text-slate-200">
+                    {selectedLeituraAudit.titulo}
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 pt-0.5">
+                  Esta leitura estratégica foi consolidada a partir das seguintes páginas e fatos apurados no portal:
                 </p>
               </div>
+
               <button
                 onClick={() => setSelectedLeituraAudit(null)}
-                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600"
+                className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                title="Fechar"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
             
-            <div className="p-4 sm:p-5 overflow-y-auto space-y-6">
+            {/* CORPO DO MODAL — HIERARQUIA EXECUTIVA: PÁGINAS -> FATOS -> FONTES */}
+            <div className="p-4 sm:p-6 overflow-y-auto space-y-6">
               
-              {/* PÁGINAS UTILIZADAS */}
-              {selectedLeituraAudit.supportingPageIds && selectedLeituraAudit.supportingPageIds.length > 0 && (
-                <div className="space-y-3">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                    Páginas Utilizadas
-                  </h4>
-                  <div className="space-y-3">
-                    {selectedLeituraAudit.supportingPageIds.map(pageId => {
-                      const page = strategicPages.find(p => p.pageId === pageId);
-                      if (!page) return null;
-                      
-                      const usedFacts = (page.factualContent || []).filter(f => selectedLeituraAudit.supportingFactIds?.includes(f.id));
-                      
-                      return (
-                        <div key={pageId} className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
-                          <div className="font-bold text-slate-900 dark:text-white text-sm mb-2">{page.pageTitle}</div>
-                          {usedFacts.length > 0 ? (
-                            <div className="space-y-2">
-                              <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Fatos utilizados:</div>
-                              <ul className="space-y-2">
-                                {usedFacts.map(fact => {
-                                  const factSource = (fact as any).source || fact.sourceId;
-                                  return (
-                                    <li key={fact.id} className="text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2 rounded border border-slate-100 dark:border-slate-800/80">
-                                      <span className="block font-medium mb-1">- {fact.statement}</span>
-                                      {factSource && <span className="block text-[10px] text-blue-600 dark:text-blue-400 font-semibold">Fonte: {factSource}</span>}
-                                    </li>
-                                  );
-                                })}
-                              </ul>
+              {/* LISTA DE PÁGINAS DO PORTAL */}
+              <div className="space-y-4">
+                {selectedLeituraAudit.supportingPageIds && selectedLeituraAudit.supportingPageIds.length > 0 ? (
+                  selectedLeituraAudit.supportingPageIds.map(pageId => {
+                    const page = strategicPages.find(p => p.pageId === pageId);
+                    if (!page) return null;
+                    
+                    // Fatos vinculados da página
+                    const usedFacts = (page.factualContent || []).filter(f =>
+                      selectedLeituraAudit.supportingFactIds?.includes(f.id) ||
+                      selectedLeituraAudit.fundamentacao?.some(fun => fun.factId === f.id)
+                    );
+                    
+                    return (
+                      <div
+                        key={pageId}
+                        className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/70 p-4 sm:p-5 shadow-xs space-y-4"
+                      >
+                        {/* CABEÇALHO DA PÁGINA COM AÇÃO DE NAVEGAÇÃO */}
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800/80">
+                          <div className="space-y-0.5">
+                            <div className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                              Página do Portal
                             </div>
-                          ) : (
-                            <div className="text-xs text-slate-500 italic">Análise estrutural da página utilizada como contexto.</div>
+                            <h4 className="text-sm sm:text-base font-bold text-[#0c162c] dark:text-white">
+                              {page.pageTitle}
+                            </h4>
+                          </div>
+
+                          {setActivePage && (
+                            <button
+                              onClick={() => handleNavigateToPage(pageId, page.pageTitle)}
+                              className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/50 dark:hover:bg-blue-900/60 text-blue-700 dark:text-blue-300 font-semibold text-xs transition-colors border border-blue-200 dark:border-blue-800 self-start sm:self-auto cursor-pointer"
+                              title={`Abrir página ${page.pageTitle} no portal`}
+                            >
+                              <span>Ir para página</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
+                            </button>
                           )}
                         </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
 
-              {/* EVIDÊNCIAS VINCULADAS */}
-              {selectedLeituraAudit.evidenceIds && selectedLeituraAudit.evidenceIds.length > 0 && (
-                <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                    Evidências Vinculadas
-                  </h4>
-                  <div className="space-y-2">
-                    {selectedLeituraAudit.evidenceIds.map(evId => {
-                      const ev = allEvs.find(e => e.id === evId);
-                      if (!ev) return null;
-                      return (
-                        <div key={evId} className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-1.5">
-                           <div className="flex items-center justify-between gap-2">
-                             <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px] font-bold text-slate-700 dark:text-slate-300">
-                               ID: {evId}
-                             </span>
-                             <span className="text-[11px] font-semibold text-blue-600 dark:text-blue-400">
-                               {ev.source}
-                             </span>
-                           </div>
-                           <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
-                             {ev.title}
-                           </div>
-                           {ev.url && (
-                             <div className="pt-1">
-                               <a href={ev.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                                 <span>Ver link original da fonte</span>
-                                 <ExternalLink className="w-3 h-3" />
-                               </a>
-                             </div>
-                           )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
+                        {/* FATOS UTILIZADOS DESSA PÁGINA */}
+                        {usedFacts.length > 0 ? (
+                          <div className="space-y-2.5">
+                            <div className="text-[11px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                              Fatos e indicadores utilizados:
+                            </div>
+                            <div className="space-y-2.5">
+                              {usedFacts.map(fact => {
+                                // Resolução de Fonte e Link associado
+                                const sourceItem = page.sources?.find(s => s.id === fact.sourceId);
+                                const evidenceItem = allEvs.find(e => e.id === fact.evidenceId);
+                                const sourceName = sourceItem?.name || (fact as any).source || fact.sourceId;
+                                const originalUrl = sourceItem?.url || evidenceItem?.url;
 
-              {/* FONTES INSTITUCIONAIS */}
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
-                  Fontes Declaradas
-                </h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {selectedLeituraAudit.sourceIds?.map((s, idx) => (
-                    <span
-                      key={idx}
-                      className="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 font-medium text-[11px] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                  {(!selectedLeituraAudit.sourceIds || selectedLeituraAudit.sourceIds.length === 0) && (
-                    <span className="text-xs text-slate-500 italic">Fontes herdadas das páginas/evidências acima.</span>
+                                return (
+                                  <div
+                                    key={fact.id}
+                                    className="p-3 sm:p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-800 space-y-2"
+                                  >
+                                    <div className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 font-medium leading-relaxed">
+                                      {fact.statement}
+                                    </div>
+
+                                    {/* FONTE E LINK INTEGRADOS DIRETAMENTE AO FATO */}
+                                    <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px]">
+                                      <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+                                        <span className="font-semibold text-slate-500 dark:text-slate-400">Fonte:</span>
+                                        <span className="font-bold text-[#0c162c] dark:text-slate-200">{sourceName}</span>
+                                      </div>
+
+                                      {originalUrl && (
+                                        <a
+                                          href={originalUrl}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+                                        >
+                                          <span>Link original</span>
+                                          <ExternalLink className="w-3 h-3" />
+                                        </a>
+                                      )}
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 italic">
+                            O diagnóstico e a conjuntura estrutural desta página foram utilizados como suporte de contexto para esta leitura.
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/40 text-xs text-slate-500 dark:text-slate-400">
+                    Nenhuma página cadastrada para esta leitura.
+                  </div>
+                )}
+              </div>
+
+              {/* DETALHES TÉCNICOS (RETRÁTIL/ACCORDION PARA NÃO POLUIR A VISÃO EXECUTIVA) */}
+              <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+                <button
+                  onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
+                  className="flex items-center justify-between w-full p-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 text-xs font-semibold text-slate-600 dark:text-slate-400 transition-colors"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Database className="w-3.5 h-3.5 text-slate-400" />
+                    <span>Detalhes técnicos e rastreabilidade cadastrada</span>
+                  </span>
+                  {showTechnicalDetails ? (
+                    <ChevronUp className="w-4 h-4 text-slate-400" />
+                  ) : (
+                    <ChevronDown className="w-4 h-4 text-slate-400" />
                   )}
-                </div>
+                </button>
+
+                {showTechnicalDetails && (
+                  <div className="mt-3 p-4 rounded-lg bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3 animate-in fade-in duration-150 text-xs font-mono">
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                        Páginas Cadastradas (supportingPageIds):
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedLeituraAudit.supportingPageIds?.map(pid => (
+                          <span key={pid} className="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px]">
+                            {pid}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                        Fatos Registrados (supportingFactIds):
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {(selectedLeituraAudit.supportingFactIds || []).length > 0 ? (
+                          selectedLeituraAudit.supportingFactIds.map(fid => (
+                            <span key={fid} className="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px]">
+                              {fid}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-[10px] text-slate-400 italic">Nenhum factId isolado</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                        Evidências do Sistema (evidenceIds):
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {(selectedLeituraAudit.evidenceIds || []).length > 0 ? (
+                          selectedLeituraAudit.evidenceIds.map(eid => (
+                            <span key={eid} className="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px]">
+                              {eid}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-[10px] text-slate-400 italic">Nenhum evidenceId isolado</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                        Fontes Declaradas (sourceIds):
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {(selectedLeituraAudit.sourceIds || []).length > 0 ? (
+                          selectedLeituraAudit.sourceIds.map((sid, idx) => (
+                            <span key={idx} className="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px]">
+                              {sid}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-[10px] text-slate-400 italic">Nenhum sourceId isolado</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             
+            {/* RODAPÉ DO MODAL COM BOTÃO FECHAR */}
             <div className="p-3.5 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex justify-end">
               <button
                 onClick={() => setSelectedLeituraAudit(null)}
-                className="px-4 py-1.5 rounded-lg bg-[#0c162c] text-white text-xs font-bold hover:bg-slate-800"
+                className="px-5 py-2 rounded-lg bg-[#0c162c] text-white text-xs font-bold hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors cursor-pointer"
               >
-                Concluir Auditoria
+                Fechar
               </button>
             </div>
           </div>

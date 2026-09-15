@@ -6,6 +6,7 @@ const allEvidences = ECONOMIC_TOPICS.flatMap(t => t.evidences || []);
 
 export const GEOPOLITICA_ECONOMIA_MUNDIAL_PAGE: StrategicPageContext = {
   pageId: 'geo-economia-mundial',
+  portalRouteId: "geo-economia-mundial",
   pageTitle: 'Economia Mundial & Organismos Globais',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'Economia Mundial',

@@ -6,6 +6,7 @@ const allEvidences = LATAM_TOPICS.flatMap(t => t.evidences || []);
 
 export const GEOPOLITICA_AMERICA_LATINA_PAGE: StrategicPageContext = {
   pageId: 'geo-america-latina',
+  portalRouteId: "geo-america-latina",
   pageTitle: 'Geopolítica: América Latina',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'América Latina',

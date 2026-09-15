@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const EletroeletronicoContext: StrategicPageContext = {
   pageId: 'eco-eletroeletronico',
+  portalRouteId: "eco-eletroeletronico",
   pageTitle: 'Indústria do Setor Eletroeletrônico',
   theme: 'Economia Brasileira',
   status: 'analyzable',

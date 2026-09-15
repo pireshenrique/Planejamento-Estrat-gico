@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const FENOMENOS_CLIMATICOS_PAGE: StrategicPageContext = {
   pageId: 'amb-fenomenos',
+  portalRouteId: "amb-fenomenos",
   pageTitle: 'Fenômenos Climáticos',
   theme: 'Meio Ambiente e Clima',
   subtheme: 'Fenômenos Climáticos & El Niño',

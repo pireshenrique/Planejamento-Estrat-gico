@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const MARCOS_REGULATORIOS_PAGE: StrategicPageContext = {
   pageId: 'ene-marcos',
+  portalRouteId: "ene-marcos",
   pageTitle: 'Marcos Regulatórios',
   theme: 'Energia e Infraestrutura',
   subtheme: 'Marcos Regulatórios & Setoriais',

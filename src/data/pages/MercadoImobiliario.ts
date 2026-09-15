@@ -4,6 +4,7 @@ import { extractUniqueSources, toSourceSlug } from './sourceUtils';
 
 export const MERCADO_IMOBILIARIO_PAGE: StrategicPageContext = {
   pageId: 'hab-mercado',
+  portalRouteId: "hab-mercado",
   pageTitle: 'Mercado Imobiliário',
   theme: 'Cenário Habitacional',
   subtheme: 'Mercado Imobiliário',

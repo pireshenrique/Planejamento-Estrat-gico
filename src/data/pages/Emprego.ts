@@ -3,6 +3,7 @@ import { EMPREGOS_DATA } from '../economia-brasileira/emprego';
 
 export const EMPREGO_PAGE: StrategicPageContext = {
   pageId: 'eco-emprego',
+  portalRouteId: "eco-emprego",
   pageTitle: 'Emprego e Desemprego',
   theme: 'Economia Brasileira',
   subtheme: 'Emprego e Desemprego',

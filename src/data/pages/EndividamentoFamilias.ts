@@ -5,6 +5,7 @@ const fam = ENDIVIDAMENTO_DATA.familias;
 
 export const ENDIVIDAMENTO_FAMILIAS_PAGE: StrategicPageContext = {
   pageId: 'endividamento-familias',
+  portalRouteId: "eco-endividamento",
   pageTitle: 'Endividamento das Famílias',
   theme: 'Economia Brasileira',
   subtheme: 'Endividamento',

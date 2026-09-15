@@ -6,6 +6,7 @@ const allEvidences = CONFLICT_TOPICS.flatMap(t => t.evidences || []);
 
 export const GEOPOLITICA_CONFLITOS_PAGE: StrategicPageContext = {
   pageId: 'geo-conflitos',
+  portalRouteId: "geo-conflitos",
   pageTitle: 'Conflitos e Tensões Internacionais',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'Conflitos e Tensões Internacionais',

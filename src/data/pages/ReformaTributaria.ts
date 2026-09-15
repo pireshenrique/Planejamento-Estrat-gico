@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const REFORMA_TRIBUTARIA_PAGE: StrategicPageContext = {
   pageId: 'eco-reforma-tributaria',
+  portalRouteId: "eco-reforma-tributaria",
   pageTitle: 'Reforma Tributária do Consumo',
   theme: 'Economia Brasileira',
   subtheme: 'Reforma Tributária',

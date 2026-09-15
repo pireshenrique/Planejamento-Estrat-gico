@@ -4,6 +4,7 @@ import { extractUniqueSources, toSourceSlug } from './sourceUtils';
 
 export const GEOPOLITICA_EUROPA_PAGE: StrategicPageContext = {
   pageId: 'geo-europa',
+  portalRouteId: "geo-europa",
   pageTitle: 'Geopolítica: Europa & Acordo UE-Mercosul',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'Europa',

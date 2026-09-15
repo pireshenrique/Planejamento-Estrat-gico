@@ -4,6 +4,7 @@ import { extractUniqueSources, toSourceSlug } from './sourceUtils';
 
 export const CENARIO_LOGISTICO_PAGE: StrategicPageContext = {
   pageId: 'geo-logistica',
+  portalRouteId: "geo-logistica",
   pageTitle: 'Cenário Logístico Global',
   theme: 'Geopolítica & Economia Global',
   subtheme: 'Cenário Logístico',

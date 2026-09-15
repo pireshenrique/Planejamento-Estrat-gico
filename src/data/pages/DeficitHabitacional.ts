@@ -4,6 +4,7 @@ import { extractUniqueSources, toSourceSlug } from './sourceUtils';
 
 export const DEFICIT_HABITACIONAL_PAGE: StrategicPageContext = {
   pageId: 'hab-deficit',
+  portalRouteId: "hab-deficit",
   pageTitle: 'Déficit Habitacional',
   theme: 'Cenário Habitacional',
   subtheme: 'Déficit Habitacional',

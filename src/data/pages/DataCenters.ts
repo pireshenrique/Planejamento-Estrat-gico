@@ -2,6 +2,7 @@ import { StrategicPageContext } from './types';
 
 export const DATA_CENTERS_PAGE: StrategicPageContext = {
   pageId: 'ene-datacenters',
+  portalRouteId: "ene-datacenters",
   pageTitle: 'Data Centers & Infraestrutura',
   theme: 'Energia e Infraestrutura',
   subtheme: 'Data Centers, IA & Demanda de Potência',

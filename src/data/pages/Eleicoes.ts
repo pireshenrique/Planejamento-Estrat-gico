@@ -3,6 +3,7 @@ import { ELEICOES_EVIDENCES } from '../evidences/eleicoes';
 
 export const ELEICOES_PAGE: StrategicPageContext = {
   pageId: 'eco-eleicoes',
+  portalRouteId: "eco-eleicoes",
   pageTitle: 'Eleições 2026 — Cenários para o Ambiente de Negócios',
   theme: 'Economia Brasileira',
   subtheme: 'Eleições',

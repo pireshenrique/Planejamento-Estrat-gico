@@ -12,6 +12,7 @@ import { StrategicPageContext } from './types';
  */
 export const JORNADA_COMPRA_PAGE: StrategicPageContext = {
   pageId: 'jornada-compra',
+  portalRouteId: "mer-jornada",
   pageTitle: 'Jornada de Compra',
   theme: 'Cenário Mercadológico',
   subtheme: 'Jornada de Compra',

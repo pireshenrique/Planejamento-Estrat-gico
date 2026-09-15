@@ -8,6 +8,7 @@ import { StrategicPageContext } from './types';
 
 export const CASA_CONECTADA_PAGE: StrategicPageContext = {
   pageId: 'casa-conectada',
+  portalRouteId: "mer-produto",
   pageTitle: 'Casa Conectada',
   theme: 'Cenário Mercadológico',
   subtheme: 'Produto e Inovação',
@@ -21,6 +22,7 @@ export const CASA_CONECTADA_PAGE: StrategicPageContext = {
 
 export const ECOMMERCE_PAGE: StrategicPageContext = {
   pageId: 'ecommerce',
+  portalRouteId: 'mer-varejo',
   pageTitle: 'E-commerce & Digital Retail',
   theme: 'Cenário Mercadológico',
   subtheme: 'Varejo e Canais',
@@ -34,6 +36,7 @@ export const ECOMMERCE_PAGE: StrategicPageContext = {
 
 export const TENDENCIAS_PRODUTO_PAGE: StrategicPageContext = {
   pageId: 'tendencias-produto',
+  portalRouteId: 'mer-produto',
   pageTitle: 'Tendências de Produto',
   theme: 'Cenário Mercadológico',
   subtheme: 'Produto e Inovação',
@@ -47,6 +50,7 @@ export const TENDENCIAS_PRODUTO_PAGE: StrategicPageContext = {
 
 export const TRANSFORMACAO_VAREJO_PAGE: StrategicPageContext = {
   pageId: 'transformacao-varejo',
+  portalRouteId: 'mer-varejo',
   pageTitle: 'Transformação do Varejo',
   theme: 'Cenário Mercadológico',
   subtheme: 'Varejo e Canais',
@@ -60,6 +64,7 @@ export const TRANSFORMACAO_VAREJO_PAGE: StrategicPageContext = {
 
 export const TRANSFORMACOES_SOCIAIS_PAGE: StrategicPageContext = {
   pageId: 'transformacoes-sociais',
+  portalRouteId: 'mer-estilos',
   pageTitle: 'Transformações Sociais',
   theme: 'Cenário Mercadológico',
   subtheme: 'Estilos de Vida',
