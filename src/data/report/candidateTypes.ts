@@ -5,6 +5,8 @@ export interface CandidateFundamentacao {
   factId?: string;
   /** ID de uma evidência existente no portal. */
   evidenceId?: string;
+  /** Fonte descritiva ou institucional (opcional). */
+  source?: string;
 }
 
 export interface StrategicCandidate {
@@ -24,5 +26,6 @@ export interface StrategicCandidate {
   supportingPageIds: string[];
   supportingFactIds: string[];
   evidenceIds: string[];
+  sourceIds?: string[];
   fundamentacao: CandidateFundamentacao[];
 }

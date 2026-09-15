@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ArrowRight, Activity, FileText, MessageSquare, TrendingUp, ChevronRight, AlertTriangle, RefreshCw, Target, Users, DollarSign, Settings, Truck, BarChart2, Megaphone, Lightbulb, Leaf, Globe2, Briefcase, Building, Home, Info, ShieldAlert, Zap, Building2, Cpu, Clock } from 'lucide-react';
 import { ResponsiveContainer } from './ResponsiveContainer';
-import { getStrategicReportData, subscribeToReportUpdates, StrategicReportData } from '../../data/strategicReportState';
+import { getStrategicReportData, StrategicReportData } from '../../data/strategicReportState';
 import { getPortalMetricsSummary, PortalMetricsSummary } from '../../data/portalMetrics';
 import { StrategicChatbot } from './StrategicChatbot';
 
@@ -16,13 +16,6 @@ export function HomeView({ setActivePage }: HomeViewProps) {
   useEffect(() => {
     setReportData(getStrategicReportData());
     setMetrics(getPortalMetricsSummary());
-
-    const unsubscribe = subscribeToReportUpdates((updated) => {
-      setReportData(updated);
-      setMetrics(getPortalMetricsSummary());
-    });
-
-    return () => unsubscribe();
   }, []);
 
   return (
@@ -59,11 +52,11 @@ export function HomeView({ setActivePage }: HomeViewProps) {
                </div>
             </div>
             <div className="shrink-0 flex-1 min-w-[240px] md:max-w-[350px] flex flex-col gap-3.5 sm:gap-5 border-t md:border-t-0 mt-3 md:mt-0 pt-4 md:pt-0 md:border-l border-slate-100 dark:border-slate-800/50 md:pl-6 lg:pl-8 py-1 sm:py-2">
-               <button onClick={() => setActivePage('Relatório Estratégico')} className="bg-gradient-to-r from-blue-600 to-blue-800 text-white flex items-center justify-between px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold hover:from-blue-500 hover:to-blue-700 shadow-md shadow-blue-500/20 border-b-[4px] border-blue-900 transition-all active:border-b-0 active:translate-y-1 w-full">
+               <button onClick={() => setActivePage('Relatório Estratégico')} className="bg-gradient-to-r from-blue-600 to-blue-800 text-white flex items-center justify-between px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold hover:from-blue-500 hover:to-blue-700 shadow-md shadow-blue-500/20 border-b-[4px] border-blue-900 transition-all active:border-b-0 active:translate-y-1 w-full cursor-pointer">
                   Ver relatório completo <ArrowRight className="w-4 h-4 ml-2" />
                </button>
                <div className="grid grid-cols-1 gap-2.5 sm:gap-3.5 pl-1 sm:pl-2">
-                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><Activity className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> {(reportData.leiturasEstrategicas?.length || reportData.macrotendencias?.length || 7)} Macrotendências</div>
+                 <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><Activity className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> {(reportData.leiturasEstrategicas?.length || 0)} Macrotendências</div>
                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> {metrics.subtemasCount} Subtemas</div>
                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><Search className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400 dark:text-slate-400" /></div> {metrics.evidenciasCount.toLocaleString('pt-BR')} Evidências</div>
                  <div className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-[15px] text-slate-700 dark:text-slate-300 font-bold"><div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center"><MessageSquare className="w-3.5 h-3.5 text-slate-400 dark:text-slate-400" /></div> {metrics.fontesCount} Fontes</div>
@@ -99,7 +92,7 @@ export function HomeView({ setActivePage }: HomeViewProps) {
                     </li>
                  ))}
                </ul>
-               <button className="text-xs sm:text-[15px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center gap-2 w-full mt-4 sm:mt-6 py-2 sm:py-2.5 rounded-xl hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-all relative z-10 border-b-[3px] border-emerald-200 dark:border-emerald-800 active:border-b-0 active:translate-y-[3px]">Ver todos <ArrowRight className="w-4 h-4" /></button>
+               <button onClick={() => setActivePage('Relatório Estratégico')} className="text-xs sm:text-[15px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center gap-2 w-full mt-4 sm:mt-6 py-2 sm:py-2.5 rounded-xl hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-all relative z-10 border-b-[3px] border-emerald-200 dark:border-emerald-800 active:border-b-0 active:translate-y-[3px] cursor-pointer">Ver todos <ArrowRight className="w-4 h-4" /></button>
            </div>
 
            {/* RISCOS */}
@@ -121,7 +114,7 @@ export function HomeView({ setActivePage }: HomeViewProps) {
                     </li>
                  ))}
                </ul>
-               <button className="text-xs sm:text-[15px] font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center gap-2 w-full mt-4 sm:mt-6 py-2 sm:py-2.5 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/50 transition-all relative z-10 border-b-[3px] border-rose-200 dark:border-rose-800 active:border-b-0 active:translate-y-[3px]">Ver todos <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" /></button>
+               <button onClick={() => setActivePage('Relatório Estratégico')} className="text-xs sm:text-[15px] font-bold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center gap-2 w-full mt-4 sm:mt-6 py-2 sm:py-2.5 rounded-xl hover:bg-rose-100 dark:hover:bg-rose-900/50 transition-all relative z-10 border-b-[3px] border-rose-200 dark:border-rose-800 active:border-b-0 active:translate-y-[3px] cursor-pointer">Ver todos <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" /></button>
            </div>
 
            {/* TENDÊNCIAS EMERGENTES */}
@@ -143,7 +136,7 @@ export function HomeView({ setActivePage }: HomeViewProps) {
                     </li>
                  ))}
                </ul>
-               <button className="text-xs sm:text-[15px] font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center gap-2 w-full mt-4 sm:mt-6 py-2 sm:py-2.5 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all relative z-10 border-b-[3px] border-blue-200 dark:border-blue-800 active:border-b-0 active:translate-y-[3px]">Ver todos <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" /></button>
+               <button onClick={() => setActivePage('Relatório Estratégico')} className="text-xs sm:text-[15px] font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center gap-2 w-full mt-4 sm:mt-6 py-2 sm:py-2.5 rounded-xl hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-all relative z-10 border-b-[3px] border-blue-200 dark:border-blue-800 active:border-b-0 active:translate-y-[3px] cursor-pointer">Ver todos <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" /></button>
            </div>
 
            {/* TEMAS ESTRATÉGICOS */}
@@ -165,7 +158,7 @@ export function HomeView({ setActivePage }: HomeViewProps) {
                     </li>
                  ))}
                </ul>
-               <button className="text-xs sm:text-[15px] font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center gap-2 w-full mt-4 sm:mt-6 py-2 sm:py-2.5 rounded-xl hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-all relative z-10 border-b-[3px] border-indigo-200 dark:border-indigo-800 active:border-b-0 active:translate-y-[3px]">Ver todos <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" /></button>
+               <button onClick={() => setActivePage('Relatório Estratégico')} className="text-xs sm:text-[15px] font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center gap-2 w-full mt-4 sm:mt-6 py-2 sm:py-2.5 rounded-xl hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-all relative z-10 border-b-[3px] border-indigo-200 dark:border-indigo-800 active:border-b-0 active:translate-y-[3px] cursor-pointer">Ver todos <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" /></button>
            </div>
 
         </ResponsiveContainer>
@@ -179,16 +172,16 @@ export function HomeView({ setActivePage }: HomeViewProps) {
         </div>
         <ResponsiveContainer minWidth="130px" gap="gap-3 sm:gap-4">
           {[
-            { icon: Users, name: 'RH', desc: 'Pessoas, cultura, futuro do trabalho e educação' },
-            { icon: DollarSign, name: 'Finanças', desc: 'Economia, juros, câmbio, inflação e investimentos' },
-            { icon: Settings, name: 'Operações', desc: 'Produtividade, automação e eficiência' },
-            { icon: Truck, name: 'Supply Chain', desc: 'Logística, fornecedores, matérias-primas e geopolítica' },
-            { icon: BarChart2, name: 'Comercial', desc: 'Mercados, clientes, consumo e concorrência' },
-            { icon: Megaphone, name: 'Marketing', desc: 'Tendências de consumo, marcas e comunicação' },
-            { icon: Lightbulb, name: 'P&D', desc: 'Inovação, tecnologias emergentes e produtos' },
-            { icon: Leaf, name: 'Sustentabilidade', desc: 'Meio ambiente, ESG e impacto socioambiental' }
+            { icon: Users, name: 'RH', targetPage: 'Perfil das gerações', desc: 'Pessoas, cultura, futuro do trabalho e educação' },
+            { icon: DollarSign, name: 'Finanças', targetPage: 'Cenário Macroeconômico', desc: 'Economia, juros, câmbio, inflação e investimentos' },
+            { icon: Settings, name: 'Operações', targetPage: 'Indústria do Setor Eletroeletrônico', desc: 'Produtividade, automação e eficiência' },
+            { icon: Truck, name: 'Supply Chain', targetPage: 'Cenário Logístico', desc: 'Logística, fornecedores, matérias-primas e geopolítica' },
+            { icon: BarChart2, name: 'Comercial', targetPage: 'Perfil de Consumo', desc: 'Mercados, clientes, consumo e concorrência' },
+            { icon: Megaphone, name: 'Marketing', targetPage: 'Jornada de Compra', desc: 'Tendências de consumo, marcas e comunicação' },
+            { icon: Lightbulb, name: 'P&D', targetPage: 'Produto e Inovação', desc: 'Inovação, tecnologias emergentes e produtos' },
+            { icon: Leaf, name: 'Sustentabilidade', targetPage: 'Mudanças Climáticas', desc: 'Meio ambiente, ESG e impacto socioambiental' }
           ].map(area => (
-             <button  key={area.name} className="bg-white dark:bg-[#121c32] border border-slate-200 dark:border-slate-700 border-b-[4px] border-b-slate-300 dark:border-b-slate-800 rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center hover:shadow-md hover:border-blue-300 transition-all group h-full hover:-translate-y-1 active:border-b-[1px] active:translate-y-[3px] duration-200">
+             <button key={area.name} onClick={() => setActivePage(area.targetPage)} className="bg-white dark:bg-[#121c32] border border-slate-200 dark:border-slate-700 border-b-[4px] border-b-slate-300 dark:border-b-slate-800 rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center hover:shadow-md hover:border-blue-300 transition-all group h-full hover:-translate-y-1 active:border-b-[1px] active:translate-y-[3px] duration-200 cursor-pointer">
                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/50 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-2.5 sm:mb-4 group-hover:bg-blue-50 dark:bg-blue-500/10 transition-colors">
                   <area.icon className="w-[18px] h-[18px] sm:w-[22px] sm:h-[22px] stroke-[1.5]" />
                </div>
@@ -198,7 +191,7 @@ export function HomeView({ setActivePage }: HomeViewProps) {
           ))}
         </ResponsiveContainer>
         <div className="flex justify-center mt-4 sm:mt-6">
-           <button  className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-[15px] font-bold text-[#0c162c] dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm active:border-b-[1px] active:translate-y-[2px]">
+           <button onClick={() => setActivePage('Relatório Estratégico')} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-[15px] font-bold text-[#0c162c] dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm active:border-b-[1px] active:translate-y-[2px] cursor-pointer">
              Ver todos os temas recomendados para minha área <ArrowRight className="w-4 h-4 ml-2 inline-block" />
            </button>
         </div>
@@ -212,18 +205,18 @@ export function HomeView({ setActivePage }: HomeViewProps) {
         </div>
         <ResponsiveContainer minWidth="180px" gap="gap-3 sm:gap-4">
            {[
-             { icon: Globe2, name: 'Geopolítica', count: '14 subtemas', img: 'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=400&h=300&fit=crop' },
-             { icon: Activity, name: 'Economia Mundial', count: '18 subtemas', img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=400&h=300&fit=crop' },
-             { icon: TrendingUp, name: 'Economia Brasil', count: '16 subtemas', img: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=400&h=300&fit=crop' },
-             { icon: Users, name: 'População e Sociedade', count: '15 subtemas', img: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=400&h=300&fit=crop' },
-             { icon: Cpu, name: 'Ciência e Tecnologia', count: '22 subtemas', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=400&h=300&fit=crop' },
-             { icon: Leaf, name: 'Meio Ambiente', count: '13 subtemas', img: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=400&h=300&fit=crop' },
-             { icon: Building2, name: 'Empresas do Futuro', count: '12 subtemas', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&h=300&fit=crop' },
-             { icon: BarChart2, name: 'Cenário Mercadológico', count: '14 subtemas', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400&h=300&fit=crop' },
-             { icon: Home, name: 'Cenário Habitacional', count: '12 subtemas', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=400&h=300&fit=crop' },
-             { icon: Target, name: 'Mercado da Construção Civil', count: '15 subtemas', img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=400&h=300&fit=crop' },
+             { icon: Globe2, name: 'Geopolítica', count: '8 subtemas', img: 'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=400&h=300&fit=crop' },
+             { icon: Activity, name: 'Economia Mundial', count: '8 subtemas', img: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=400&h=300&fit=crop' },
+             { icon: TrendingUp, name: 'Economia Brasil', count: '10 subtemas', img: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=400&h=300&fit=crop' },
+             { icon: Users, name: 'População e Sociedade', count: '5 subtemas', img: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=400&h=300&fit=crop' },
+             { icon: Cpu, name: 'Ciência e Tecnologia', count: '4 subtemas', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=400&h=300&fit=crop' },
+             { icon: Leaf, name: 'Meio Ambiente', count: '3 subtemas', img: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=400&h=300&fit=crop' },
+             { icon: Building2, name: 'Empresas do Futuro', count: '4 subtemas', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=400&h=300&fit=crop' },
+             { icon: BarChart2, name: 'Cenário Mercadológico', count: '5 subtemas', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=400&h=300&fit=crop' },
+             { icon: Home, name: 'Cenário Habitacional', count: '4 subtemas', img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=400&h=300&fit=crop' },
+             { icon: Target, name: 'Mercado da Construção Civil', count: '4 subtemas', img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=400&h=300&fit=crop' },
            ].map((macro, idx) => (
-             <button key={idx} onClick={() => setActivePage(macro.name)} className="bg-white dark:bg-[#121c32] border border-slate-200 dark:border-slate-700 border-b-[4px] border-b-slate-300 dark:border-b-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-blue-300 transition-all group flex flex-col text-left min-h-[140px] sm:min-h-[160px] h-auto hover:-translate-y-1 active:border-b-[1px] active:translate-y-[3px] duration-200">
+             <button key={idx} onClick={() => setActivePage(macro.name)} className="bg-white dark:bg-[#121c32] border border-slate-200 dark:border-slate-700 border-b-[4px] border-b-slate-300 dark:border-b-slate-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-blue-300 transition-all group flex flex-col text-left min-h-[140px] sm:min-h-[160px] h-auto hover:-translate-y-1 active:border-b-[1px] active:translate-y-[3px] duration-200 cursor-pointer">
                <div className="p-3 sm:p-4 bg-white dark:bg-[#121c32] relative z-10 flex-1">
                  <div className="flex items-center gap-2 mb-1 sm:mb-1.5">
                    <macro.icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -239,7 +232,7 @@ export function HomeView({ setActivePage }: HomeViewProps) {
            ))}
         </ResponsiveContainer>
         <div className="flex justify-center mt-4 sm:mt-6">
-           <button  className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-[15px] font-bold text-[#0c162c] dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm active:border-b-[1px] active:translate-y-[2px]">
+           <button onClick={() => setActivePage('Relatório Estratégico')} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-b-[3px] border-b-slate-300 dark:border-b-slate-900 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-[15px] font-bold text-[#0c162c] dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm active:border-b-[1px] active:translate-y-[2px] cursor-pointer">
              Explorar todas as macrotendências <ArrowRight className="w-4 h-4 ml-2 inline-block" />
            </button>
         </div>
@@ -271,9 +264,6 @@ export function HomeView({ setActivePage }: HomeViewProps) {
              </button>
           ))}
         </div>
-        <button  className="hidden sm:flex absolute right-0 top-[60%] -translate-y-1/2 translate-x-4 w-8 h-8 bg-white dark:bg-[#121c32] border border-slate-200 dark:border-slate-700/50 rounded-full items-center justify-center shadow-md text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:group-hover:text-blue-400 z-20 hover:-translate-y-0.5 active:scale-95 hover:shadow-md transition-all duration-200">
-            <ChevronRight className="w-5 h-5" />
-        </button>
       </section>
 
       {/* FOOTER INFO */}

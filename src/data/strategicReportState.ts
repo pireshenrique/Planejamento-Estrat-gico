@@ -217,24 +217,22 @@ export function computeStrategicContextHash(evidences: { id?: string; title: str
   let pagesPart = '';
   if (strategicPages) {
     const pagesData = strategicPages.filter(p => p.status !== 'placeholder').map(p => {
-      return `${p.pageId}|${p.factualContent.map((f: any) => `${f.id}:${f.value}`).join(',')}|${p.existingAnalysis.join(',')}|${p.sources.join(',')}`;
+      const facts = (p.factualContent || []).map((f: any) => `${f.id}:${f.value}:${f.unit}:${f.period}:${f.sourceId}:${f.evidenceId}`);
+      const existingAnalysis = (p.existingAnalysis || []).join(',');
+      const sources = (p.sources || []).map((s: any) => `${s.id}:${s.name}:${s.dateStr}:${s.type}`).join(',');
+      return `${p.pageId}|${p.status}|${facts.join(',')}|${existingAnalysis}|${sources}`;
     }).join('||');
     pagesPart = pagesData;
   }
-
   if ((!Array.isArray(evidences) || evidences.length === 0) && !strategicPages?.length) {
     return 'EV-0-EMPTY';
   }
-
-  // Filtragem rigorosa utilizando a função unificada
   const validEvidences = evidences.filter(isStrategicallyUsableEvidence);
-
   const sortedStrings = (validEvidences
     .map(e => `${e.id || ''}:${(e.title || '').trim().toLowerCase()}:${(e.source || '').trim().toLowerCase()}`)
     .sort()
     .join('|')) + '|PAGES:' + pagesPart;
-
-  // Algoritmo determinístico FNV-1a (32 bits)
+  
   let hash = 0x811c9dc5;
   for (let i = 0; i < sortedStrings.length; i++) {
     hash ^= sortedStrings.charCodeAt(i);
@@ -245,88 +243,10 @@ export function computeStrategicContextHash(evidences: { id?: string; title: str
 }
 
 /**
- * Determina se a sessão atual está em Modo Editorial.
- * Regras:
- * - true se a URL contiver o parâmetro ?editorial=1
- * - ao detectar o parâmetro, grava uma flag em sessionStorage para persistir durante a navegação
- * - sessionStorage (não localStorage): expira ao fechar a aba
- * - se a URL contiver ?editorial=0, limpa a flag
- */
-export function isEditorialMode(): boolean {
-  if (typeof window === 'undefined') return false;
-
-  try {
-    const urlParams = new URLSearchParams(window.location.search);
-    const editorialParam = urlParams.get('editorial');
-
-    if (editorialParam === '1') {
-      sessionStorage.setItem(EDITORIAL_SESSION_KEY, 'true');
-      return true;
-    } else if (editorialParam === '0') {
-      sessionStorage.removeItem(EDITORIAL_SESSION_KEY);
-      return false;
-    }
-
-    return sessionStorage.getItem(EDITORIAL_SESSION_KEY) === 'true';
-  } catch (e) {
-    return false;
-  }
-}
-
-/**
- * Obtém os dados do relatório estratégico atual seguindo a ordem de prioridade:
- * 1. Se estiver em MODO EDITORIAL e existir rascunho em localStorage -> usar o rascunho.
- * 2. Senão, se PUBLISHED_REPORT !== null -> usar PUBLISHED_REPORT.
- * 3. Senão -> INITIAL_REPORT_DATA (vazio).
- *
- * REGRA CRÍTICA:
- * Fora do modo editorial, o localStorage NUNCA é lido.
- * Um usuário comum sempre vê PUBLISHED_REPORT, independentemente do que exista no navegador dele.
+ * Obtém os dados do relatório estratégico atual.
+ * Agora utiliza exclusivamente PUBLISHED_REPORT, eliminando o modo editorial runtime.
  */
 export function getStrategicReportData(): StrategicReportData {
-  if (typeof window === 'undefined') {
-    return PUBLISHED_REPORT || INITIAL_REPORT_DATA;
-  }
-
-  const editorial = isEditorialMode();
-
-  // 1. Se estiver em MODO EDITORIAL e existir rascunho em localStorage -> usar o rascunho
-  if (editorial) {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed) {
-          const leituras = Array.isArray(parsed.leiturasEstrategicas) ? parsed.leiturasEstrategicas : [];
-          
-          const result: StrategicReportData = {
-            ...INITIAL_REPORT_DATA,
-            ...parsed,
-            resumoExecutivo: parsed.resumoExecutivo || INITIAL_REPORT_DATA.resumoExecutivo,
-            governance: parsed.governance || INITIAL_REPORT_DATA.governance,
-            leiturasEstrategicas: leituras,
-            macrotendencias: leituras,
-            riscosConsolidados: Array.isArray(parsed.riscosConsolidados) ? parsed.riscosConsolidados : [],
-            oportunidadesConsolidadas: Array.isArray(parsed.oportunidadesConsolidadas) ? parsed.oportunidadesConsolidadas : [],
-            conexoesEstrategicas: Array.isArray(parsed.conexoesEstrategicas) ? parsed.conexoesEstrategicas : [],
-            implicacoesLorenzetti: Array.isArray(parsed.implicacoesLorenzetti) ? parsed.implicacoesLorenzetti : [],
-            temasMonitoramento: {
-              prioridadeAlta: Array.isArray(parsed.temasMonitoramento?.prioridadeAlta) ? parsed.temasMonitoramento.prioridadeAlta : [],
-              acompanhamento: Array.isArray(parsed.temasMonitoramento?.acompanhamento) ? parsed.temasMonitoramento.acompanhamento : [],
-              sinaisEmergentes: Array.isArray(parsed.temasMonitoramento?.sinaisEmergentes) ? parsed.temasMonitoramento.sinaisEmergentes : [],
-            },
-            principaisFontes: Array.isArray(parsed.principaisFontes) ? parsed.principaisFontes : []
-          };
-          
-          return result;
-        }
-      }
-    } catch (e) {
-      console.warn('Erro ao ler rascunho do localStorage em modo editorial:', e);
-    }
-  }
-
-  // 2. Senão, se PUBLISHED_REPORT !== null -> usar PUBLISHED_REPORT
   if (PUBLISHED_REPORT !== null) {
     const leituras = Array.isArray(PUBLISHED_REPORT.leiturasEstrategicas) ? PUBLISHED_REPORT.leiturasEstrategicas : [];
     return {
@@ -348,58 +268,5 @@ export function getStrategicReportData(): StrategicReportData {
       principaisFontes: Array.isArray(PUBLISHED_REPORT.principaisFontes) ? PUBLISHED_REPORT.principaisFontes : []
     };
   }
-
-  // 3. Senão -> INITIAL_REPORT_DATA (vazio)
   return INITIAL_REPORT_DATA;
-}
-
-/**
- * Salva os dados atualizados do relatório estratégico e notifica os componentes inscritos.
- * REGRA: Funciona apenas em modo editorial. Fora dele, não grava nada no navegador.
- */
-export function saveStrategicReportData(data: StrategicReportData): void {
-  if (typeof window === 'undefined') return;
-
-  // Fora do modo editorial, a função não deve gravar nada.
-  if (!isEditorialMode()) {
-    return;
-  }
-
-  try {
-    const enriched = {
-      ...data,
-      macrotendencias: Array.isArray(data.leiturasEstrategicas) ? data.leiturasEstrategicas : []
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(enriched));
-    window.dispatchEvent(new CustomEvent(REPORT_UPDATED_EVENT, { detail: enriched }));
-  } catch (e) {
-    console.error('Erro ao salvar rascunho no localStorage:', e);
-  }
-}
-
-/**
- * Hook ou listener helper para manter HomeView e StrategicReportView sincronizados
- */
-export function subscribeToReportUpdates(callback: (data: StrategicReportData) => void): () => void {
-  if (typeof window === 'undefined') return () => {};
-
-  const handler = (e: Event) => {
-    const custom = e as CustomEvent<StrategicReportData>;
-    if (custom.detail) {
-      callback(custom.detail);
-    } else {
-      callback(getStrategicReportData());
-    }
-  };
-
-  window.addEventListener(REPORT_UPDATED_EVENT, handler);
-  window.addEventListener('storage', (e) => {
-    if (e.key === STORAGE_KEY) {
-      callback(getStrategicReportData());
-    }
-  });
-
-  return () => {
-    window.removeEventListener(REPORT_UPDATED_EVENT, handler);
-  };
 }

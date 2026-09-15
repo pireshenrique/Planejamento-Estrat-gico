@@ -29,16 +29,13 @@ import {
 } from 'lucide-react';
 import {
   getStrategicReportData,
-  saveStrategicReportData,
-  subscribeToReportUpdates,
   StrategicReportData,
   LeituraEstrategica,
   computeStrategicContextHash,
   isStrategicallyUsableEvidence,
-  isEditorialMode
 } from '../../data/strategicReportState';
 import { getPortalMetricsSummary, getAllSystemEvidences, SystemEvidenceItem } from '../../data/portalMetrics';
-import { getStrategicPagesContext } from '../../data/pages/strategicPagesRegistry';
+import { getStrategicPagesContext, getAllStrategicPages } from '../../data/pages/strategicPagesRegistry';
 
 interface StrategicReportViewProps {
   setActivePage?: (page: string) => void;
@@ -46,14 +43,7 @@ interface StrategicReportViewProps {
 
 export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setActivePage }) => {
   const [reportData, setReportData] = useState<StrategicReportData>(getStrategicReportData());
-  const [isEditorial, setIsEditorial] = useState<boolean>(isEditorialMode());
-  const [isUpdating, setIsUpdating] = useState(false);
-  const [updateFeedback, setUpdateFeedback] = useState<{
-    type: 'success' | 'info' | 'error';
-    message: string;
-    allowForce?: boolean;
-  } | null>(null);
-
+      
   // Fonte de dados de evidências e páginas do sistema
   const allEvs = React.useMemo(() => getAllSystemEvidences(), []);
   const strategicPages = React.useMemo(() => getStrategicPagesContext(), []);
@@ -66,67 +56,42 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
   const [selectedLeituraAudit, setSelectedLeituraAudit] = useState<LeituraEstrategica | null>(null);
   const [showTechnicalDetails, setShowTechnicalDetails] = useState(false);
 
-  // Mapeamento confiável de supportingPageId para rota ativa do portal
-  const pageIdToRouteMap: Record<string, string> = {
-    'jornada-compra': 'Jornada de Compra',
-    'perfil-consumo': 'Perfil de Consumo',
-    'eco-macro-pib': 'PIB',
-    'eco-exportacao': 'Exportação',
-    'eco-idh': 'IDH',
-    'eco-pac': 'Novo PAC',
-    'eco-reforma-tributaria': 'Reforma Tributária',
-    'eco-eleicoes': 'Eleições',
-    'endividamento-familias': 'Endividamento das Famílias e Empresas',
-    'endividamento-empresas': 'Endividamento das Famílias e Empresas',
-    'rendimento-brasileiro': 'Rendimento do Brasileiro',
-    'juros-real': 'Taxa de Juros Real',
-    'juros-selic': 'Juros / Selic',
-    'eco-cambio': 'Câmbio / dólar',
-    'eco-emprego': 'Emprego e Desemprego',
-    'eco-inflacao': 'Inflação',
-    'eco-eletroeletronico': 'Indústria do Setor Eletroeletrônico',
-    'hab-deficit': 'Déficit Habitacional',
-    'hab-lares-unipessoais': 'Lares Unipessoais',
-    'hab-mercado': 'Mercado Imobiliário',
-    'hab-programas': 'Programas Sociais',
-    'amb-fenomenos': 'Fenômenos Climáticos',
-    'amb-mudancas': 'Mudanças Climáticas',
-    'amb-aquecimento': 'Aquecimento Global',
-    'ene-renovavel': 'Energia Renovável',
-    'ene-carbono': 'Mercado de Carbono',
-    'ene-marcos': 'Marcos Regulatórios',
-    'ene-datacenters': 'Data Centers (Energia)',
-    'geo-commodities': 'Commodities',
-    'geo-logistica': 'Cenário Logístico',
-    'geo-africa': 'África',
-    'geo-america-norte': 'América do Norte',
-    'geo-america-latina': 'América Latina',
-    'geo-asia': 'Ásia',
-    'geo-conflitos': 'Conflitos e Tensões Internacionais',
-    'geo-economia-mundial': 'Economia Mundial',
-    'geo-europa': 'Europa',
-    'china': 'China',
-    'estados-unidos': 'América do Norte',
-    'casa-conectada': 'Casa Conectada',
-    'ecommerce': 'E-commerce',
-    'tendencias-produto': 'Tendências de Produto',
-    'transformacao-varejo': 'Transformação do Varejo',
-    'transformacoes-sociais': 'Transformações Sociais',
-    'esg-top': 'Top Empresas ESG',
-    'esg-concorrentes': 'Concorrentes ESG',
-    'car-perfil': 'Perfil das gerações',
-    'car-mudanca': 'Mudança de carreiras',
-    'car-empreendedorismo': 'Empreendedorismo',
-    'car-escala': 'Escala 6x1',
-    'tra-saude': 'Saúde mental no trabalho',
-    'tra-nr1': 'NR-1',
-    'tra-diversidade': 'Diversidade e inclusão',
-    'tra-assedio': 'Assédio no ambiente de trabalho',
-    'tq-maodeobra': 'Mão de obra qualificada',
-    'tq-softskills': 'Soft skills',
-    'tq-iafuturo': 'IA e o futuro do trabalho',
-    'tq-automacao': 'Automação'
-  };
+  // Mapeamento dinâmico de supportingPageId para rota ativa do portal derivado do registry oficial
+  const pageIdToRouteMap = React.useMemo(() => {
+    const map: Record<string, string> = {
+      'endividamento-familias': 'Endividamento das Famílias e Empresas',
+      'endividamento-empresas': 'Endividamento das Famílias e Empresas',
+      'estados-unidos': 'América do Norte',
+      'ene-datacenters': 'Data Centers (Energia)',
+      'esg-top': 'Top Empresas ESG',
+      'esg-concorrentes': 'Concorrentes ESG',
+      'car-perfil': 'Perfil das gerações',
+      'car-mudanca': 'Mudança de carreiras',
+      'car-empreendedorismo': 'Empreendedorismo',
+      'car-escala': 'Escala 6x1',
+      'tra-saude': 'Saúde mental no trabalho',
+      'tra-nr1': 'NR-1',
+      'tra-diversidade': 'Diversidade e inclusão',
+      'tra-assedio': 'Assédio no ambiente de trabalho',
+      'tq-maodeobra': 'Mão de obra qualificada',
+      'tq-softskills': 'Soft skills',
+      'tq-iafuturo': 'IA e o futuro do trabalho',
+      'tq-automacao': 'Automação'
+    };
+
+    try {
+      getAllStrategicPages().forEach(p => {
+        if (p.pageId) {
+          map[p.pageId] = p.pageTitle || p.portalRouteId || p.pageId;
+        }
+        if (p.portalRouteId && !map[p.portalRouteId]) {
+          map[p.portalRouteId] = p.pageTitle || p.portalRouteId;
+        }
+      });
+    } catch {}
+
+    return map;
+  }, []);
 
   const handleNavigateToPage = (pageId: string, pageTitle?: string) => {
     if (!setActivePage) return;
@@ -139,9 +104,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
   const [showGovernanceModal, setShowGovernanceModal] = useState(false);
 
   // Modal de exportação de relatório publicado
-  const [showExportModal, setShowExportModal] = useState(false);
-  const [copiedExport, setCopiedExport] = useState(false);
-
+    
   // Cache de todas as evidências do sistema para busca rápida por ID
   const [evidenceMap, setEvidenceMap] = useState<Map<string, SystemEvidenceItem>>(new Map());
   const [allEvidencesCount, setAllEvidencesCount] = useState<number>(0);
@@ -149,7 +112,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
   const [currentHash, setCurrentHash] = useState<string>('');
 
   useEffect(() => {
-    setIsEditorial(isEditorialMode());
+    
     const report = getStrategicReportData();
     setReportData(report);
 
@@ -169,199 +132,18 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
     });
     setEvidenceMap(map);
 
-    const unsubscribe = subscribeToReportUpdates((updated) => {
-      setReportData(updated);
-    });
-
-    return () => unsubscribe();
+    
   }, []);
 
-  /**
-   * Gera o conteúdo completo em TypeScript para o arquivo src/data/publishedReport.ts
-   */
-  const getPublishedReportFileContent = () => {
-    const now = new Date().toISOString();
-    return `import { StrategicReportData } from './strategicReportState';
-
-/**
- * RELATÓRIO ESTRATÉGICO PUBLICADO
- *
- * Este arquivo é o relatório oficial exibido a todos os usuários do portal.
- * NÃO é editado à mão e NÃO é gerado em tempo de execução.
- *
- * Fluxo de atualização:
- *   1. abrir o portal em modo editorial (?editorial=1)
- *   2. clicar em "Atualizar análise"
- *   3. revisar o resultado
- *   4. clicar em "Exportar relatório publicado"
- *   5. substituir o conteúdo deste arquivo pelo texto exportado
- *   6. republicar
- *
- * null = nenhum relatório publicado ainda.
- */
-export const PUBLISHED_REPORT: StrategicReportData | null = ${JSON.stringify(reportData, null, 2)};
-
-export const PUBLISHED_AT: string | null = ${JSON.stringify(now)};
-`;
-  };
-
-  const handleCopyExportText = async () => {
-    const content = getPublishedReportFileContent();
-    try {
-      await navigator.clipboard.writeText(content);
-      setCopiedExport(true);
-      setTimeout(() => setCopiedExport(false), 3000);
-    } catch (err) {
-      console.error('Falha ao copiar texto do relatório:', err);
-    }
-  };
-
-  const handleDownloadExportFile = () => {
-    const content = getPublishedReportFileContent();
-    const blob = new Blob([content], { type: 'text/typescript;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'publishedReport.ts';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  };
-
+  
+  
   /**
    * Atualização com Governança das Evidências (Regras 18 a 34):
    * - Verifica hash da base (detecta se mudou).
    * - Se inalterado, não recalcula arbitrariamente.
    * - Se forçado ou com novos dados, faz atualização incremental preservando IDs existentes.
    */
-  const handleUpdateAnalysis = async (force: boolean = false) => {
-    if (isUpdating) return;
-    setIsUpdating(true);
-    setUpdateFeedback(null);
-
-    const today = new Date();
-    const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const year = today.getFullYear();
-    const formattedDate = `${day}/${month}/${year}`;
-
-    const allEvs = getAllSystemEvidences();
-    const strategicPages = getStrategicPagesContext();
-    const hash = computeStrategicContextHash(allEvs, strategicPages);
-    const previousHash = reportData.governance?.evidenceHash;
-
-    try {
-      const res = await fetch('/api/strategic-report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'update',
-          force,
-          currentEvidenceHash: hash,
-          previousEvidenceHash: previousHash,
-          previousReport: reportData,
-          totalEvidencias: allEvs.length,
-          strategicPages: strategicPages,
-          evidencesCatalog: allEvs.map((e) => ({
-            id: e.id || '',
-            title: e.title,
-            source: e.source,
-            url: e.url,
-            topic: e.topic,
-            summary: e.summary,
-            headline: e.headline,
-            dateStr: e.dateStr,
-            verified: e.verified,
-            normalizedSource: e.normalizedSource
-          }))
-        })
-      });
-
-      const data = await res.json();
-
-      // TRATAMENTO HONESTO DE ERRO (NÃO MASCARAR ERRO COMO SUCESSO)
-      if (data && data.status === 'error') {
-        setUpdateFeedback({
-          type: 'error',
-          message: data.mensagem || 'Não foi possível atualizar a análise. O relatório anterior foi preservado.'
-        });
-        return;
-      }
-
-      // REGRA 26: BASE INALTERADA
-      if (data && data.status === 'unmodified') {
-        setUpdateFeedback({
-          type: 'info',
-          message: `A análise já está atualizada com as informações disponíveis (base de dados inalterada: ${allEvs.length} evidências, assinatura: ${hash}).`,
-          allowForce: true
-        });
-        return;
-      }
-
-      // ATUALIZAÇÃO INCREMENTAL BEM-SUCEDIDA
-      if (data && data.status === 'updated') {
-        const updatedReport: StrategicReportData = {
-          ultimaAnalise: data.dataAnalise || formattedDate,
-          governance: data.governance || {
-            evidenceHash: hash,
-            previousHash: previousHash,
-            totalEvidenciasAnalisadas: allEvs.length,
-            dataVersion: `2026.09.14-v${Date.now()}`,
-            statusGovernança: data.leiturasEstrategicas?.length > 0 ? 'atualizado_incremental' : 'insuficiente',
-            alteracoes: {
-              mantidas: reportData.leiturasEstrategicas.map((l) => l.id),
-              atualizadas: [],
-              novas: [],
-              removidas: []
-            },
-            observacao: 'Análise estratégica incremental validada contra a base de dados.',
-            diagnostico: data.diagnostico
-          },
-          resumoExecutivo: data.resumoExecutivo || reportData.resumoExecutivo,
-          leiturasEstrategicas: Array.isArray(data.leiturasEstrategicas) ? data.leiturasEstrategicas : reportData.leiturasEstrategicas,
-          riscosConsolidados: Array.isArray(data.riscosConsolidados) ? data.riscosConsolidados : reportData.riscosConsolidados,
-          oportunidadesConsolidadas: Array.isArray(data.oportunidadesConsolidadas) ? data.oportunidadesConsolidadas : reportData.oportunidadesConsolidadas,
-          conexoesEstrategicas: Array.isArray(data.conexoesEstrategicas) ? data.conexoesEstrategicas : reportData.conexoesEstrategicas,
-          implicacoesLorenzetti: Array.isArray(data.implicacoesLorenzetti) ? data.implicacoesLorenzetti : reportData.implicacoesLorenzetti,
-          temasMonitoramento: data.temasMonitoramento || reportData.temasMonitoramento,
-          principaisFontes: Array.isArray(data.principaisFontes) ? data.principaisFontes : reportData.principaisFontes,
-          macrotendencias: Array.isArray(data.leiturasEstrategicas) ? data.leiturasEstrategicas : reportData.leiturasEstrategicas
-        };
-
-        saveStrategicReportData(updatedReport);
-        setReportData(updatedReport);
-
-        const alt = data.governance?.alteracoes;
-        const diffDesc = alt
-          ? ` (${alt.mantidas?.length || 0} mantidas, ${alt.atualizadas?.length || 0} refinadas, ${alt.novas?.length || 0} novas)`
-          : '';
-
-        if (data.leiturasEstrategicas?.length === 0) {
-          setUpdateFeedback({
-            type: 'info',
-            message: `Avaliação concluída: nenhuma macrotendência atingiu validação factual suficiente (${formattedDate}).`
-          });
-        } else {
-          setUpdateFeedback({
-            type: 'success',
-            message: `Análise estratégica atualizada incrementalmente com governança factual${diffDesc} (${formattedDate}).`
-          });
-        }
-      } else {
-        throw new Error(data?.detalhe || data?.error || 'Erro na resposta do serviço de análise.');
-      }
-    } catch (err: any) {
-      console.error('Falha ao atualizar relatório estratégico:', err);
-      setUpdateFeedback({
-        type: 'error',
-        message: 'Falha na comunicação com o serviço de inteligência estratégica. O relatório anterior foi preservado.'
-      });
-    } finally {
-      setIsUpdating(false);
-    }
-  };
-
+  
   const handlePrint = () => {
     window.print();
   };
@@ -374,19 +156,7 @@ export const PUBLISHED_AT: string | null = ${JSON.stringify(now)};
       {/* =========================================================================
           INDICADOR VISUAL DISCRETO DO MODO EDITORIAL (REGRA 5)
           ========================================================================= */}
-      {isEditorial && (
-        <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-xl p-3 sm:p-4 text-xs sm:text-sm text-amber-900 dark:text-amber-200 flex items-center justify-between gap-3 shadow-sm print:hidden">
-          <div className="flex items-center gap-2.5 font-medium">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0 animate-pulse" />
-            <span>
-              <strong>Modo editorial ativo</strong> — as alterações não são visíveis para os demais usuários até que o relatório seja exportado e publicado.
-            </span>
-          </div>
-          <span className="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300 font-mono text-[11px] font-bold shrink-0">
-            ?editorial=1
-          </span>
-        </div>
-      )}
+      
 
       {/* =========================================================================
           CABEÇALHO SIMPLES E EXECUTIVO COM GOVERNANÇA INTEGRADA
@@ -441,67 +211,10 @@ export const PUBLISHED_AT: string | null = ${JSON.stringify(now)};
               <span>Imprimir / Salvar PDF</span>
             </button>
 
-            {/* BOTÕES CONDICIONAIS EXCLUSIVOS DO MODO EDITORIAL (REGRAS 3 E 4) */}
-            {isEditorial && (
-              <>
-                <button
-                  onClick={() => setShowExportModal(true)}
-                  className="px-3 py-2 rounded-lg bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 transition-colors shadow-sm"
-                  title="Exporta o relatório atual como código TypeScript para publicação"
-                >
-                  <Download className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                  <span>Exportar relatório publicado</span>
-                </button>
-
-                <button
-                  onClick={() => handleUpdateAnalysis(false)}
-                  disabled={isUpdating}
-                  className="px-3.5 py-2 rounded-lg bg-[#0c162c] hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-2 transition-all shadow-sm disabled:opacity-60"
-                  title="Verifica se há novas evidências e atualiza incrementalmente a análise"
-                >
-                  <RefreshCw className={`w-3.5 h-3.5 ${isUpdating ? 'animate-spin' : ''}`} />
-                  <span>{isUpdating ? 'Verificando...' : 'Atualizar análise'}</span>
-                </button>
-              </>
-            )}
           </div>
         </div>
 
-        {/* FEEDBACK DE ESTABILIDADE E GOVERNANÇA */}
-        {updateFeedback && (
-          <div
-            className={`mt-4 p-3.5 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs border ${
-              updateFeedback.type === 'success'
-                ? 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-200 dark:border-emerald-800'
-                : updateFeedback.type === 'info'
-                ? 'bg-blue-50 text-blue-800 border-blue-200 dark:bg-blue-950/40 dark:text-blue-200 dark:border-blue-800'
-                : 'bg-red-50 text-red-800 border-red-200 dark:bg-red-950/40 dark:text-red-200 dark:border-red-800'
-            }`}
-          >
-            <div className="flex items-start sm:items-center gap-2 font-medium">
-              {updateFeedback.type === 'success' ? (
-                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5 sm:mt-0" />
-              ) : updateFeedback.type === 'info' ? (
-                <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0 mt-0.5 sm:mt-0" />
-              ) : (
-                <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5 sm:mt-0" />
-              )}
-              <span>{updateFeedback.message}</span>
-            </div>
-
-            {updateFeedback.allowForce && (
-              <button
-                onClick={() => handleUpdateAnalysis(true)}
-                disabled={isUpdating}
-                className="px-2.5 py-1 rounded bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-blue-700 dark:text-blue-300 font-bold text-[11px] border border-blue-200 dark:border-blue-700 whitespace-nowrap self-start sm:self-auto transition-colors"
-                title="Executa reavaliação forçada das evidências existentes no sistema"
-              >
-                Forçar reavaliação
-              </button>
-            )}
-          </div>
-        )}
-      </header>
+        </header>
 
       {/* =========================================================================
           1. RESUMO EXECUTIVO
@@ -1340,97 +1053,6 @@ export const PUBLISHED_AT: string | null = ${JSON.stringify(now)};
               >
                 Fechar
               </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* =========================================================================
-          MODAL: EXPORTAR RELATÓRIO PUBLICADO (REGRA 4)
-          ========================================================================= */}
-      {showExportModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="bg-white dark:bg-[#121c32] w-full max-w-3xl max-h-[85vh] rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden">
-            <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-200 dark:border-blue-800">
-                  <Download className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-base font-bold text-[#0c162c] dark:text-white">
-                    Exportar Relatório Publicado
-                  </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                    Gere o código TypeScript para substituir em <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[11px]">src/data/publishedReport.ts</code>
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => setShowExportModal(false)}
-                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="p-4 sm:p-5 overflow-y-auto space-y-4">
-              <div className="bg-slate-50 dark:bg-slate-900/60 p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 space-y-1.5 leading-relaxed">
-                <div className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
-                  Instruções para Publicação Oficial:
-                </div>
-                <ol className="list-decimal pl-4 space-y-1 text-[11px]">
-                  <li>Copie o código gerado abaixo ou baixe o arquivo <code>publishedReport.ts</code>.</li>
-                  <li>Substitua o arquivo em <code>src/data/publishedReport.ts</code> no repositório.</li>
-                  <li>Faça a compilação e deploy — o relatório passará a ser exibido para todos os usuários automaticamente sem depender de <code>localStorage</code>.</li>
-                </ol>
-              </div>
-
-              <div className="space-y-1.5">
-                <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                  <span>Prévia do arquivo gerado ({reportData.leiturasEstrategicas?.length || 0} macrotendências ativas):</span>
-                  <span className="font-mono text-[11px]">src/data/publishedReport.ts</span>
-                </div>
-                <pre className="p-4 rounded-lg bg-slate-900 text-slate-100 font-mono text-xs overflow-x-auto max-h-72 border border-slate-800">
-                  <code>{getPublishedReportFileContent()}</code>
-                </pre>
-              </div>
-            </div>
-
-            <div className="p-3.5 sm:p-4 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
-              <span className="text-[11px] text-slate-500 dark:text-slate-400">
-                {copiedExport ? (
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5" /> Código copiado para a área de transferência!
-                  </span>
-                ) : (
-                  'Pronto para substituição no código.'
-                )}
-              </span>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleCopyExportText}
-                  className="px-3.5 py-2 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 transition-colors shadow-sm"
-                >
-                  {copiedExport ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-slate-500" />}
-                  <span>{copiedExport ? 'Copiado!' : 'Copiar código'}</span>
-                </button>
-
-                <button
-                  onClick={handleDownloadExportFile}
-                  className="px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Baixar publishedReport.ts</span>
-                </button>
-
-                <button
-                  onClick={() => setShowExportModal(false)}
-                  className="px-3.5 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors"
-                >
-                  Fechar
-                </button>
-              </div>
             </div>
           </div>
         </div>

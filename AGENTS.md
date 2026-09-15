@@ -455,7 +455,7 @@ ERRADO:
 ```tsx
 <h3>47,9 pts</h3>
 <p>O índice registrou 47,9 pontos em abril.</p>
-````
+```
 
 CORRETO:
 
@@ -2034,4 +2034,3 @@ E principalmente:
 
 **Preferir poucas leituras bem fundamentadas a muitas leituras genéricas.**
 
-```

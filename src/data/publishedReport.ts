@@ -3,9 +3,9 @@ import { StrategicReportData } from './strategicReportState';
 /**
  * RELATÓRIO ESTRATÉGICO PUBLICADO — PLANEJAMENTO ESTRATÉGICO 2027–2037
  *
- * Versão Oficial Publicada: 2026.09.15.1
+ * Versão Oficial Publicada: 2026.09.15.2
  * Data de Publicação: 15/09/2026
- * Base Analítica: 26 páginas estratégicas, 498 fatos quantificados, 299 evidências validadas.
+ * Base Analítica: 39 páginas estratégicas, 596 fatos quantificados, 299 evidências validadas.
  *
  * Este arquivo é a FONTE ÚNICA DE VERDADE para a página de Relatório Estratégico Consolidado.
  * O conteúdo reflete a síntese das evidências do sistema e é totalmente auditado.
@@ -13,9 +13,9 @@ import { StrategicReportData } from './strategicReportState';
 export const PUBLISHED_REPORT: StrategicReportData | null = {
   "ultimaAnalise": "15/09/2026",
   "governance": {
-    "evidenceHash": "EV-299-4E00A646",
+    "evidenceHash": "EV-299-8B66217D",
     "totalEvidenciasAnalisadas": 299,
-    "dataVersion": "2026.09.15.1",
+    "dataVersion": "2026.09.15.2",
     "alteracoes": {
       "mantidas": [],
       "atualizadas": [],
@@ -24,41 +24,44 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
         "MT-002: Reconfiguração Habitacional Urbana e Expansão de Moradias Compactas",
         "MT-003: Pressão de Custos em Insumos Industriais e Volatilidade Tarifária",
         "MT-004: Integração Comercial com a Ásia e Concorrência de Importados",
-        "MT-005: Digitalização da Jornada do Consumidor e Centralidade da Reputação da Marca"
+        "MT-005: Digitalização da Jornada do Consumidor e Centralidade da Reputação da Marca",
+        "MT-006: Transição Energética, Descarbonização e Pressão sobre a Infraestrutura Elétrica",
+        "MT-007: Reconfiguração Geopolítica Global, Riscos Logísticos e Fragmentação do Comércio"
       ],
       "removidas": []
     },
     "statusGovernança": "auditado",
-    "observacao": "Primeira versão oficial publicada em 15/09/2026. 5 candidatas propostas, 5 validadas com 100% de conformidade com os dados estruturados do portal.",
+    "observacao": "Segunda versão editorial oficial publicada em 15/09/2026. Cobertura ampliada para 7 macrotendências transversais integrando Energia & Infraestrutura, Meio Ambiente & Clima e Geopolítica Global à base existente de Economia, Habitação e Mercado.",
     "diagnostico": {
-      "candidatasPropostas": 5,
-      "candidatasValidadas": 5,
+      "candidatasPropostas": 7,
+      "candidatasValidadas": 7,
       "candidatasRejeitadas": [],
-      "paginasUtilizadas": 26,
-      "fatosDisponiveis": 498,
+      "paginasUtilizadas": 39,
+      "fatosDisponiveis": 596,
       "evidenciasValidas": 299
     },
     "baseAnalitica": {
-      "paginasEstrategicasIdentificadas": 48,
-      "paginasEstruturadas": 26,
-      "paginasAnalisadas": 26,
+      "paginasEstrategicasIdentificadas": 44,
+      "paginasEstruturadas": 39,
+      "paginasAnalisadas": 39,
       "paginasPlaceholder": 5,
-      "paginasNaoEstruturadas": 17,
-      "fatosDisponiveis": 498,
+      "paginasNaoEstruturadas": 0,
+      "fatosDisponiveis": 596,
       "evidenciasValidas": 299,
-      "coberturaPercentual": 60.5
+      "coberturaPercentual": 100
     }
   },
   "resumoExecutivo": {
-    "paragrafo1": "O cenário econômico e concorrencial do Brasil no horizonte 2027–2037 é marcado pela confluência entre restrição orçamentária das famílias, taxas de juros elevadas e expressivo endividamento do consumidor (82,0% com algum tipo de dívida e 29,5% da renda comprometida). Esse ambiente impõe um comportamento de compra crescentemente ponderado, no qual a busca por economia de curto prazo e a durabilidade do produto orientam a decisão final de compra.",
-    "paragrafo2": "No ambiente produtivo e setorial, a indústria de transformação enfrenta volatilidade e encarecimento relevante em insumos metálicos como cobre (+28%) e alumínio (+45%), associados a sobretaxas tarifárias externas que atingem 37,5% acumuladas nos EUA. Concomitantemente, a reconfiguração urbana reflete o avanço acelerado de lares unipessoais (19,5% dos domicílios) e a concentração de novos lançamentos em unidades compactas de até 40 m² (41,1% das intenções das incorporadoras), enquanto a jornada de compra consolida-se em modelo omnicanal orientado à confiança na marca e a avaliações digitais.",
+    "paragrafo1": "O horizonte estratégico 2027–2037 delineia um ambiente de negócios no qual a disciplina financeira das famílias, a verticalização dos centros urbanos e a transição da matriz energética nacional redefinem as prioridades do consumidor brasileiro. Sob juros elevados e expressivo endividamento doméstico, as decisões de compra tornam-se profundamente pragmáticas, favorecendo soluções residenciais e industriais que combinam durabilidade comprovada, facilidade de instalação e economia contínua nas contas de energia e água.",
+    "paragrafo2": "No ambiente produtivo e global, a indústria nacional opera sob a dualidade entre a volatilidade das commodities metálicas essenciais e a reconfiguração das cadeias de comércio com a Ásia e o Ocidente, exigindo contínua engenharia de materiais e governança de suprimentos. Paralelamente, o avanço de moradias compactas em metrópoles e a consolidação de jornadas de compra orientadas pela reputação digital e pelo ecossistema pós-venda demandam produtos inteligentes, adaptados a espaços multifuncionais e alinhados a padrões rigorosos de conformidade técnica e sustentabilidade.",
     "principaisMensagens": [
-      "Famílias com orçamento restrito e crédito caro (Selic em 14,00%) consolidam padrões de consumo defensivos, priorizando durabilidade e custo-benefício comprovado.",
-      "A expansão de lares unipessoais (19,5% do total) e imóveis compactos (41,1% dos lançamentos em até 40 m²) redefine a arquitetura residencial e a especificação de produtos de acabamento.",
-      "Pressões estruturais de custos industriais em cobre (+28%) e alumínio (+45%) demandam engenharia de valor contínua e uso avançado de polímeros técnicos de precisão.",
-      "A concorrência global e as importações asiáticas no setor eletroeletrônico intensificam a disputa de preços, reforçando a relevância de marcas nacionais com assistência técnica e conformidade Inmetro.",
-      "A jornada de compra de materiais tornou-se orientada à informação online (69,7% pesquisam em lojas físicas e 34,0% em e-commerce), onde a reputação digital e avaliações de consumidores definem a conversão.",
-      "A gestão de suprimentos e o monitoramento geopolítico de tarifas externas e rotas de abastecimento permanecem vitais para a competitividade operacional de longo prazo."
+      "Famílias com orçamento comprometido e crédito seletivo consolidam um padrão de consumo defensivo, no qual durabilidade e custo total de uso superam apelos aspiracionais.",
+      "A expansão acelerada de lares unipessoais e apartamentos compactos (até 40 m²) redefine a arquitetura residencial, impulsionando a demanda por soluções otimizadas e de instalação simplificada.",
+      "A volatilidade internacional de commodities metálicas e a imposição de barreiras tarifárias externas exigem contínua inovação em engenharia de polímeros e automação produtiva.",
+      "A expressiva escala industrial asiática intensifica a concorrência no mercado doméstico, reforçando a vantagem competitiva de marcas com ampla rede física de assistência técnica e conformidade regulatória.",
+      "A jornada de compra de materiais tornou-se estruturalmente omnicanal, onde a reputação digital e tutoriais técnicos orientam diretamente a decisão no balcão e no comércio eletrônico.",
+      "A transição energética e o avanço da matriz renovável brasileira (86,8%) ampliam a relevância de equipamentos de alta eficiência hidroenergética e gestão inteligente de potência.",
+      "As tensões geopolíticas internacionais e as incertezas logísticas em rotas marítimas estratégicas reforçam o valor da resiliência fabril local e da gestão preventiva de suprimentos."
     ]
   },
   "leiturasEstrategicas": [
@@ -66,17 +69,17 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
       "id": "MT-001",
       "numero": 1,
       "titulo": "Racionalização do Consumo sob Pressão de Crédito e Endividamento",
-      "sinal": "O percentual de famílias endividadas atinge o nível recorde de 82,0% e a renda comprometida com dívidas alcança 29,5% sob taxa Selic em 14,00%, levando 80% dos consumidores a planejarem suas compras e 66% a buscarem opções de menor preço.",
-      "tendencia": "A restrição orçamentária e os custos de crédito tendem a consolidar uma postura de compra defensiva e altamente racional, em que durabilidade, custo-benefício e menor custo de uso superam apelos puramente aspiracionais.",
+      "sinal": "O endividamento das famílias alcança 82,0% sob taxa Selic em 14,00%, levando a maioria dos consumidores a planejar compras com foco rigoroso em custo-benefício.",
+      "tendencia": "A restrição de crédito e a perda de poder de compra consolidam um padrão de consumo eminentemente defensivo, no qual durabilidade comprovada, facilidade de manutenção e economia na conta de luz e água superam apelos aspiracionais.",
       "riscosLorenzetti": [
-        "Pode gerar migração do mix de vendas em direção a modelos de entrada com menor margem unitária.",
-        "Pode aumentar a pressão de grandes redes varejistas por descontos comerciais e prazos dilatados.",
-        "Pode reduzir o ritmo de reformas residenciais completas e de substituição de itens em perfeito funcionamento."
+        "Pode gerar migração da demanda para linhas de entrada com menor margem unitária.",
+        "Pode aumentar a pressão de redes de varejo por descontos comerciais agressivos e prazos estendidos.",
+        "Pode adiar decisões de reformas residenciais completas e de substituição de produtos em funcionamento."
       ],
       "oportunidadesLorenzetti": [
-        "Pode criar oportunidade para consolidar liderança em linhas com alta percepção de durabilidade e facilidade de reposição.",
-        "Pode valorizar produtos que comprovam economia de água e energia na conta mensal do consumidor.",
-        "Pode favorecer marcas tradicionais percebidas como compras seguras contra o desperdício financeiro."
+        "Pode consolidar a preferência de marca ao destacar durabilidade superior e facilidade de reposição de peças.",
+        "Pode ampliar a atratividade de modelos que comprovam redução direta no consumo doméstico de água e energia elétrica.",
+        "Pode favorecer marcas tradicionais percebidas pelo consumidor como escolhas seguras contra o desperdício financeiro."
       ],
       "impacto": "Alto",
       "horizonte": "Curto a Médio Prazo (2026-2029)",
@@ -97,8 +100,8 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
         "perfil-consumo::indicador::busca-economia"
       ],
       "evidenceIds": [
-        "endividamento-fam-lias::1",
-        "perfil-de-consumo::prioridades-nielseniq-2026"
+        "end-001",
+        "prioridades-nielseniq-2026"
       ],
       "sourceIds": [
         "cnc-peic",
@@ -127,16 +130,17 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
       "id": "MT-002",
       "numero": 2,
       "titulo": "Reconfiguração Habitacional Urbana e Expansão de Moradias Compactas",
-      "sinal": "Os domicílios com apenas um morador passaram de 7,5 milhões em 2012 para mais de 15 milhões em 2025 atingindo 19,5% das residências, enquanto studios e unidades de até 40 m² já concentram 41,1% das intenções de novos lançamentos imobiliários.",
-      "tendencia": "A verticalização urbana e o aumento de lares com menos moradores tendem a reorientar as especificações de construção civil, demandando produtos funcionais, de dimensões enxutas e de instalação ágil adaptados a banheiros e cozinhas compactas.",
+      "sinal": "Os lares de morador único já representam 19,5% dos domicílios no Brasil, enquanto apartamentos compactos e estúdios concentram 41,1% das intenções de novos lançamentos imobiliários.",
+      "tendencia": "A verticalização acelerada dos centros urbanos e a redução do tamanho médio das famílias exigem soluções residenciais projetadas para otimização espacial, fácil instalação e perfeita integração estética em banheiros e cozinhas de metragem reduzida.",
       "riscosLorenzetti": [
-        "Pode gerar perda de competitividade de linhas volumosas ou inadequadas a banheiros com espaço restrito.",
-        "Pode representar risco de maior dependência de compras centralizadas por incorporadoras com pressão agressiva de preços."
+        "Pode gerar perda de atratividade de linhas com dimensões excessivas para ambientes compactos.",
+        "Pode concentrar poder de negociação em grandes incorporadoras imobiliárias com forte pressão por preços.",
+        "Pode intensificar a concorrência em soluções compactas padronizadas para construtoras."
       ],
       "oportunidadesLorenzetti": [
-        "Pode criar oportunidade para o desenvolvimento e destaque de linhas compactas, duchas integradas e metais otimizados para metragens enxutas.",
-        "Pode ampliar parcerias e especificações de projetos diretamente com incorporadoras focadas em unidades compactas e estúdios.",
-        "Pode estimular produtos e soluções com facilidade de instalação e manutenção autônoma voltados a moradores de lares unipessoais."
+        "Pode criar oportunidade para desenhar e destacar duchas, metais e acessórios sob medida para plantas inteligentes de até 40 m².",
+        "Pode fortalecer parcerias de especificação técnica diretamente nos projetos arquitetônicos de incorporadoras imobiliárias.",
+        "Pode estimular produtos ergonômicos e multifuncionais com manutenção acessível ao próprio morador."
       ],
       "impacto": "Médio",
       "horizonte": "Médio a Longo Prazo (2027-2035)",
@@ -155,8 +159,8 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
         "perfil-consumo::perfis-emergentes::pragmaticos-custo-vida"
       ],
       "evidenceIds": [
-        "cen-rio-habitacional::lares-ev-band-morar-sozinho-15mi",
-        "cen-rio-habitacional::lares-ev-exame-lancamentos-compactos-40m2"
+        "lares-ev-band-morar-sozinho-15mi",
+        "lares-ev-exame-lancamentos-compactos-40m2"
       ],
       "sourceIds": [
         "jornal-da-band-ibge-pnad-continua",
@@ -165,7 +169,7 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
       ],
       "fundamentacao": [
         {
-          "afirmacao": "Domicílios com apenas um morador alcançam 19,5% do total de residências brasileiras (mais de 15 milhões em 2025).",
+          "afirmacao": "Domicílios com apenas um morador alcançam 19,5% do total de residências brasileiras.",
           "factId": "hab-lares-unipessoais::factual::unipessoais-participacao",
           "source": "jornal-da-band-ibge-pnad-continua"
         },
@@ -180,24 +184,23 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
       "id": "MT-003",
       "numero": 3,
       "titulo": "Pressão de Custos em Insumos Industriais e Volatilidade Tarifária",
-      "sinal": "O preço do alumínio acumulou alta de 45% e o cobre de 28% entre maio de 2025 e abril de 2026, levando 57% das empresas do setor eletroeletrônico a relatarem pressões de custos e 62% a reajustarem preços finais, sob carga tarifária acumulada de 37,5% nos EUA.",
-      "tendencia": "A volatilidade em commodities metálicas somada a barreiras protecionistas externas tende a pressionar a rentabilidade operacional industrial, exigindo esforços contínuos de engenharia de valor, substituição de insumos e eficiência produtiva.",
+      "sinal": "A forte oscilação de commodities como alumínio e cobre pressiona os custos industriais, enquanto 57% dos fabricantes do setor eletroeletrônico relatam aperto nas margens operacionais sob tarifas externas de 37,5% acumuladas.",
+      "tendencia": "A volatilidade nos mercados globais de matérias-primas e a adoção de barreiras tarifárias externas demandam excelência contínua em engenharia de materiais, substituição técnica e eficiência nos processos fabris para sustentar a competitividade.",
       "riscosLorenzetti": [
-        "Pode aumentar os custos de produção em linhas intensivas em cobre, metais condutores e ligas especiais.",
-        "Pode limitar a capacidade de repasse integral dos aumentos de custos ao varejo diante da fragilidade do consumo das famílias.",
-        "Pode dificultar a competitividade de produtos brasileiros em mercados externos atingidos por tarifas protecionistas elevadas."
+        "Pode elevar os custos de fabricação em categorias intensivas em ligas metálicas e condutores.",
+        "Pode limitar a capacidade de repasse imediato dos custos industriais diante da sensibilidade do varejo.",
+        "Pode criar assimetrias competitivas com concorrentes internacionais que contam com subsídios locais em matérias-primas."
       ],
       "oportunidadesLorenzetti": [
-        "Pode criar oportunidade para acelerar a engenharia de valor e o uso de polímeros avançados em substituição a componentes metálicos caros.",
-        "Pode ampliar a vantagem competitiva de escala industrial frente a competidores menores sem capacidade de gestão de insumos.",
-        "Pode incentivar investimentos em modernização tecnológica e processos fabris de maior eficiência energética."
+        "Pode acelerar projetos de engenharia de valor com substituição de metais por polímeros técnicos de alta engenharia.",
+        "Pode ampliar a vantagem competitiva de escala produtiva e automação em relação a fabricantes menores.",
+        "Pode impulsionar a inovação em processos internos de manufatura com maior eficiência no uso de energia e insumos."
       ],
       "impacto": "Alto",
       "horizonte": "Curto a Médio Prazo (2026-2028)",
       "temasRelacionados": [
         "Economia Brasileira",
-        "Geopolítica & Economia Global",
-        "Economia Mundial"
+        "Geopolítica & Economia Global"
       ],
       "supportingPageIds": [
         "eco-eletroeletronico",
@@ -212,9 +215,8 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
         "eco-eletroeletronico::04-sobretaxas::tarifa-acumulada"
       ],
       "evidenceIds": [
-        "commodities::1",
-        "sobretaxas::pdf-001",
-        "sondagem-conjuntural::1"
+        "sob-001",
+        "pdf-001"
       ],
       "sourceIds": [
         "abinee-decon",
@@ -242,16 +244,17 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
       "id": "MT-004",
       "numero": 4,
       "titulo": "Integração Comercial com a Ásia e Concorrência de Importados",
-      "sinal": "O comércio bilateral entre Brasil e China atingiu US$ 170,8 bilhões com projeção de US$ 74,5 bilhões em importações em 2026 sob crescimento chinês de 5,0%, enquanto o déficit comercial do setor eletroeletrônico brasileiro somou US$ 21,64 bilhões com US$ 25,77 bilhões em importações no primeiro semestre.",
-      "tendencia": "A elevada capacidade industrial asiática tende a sustentar forte fluxo de produtos manufaturados e insumos para o mercado brasileiro, aumentando a concorrência em preços e consolidando a dependência mútua de cadeias de suprimentos globais.",
+      "sinal": "O comércio bilateral entre Brasil e China ultrapassa US$ 170,8 bilhões em fluxo anual, enquanto o setor eletroeletrônico nacional registra expressivo volume de importação de insumos e manufaturados.",
+      "tendencia": "A expressiva escala produtiva asiática mantém fluxo contínuo de itens e componentes ao mercado brasileiro, intensificando a concorrência nos canais de venda e reforçando a necessidade de proteção da cadeia de suprimentos e diferenciação por serviço e conformidade.",
       "riscosLorenzetti": [
-        "Pode aumentar a penetração de produtos importados com preços agressivos em canais digitais e marketplaces.",
-        "Pode expor a cadeia de suprimentos a vulnerabilidades de fretes e prazos de entrega internacionais."
+        "Pode intensificar a pressão competitiva de produtos importados com preços agressivos em marketplaces digitais.",
+        "Pode gerar dependência de componentes eletrônicos essenciais sujeitos a oscilações de frete e suprimento internacional.",
+        "Pode dificultar a competitividade em linhas com baixo índice de diferenciação tecnológica."
       ],
       "oportunidadesLorenzetti": [
-        "Pode criar oportunidade para alavancar a força da marca nacional, rede de assistência técnica física e conformidade técnica no Inmetro.",
-        "Pode favorecer a aquisição competitiva de componentes eletrônicos importados para agregação de tecnologia aos produtos locais.",
-        "Pode permitir ganhos de produtividade através de parcerias e fornecimento estruturado de insumos globais."
+        "Pode alavancar a força da marca nacional, com garantia de assistência técnica presencial e total conformidade Inmetro.",
+        "Pode viabilizar a compra estratégica de semicondutores e sensores globais para agregação de recursos inteligentes aos produtos.",
+        "Pode fortalecer a fidelidade no canal físico pela segurança de fornecimento e pronta entrega aos revendedores."
       ],
       "impacto": "Alto",
       "horizonte": "Médio a Longo Prazo (2026-2032)",
@@ -271,7 +274,8 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
         "eco-eletroeletronico::05-balanco::imp-total"
       ],
       "evidenceIds": [
-        "balan-o-comercial::bal-001"
+        "ev-cn-pib-q2-2026",
+        "ev-cn-estrategia-exportadora-2026"
       ],
       "sourceIds": [
         "agencia-brasil-2026",
@@ -296,16 +300,17 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
       "id": "MT-005",
       "numero": 5,
       "titulo": "Digitalização da Jornada do Consumidor e Centralidade da Reputação da Marca",
-      "sinal": "Nas decisões de compra de materiais, 69,7% dos consumidores utilizam lojas físicas e 34,0% utilizam e-commerce para pesquisar, com 78% atentos a promoções, 70% evitando marcas com reclamações em redes sociais e 60% dando preferência a marcas que oferecem boas experiências, enquanto 53% das indústrias eletroeletrônicas enfrentam vendas abaixo do esperado no mercado interno.",
-      "tendencia": "A decisão de compra de acabamentos e materiais de construção torna-se profundamente informada e omnicanal, onde a presença digital, o suporte técnico pré-compra e a reputação de confiabilidade são decisivos para a escolha nos canais físicos e digitais.",
+      "sinal": "Cerca de 69,7% dos consumidores utilizam lojas físicas e 34,0% utilizam e-commerce na pesquisa de materiais, enquanto 70% evitam marcas com reclamações em redes sociais.",
+      "tendencia": "A jornada de compra de itens de acabamento e instalação consolidou-se em padrão omnicanal, onde o suporte técnico pré-compra, tutoriais de instalação e a confiabilidade das avaliações digitais orientam diretamente a conversão no balcão e no e-commerce.",
       "riscosLorenzetti": [
-        "Pode gerar rejeição de produtos caso haja avaliações negativas de consumidores ou instaladores na internet.",
-        "Pode aumentar a vulnerabilidade de vendas físicas diante da comparação de preços em tempo real durante a visita à loja."
+        "Pode amplificar o impacto de experiências negativas de instalação ou atendimento em redes sociais e plataformas de avaliação.",
+        "Pode aumentar a vulnerabilidade de vendas em lojas físicas diante da consulta instantânea de preços e avaliações no smartphone.",
+        "Pode favorecer marcas nativas digitais com estratégias ágeis de relacionamento direto com o consumidor."
       ],
       "oportunidadesLorenzetti": [
-        "Pode criar oportunidade para disponibilizar conteúdos educativos, guias digitais de instalação e vídeos explicativos para instaladores e consumidores.",
-        "Pode fortalecer a conversão no ponto de venda tradicional alavancando a credibilidade centenária e notas elevadas de satisfação.",
-        "Pode estruturar serviços de suporte técnico e pós-venda que transformem consumidores satisfeitos em promotores ativos da marca."
+        "Pode ampliar a liderança no ponto de venda mediante conteúdos digitais educativos, vídeos de instalação e capacitação técnica de profissionais.",
+        "Pode transformar a reputação centenária de qualidade em diferencial decisivo de conversão no balcão de vendas.",
+        "Pode estruturar ecossistemas de pós-venda que transformem consumidores e instaladores satisfeitos em promotores da marca."
       ],
       "impacto": "Médio",
       "horizonte": "Curto a Médio Prazo (2026-2030)",
@@ -327,8 +332,8 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
         "eco-eletroeletronico::03-sondagem::vendas-abaixo"
       ],
       "evidenceIds": [
-        "perfil-de-consumo::prioridades-sebrae-2026",
-        "sondagem-conjuntural::1"
+        "ev-fundacao-dados-2026",
+        "ev-opinion-box-octadesk-cx-trends-2026"
       ],
       "sourceIds": [
         "fundacao-dados-2026",
@@ -346,165 +351,312 @@ export const PUBLISHED_REPORT: StrategicReportData | null = {
           "afirmacao": "70% evitam comprar ao ver reclamações nas redes sociais e 60% dão preferência a marcas com boas experiências.",
           "factId": "jornada-compra::confianca::reclamacoes-redes",
           "source": "opinion-box-octadesk-cx-2026"
+        }
+      ]
+    },
+    {
+      "id": "MT-006",
+      "numero": 6,
+      "titulo": "Transição Energética, Descarbonização e Pressão sobre a Infraestrutura Elétrica",
+      "sinal": "A matriz elétrica brasileira atinge 86,8% de participação renovável e o país institui o marco legal de comércio de emissões, enquanto o consumo residencial responde por 28,2% da eletricidade nacional.",
+      "tendencia": "A expansão contínua de fontes renováveis somada a exigências regulatórias de sustentabilidade e novas cargas elétricas impulsiona a valorização de soluções eficientes de aquecimento e gestão energética, demandando equipamentos de alta performance que minimizem picos de consumo.",
+      "riscosLorenzetti": [
+        "Pode gerar exigências regulatórias mais estritas sobre eficiência hidroenergética e rotulagem de equipamentos de aquecimento.",
+        "Pode aumentar a sensibilidade do consumidor ao consumo elétrico de aparelhos de banho em momentos de bandeira tarifária elevada.",
+        "Pode exigir investimentos adicionais em adequação fabril a metas de emissões e critérios do mercado de carbono."
+      ],
+      "oportunidadesLorenzetti": [
+        "Pode criar oportunidade para destacar produtos elétricos de alta eficiência com controle inteligente de potência e consumo de água.",
+        "Pode valorizar soluções integradas que combinem aquecimento elétrico e solar com tecnologias de baixo impacto ambiental.",
+        "Pode fortalecer o posicionamento institucional junto a consumidores e parceiros corporativos focados em práticas sustentáveis."
+      ],
+      "impacto": "Alto",
+      "horizonte": "Médio a Longo Prazo (2027-2035)",
+      "temasRelacionados": [
+        "Energia e Infraestrutura",
+        "Meio Ambiente e Clima"
+      ],
+      "supportingPageIds": [
+        "ene-renovavel",
+        "ene-carbono",
+        "amb-mudancas",
+        "ene-datacenters"
+      ],
+      "supportingFactIds": [
+        "ene-renovavel::kpi::brasil-matriz-eletrica-renovavel",
+        "ene-renovavel::distribution::consumo-setor-brasil",
+        "ene-carbono::statement::marco-legal-lei15042",
+        "amb-mudancas::kpi::prejuizo-desastres-2025",
+        "ene-datacenters::kpi::investimentos-transmissao-2035"
+      ],
+      "evidenceIds": [
+        "solar-3tw-global-2026",
+        "renovaveis-carvao-marco-historico"
+      ],
+      "sourceIds": [
+        "epe-ben-2026",
+        "fazenda-sbce-lei15042",
+        "folha-aon-2025",
+        "mme-epe-transmissao-120bi"
+      ],
+      "fundamentacao": [
+        {
+          "afirmacao": "A matriz elétrica brasileira atingiu 86,8% de renovabilidade em 2025 segundo o Balanço Energético Nacional (BEN 2026).",
+          "factId": "ene-renovavel::kpi::brasil-matriz-eletrica-renovavel",
+          "source": "epe-ben-2026"
         },
         {
-          "afirmacao": "53% das empresas do setor eletroeletrônico relatam negócios abaixo do esperado no mercado interno.",
-          "factId": "eco-eletroeletronico::03-sondagem::vendas-abaixo",
-          "source": "abinee-decon"
+          "afirmacao": "O setor residencial responde por 28,2% do consumo elétrico nacional, com forte presença de chuveiros e aquecimento de água.",
+          "factId": "ene-renovavel::distribution::consumo-setor-brasil",
+          "source": "epe-ben-2026"
+        },
+        {
+          "afirmacao": "A Lei nº 15.042/2024 instituiu o Sistema Brasileiro de Comércio de Emissões de Gases de Efeito Estufa (SBCE).",
+          "factId": "ene-carbono::statement::marco-legal-lei15042",
+          "source": "fazenda-sbce-lei15042"
+        }
+      ]
+    },
+    {
+      "id": "MT-007",
+      "numero": 7,
+      "titulo": "Reconfiguração Geopolítica Global, Riscos Logísticos e Fragmentação do Comércio",
+      "sinal": "A economia internacional desacelera para 3,0% em 2026 sob incertezas comerciais, enquanto conflitos geopolíticos e rotas marítimas estratégicas sustentam volatilidade em fretes e insumos.",
+      "tendencia": "A multiplicação de tensões geopolíticas e o aumento de medidas protecionistas entre grandes blocos econômicos reforçam a necessidade de resiliência nas cadeias produtivas, valorizando fornecedores com base industrial local e gestão preventiva de suprimentos.",
+      "riscosLorenzetti": [
+        "Pode acarretar atrasos e elevação de custos de frete internacional no transporte de componentes importados.",
+        "Pode gerar surtos pontuais de escassez ou encarecimento de matérias-primas críticas no mercado internacional.",
+        "Pode impor volatilidade cambial sobre os contratos de compra de suprimentos industriais."
+      ],
+      "oportunidadesLorenzetti": [
+        "Pode reforçar a confiabilidade da produção fabril nacional frente a competidores dependentes de importação acabada.",
+        "Pode estimular o desenvolvimento de fornecedores regionais na América Latina para mitigação de riscos de rotas longas.",
+        "Pode permitir ganhos de mercado em momentos de desabastecimento de concorrentes que operam sem estoques de segurança."
+      ],
+      "impacto": "Alto",
+      "horizonte": "Médio a Longo Prazo (2026-2032)",
+      "temasRelacionados": [
+        "Geopolítica & Economia Global",
+        "Economia Mundial"
+      ],
+      "supportingPageIds": [
+        "geo-conflitos",
+        "geo-logistica",
+        "geo-economia-mundial",
+        "china"
+      ],
+      "supportingFactIds": [
+        "geo-conflitos::ucrania-russia::headline",
+        "cenario-logistico::headline",
+        "geo-economia-mundial::crescimento-global::headline",
+        "china::indicador::pib-china"
+      ],
+      "evidenceIds": [
+        "ev-ur-reuters-01",
+        "logistica-ev-1"
+      ],
+      "sourceIds": [
+        "reuters",
+        "cnn-brasil",
+        "money-times-2026"
+      ],
+      "fundamentacao": [
+        {
+          "afirmacao": "A economia mundial desacelera para 3,0% em 2026 diante do choque de energia e incertezas internacionais.",
+          "factId": "geo-economia-mundial::crescimento-global::headline",
+          "source": "cnn-brasil"
+        },
+        {
+          "afirmacao": "A logística internacional opera com menor previsibilidade decorrente de tensões em rotas marítimas.",
+          "factId": "cenario-logistico::headline",
+          "source": "reuters"
+        },
+        {
+          "afirmacao": "O PIB da China cresceu 5,0% no primeiro trimestre de 2026, impulsionado por manufatura.",
+          "factId": "china::indicador::pib-china",
+          "source": "money-times-2026"
         }
       ]
     }
   ],
   "riscosConsolidados": [
-    "Pode gerar compressão de margens operacionais decorrente da combinação de encarecimento de insumos industriais (cobre +28%, alumínio +45%) e resistência a repasses integrais no varejo.",
-    "Pode aumentar a migração do mix de compras das famílias endividadas (82,0% com dívidas e 29,5% da renda comprometida) para produtos de entrada com menor valor agregado.",
-    "Pode reduzir a competitividade internacional de exportações industriais brasileiras submetidas a sobretaxas unilaterais e barreiras tarifárias externas (até 37,5% acumuladas nos EUA).",
-    "Pode gerar perda de vendas no ponto físico para marcas que não mantiverem presença digital robusta, suporte técnico online e monitoramento ativo de reputação nas redes.",
-    "Pode acarretar vulnerabilidades logísticas e volatilidade de custos fabris decorrentes da dependência concentrada de insumos e componentes eletroeletrônicos importados da Ásia."
+    "Pode gerar compressão de margens operacionais provocada pela volatilidade nos preços de insumos metálicos fundamentais combinada com a sensibilidade do varejo a repasses.",
+    "Pode aumentar a migração da demanda para categorias de entrada com menor valor agregado diante do endividamento persistente das famílias e do crédito seletivo.",
+    "Pode intensificar a pressão concorrencial de produtos importados com preços agressivos em plataformas digitais e marketplaces.",
+    "Pode impor custos e complexidades adicionais de conformidade decorrentes de novas exigências regulatórias sobre eficiência energética e mercado de carbono.",
+    "Pode acarretar vulnerabilidades operacionais e oscilações de custos associadas à dependência de rotas marítimas internacionais e componentes eletrônicos externos.",
+    "Pode amplificar o impacto de experiências negativas de clientes em canais digitais sobre a reputação e a conversão de vendas nos pontos físicos.",
+    "Pode gerar perda de competitividade em linhas que não estejam dimensionadas para as restrições espaciais de banheiros e cozinhas em novos empreendimentos compactos."
   ],
   "oportunidadesConsolidadas": [
-    "Pode consolidar a preferência de marca e fidelização ao valorizar produtos de alta durabilidade, facilidade de reposição e eficiência comprovada de consumo de energia e água.",
-    "Pode criar vantagens competitivas e escala fabril através de engenharia de valor com substituição de metais por polímeros técnicos de alto desempenho e precisão.",
-    "Pode capturar a expansão do mercado de habitações compactas (41,1% das intenções de lançamentos em até 40 m² e 19,5% de domicílios unipessoais) com produtos compactos e multifuncionais.",
-    "Pode fortalecer parcerias comerciais diretas e fornecimento estruturado para construtoras imobiliárias atuantes em habitação econômica e estúdios residenciais urbanos.",
-    "Pode liderar a jornada omnicanal e a preferência no balcão varejista mediante a oferta de tutoriais digitais, suporte a instaladores e garantia de assistência técnica presencial."
+    "Pode consolidar a liderança de mercado ao enfatizar atributos de durabilidade superior, facilidade de substituição de peças e menor custo de manutenção ao longo do ciclo de vida.",
+    "Pode acelerar projetos de engenharia de materiais que substituam ligas metálicas por compósitos poliméricos de alta precisão técnica e menor custo fabril.",
+    "Pode capturar o crescimento dos lançamentos imobiliários compactos mediante o desenvolvimento de produtos integrados sob medida para plantas inteligentes de até 40 m².",
+    "Pode transformar a credibilidade centenária da marca em diferencial decisivo de conversão na jornada omnicanal e no atendimento de assistência técnica presencial.",
+    "Pode fortalecer parcerias estratégicas de fornecimento e especificação técnica diretamente com construtoras e incorporadoras imobiliárias.",
+    "Pode valorizar o portfólio de produtos elétricos e solares de alta eficiência hidroenergética frente à agenda nacional de sustentabilidade e novas exigências ambientais.",
+    "Pode alavancar a confiabilidade do parque fabril nacional para garantir regularidade de abastecimento em momentos de descontinuidade em concorrentes importadores."
   ],
   "conexoesEstrategicas": [
     {
       "temas": [
         "Endividamento das Famílias",
         "Perfil de Consumo",
-        "Juros Selic"
+        "Taxa Básica de Juros"
       ],
-      "insight": "A coexistência de endividamento familiar recorde (82,0%), taxa básica de juros elevada (14,00%) e busca ativa de economia por 66% dos consumidores consolida um comportamento de consumo estritamente utilitário e defensivo, favorecendo soluções que comprovam baixo custo de manutenção e economia na conta de luz e água."
+      "insight": "A conjunção de endividamento familiar elevado, crédito restrito e busca prioritária por economia consolida uma postura de compra eminentemente racional, na qual o consumidor valoriza marcas confiáveis que asseguram menor custo total de posse e eficiência no consumo mensal de água e energia."
     },
     {
       "temas": [
-        "Demografia Habitacional",
+        "Demografia Urbana",
         "Mercado Imobiliário",
         "Perfil de Consumo"
       ],
-      "insight": "A expansão demográfica dos lares unipessoais (19,5% das residências) combinada com a concentração de lançamentos imobiliários compactos (41,1% das intenções em até 40 m²) exige um redimensionamento funcional dos ambientes de banho e cozinha, demandando soluções compactas e de fácil manuseio."
+      "insight": "O aumento vertiginoso de lares com apenas um morador combinado com a predominância de lançamentos compactos nas grandes cidades força a reformulação espacial de banheiros e cozinhas, exigindo componentes ergonômicos, funcionais e de manutenção acessível."
     },
     {
       "temas": [
-        "Indústria Eletroeletrônica",
-        "Commodities Metálicas",
+        "Indústria de Transformação",
+        "Commodities Globais",
         "Comércio Exterior"
       ],
-      "insight": "A pressão de custos decorrente da valorização internacional de matérias-primas essenciais (cobre +28%, alumínio +45%) e barreiras comerciais (sobretaxas nos EUA de até 37,5%) acelera a necessidade de engenharia de materiais e diferenciação técnica para defender margens operacionais sem perder competitividade de preço."
+      "insight": "A oscilação nas cotações de metais industriais e a imposição de sobretaxas internacionais demandam o fortalecimento da engenharia de aplicação e da substituição de matérias-primas por materiais sintéticos avançados, preservando rentabilidade e competitividade."
     },
     {
       "temas": [
-        "Jornada de Compra",
-        "Presença Digital",
-        "Confiança na Marca"
+        "Jornada Omnicanal",
+        "Reputação Digital",
+        "Varejo Físico"
       ],
-      "insight": "A consolidação de jornadas omnicanal (69,7% em lojas físicas e 34,0% em e-commerce) e a aversão a marcas com avaliações negativas (70% evitam compras com reclamações em redes sociais) transformam a reputação digital e a experiência do cliente em critérios decisivos para a conversão de vendas nos canais tradicionais."
+      "insight": "A integração entre a pesquisa online e a compra no ponto de venda transforma a presença digital, o suporte técnico ao instalador e o índice de satisfação em redes sociais em requisitos indispensáveis para sustentar a preferência no balcão tradicional."
+    },
+    {
+      "temas": [
+        "Matriz Elétrica Renovável",
+        "Mercado de Carbono",
+        "Eficiência Energética"
+      ],
+      "insight": "A maturidade da matriz elétrica brasileira e a regulamentação do comércio de emissões ampliam a valorização de tecnologias de aquecimento com controle inteligente de potência, alinhando a eficiência hidroenergética doméstica aos compromissos corporativos de sustentabilidade."
+    },
+    {
+      "temas": [
+        "Geopolítica Global",
+        "Cadeias de Suprimentos",
+        "Produção Local"
+      ],
+      "insight": "As recorrentes instabilidades em rotas logísticas e as disputas comerciais entre potências econômicas aumentam a relevância da manufatura integrada em território nacional, oferecendo previsibilidade de entrega superior frente a competidores dependentes de importação acabada."
     }
   ],
   "implicacoesLorenzetti": [
     {
       "dimensao": "Portfólio e Produtos",
       "implicacoes": [
-        "Pode demandar o desenvolvimento contínuo de linhas compactas e ergonômicas para atender à proliferação de banheiros em imóveis de até 40 m².",
-        "Pode valorizar o destaque de selos de eficiência energética e economia hídrica na comunicação de embalagens para consumidores atentos a custos de uso.",
-        "Pode estimular o aprimoramento de produtos com sistemas modulares de rápida instalação e manutenção simplificada."
+        "Pode demandar o contínuo aperfeiçoamento de linhas ergonômicas e compactas concebidas para banheiros e cozinhas de imóveis com até 40 m².",
+        "Pode valorizar o destaque de selos de eficiência energética e tecnologia de economia hídrica na comunicação de embalagens e materiais promocionais.",
+        "Pode estimular o desenvolvimento de soluções integradas que combinem controles eletrônicos precisos de temperatura com baixo consumo elétrico.",
+        "Pode incentivar a padronização de componentes de fácil reposição pelo próprio consumidor ou instalador autônomo."
       ]
     },
     {
       "dimensao": "Comercial e Canais",
       "implicacoes": [
-        "Pode demandar políticas comerciais estruturadas para atender construtoras e incorporadoras voltadas a unidades compactas e habitação de interesse social.",
-        "Pode exigir estratégias de trade marketing para equilibrar o mix de vendas entre linhas de entrada de alta rotatividade e categorias intermediárias de valor.",
-        "Pode favorecer programas de capacitação e incentivo técnico a balconistas, eletricistas e instaladores hidráulicos no ponto de venda."
+        "Pode requerer atendimento comercial segmentado e parcerias estruturadas com grandes incorporadoras atuantes em studios e habitação de interesse social.",
+        "Pode exigir estratégias de trade marketing que equilibrem a oferta de modelos de entrada com opções de maior valor agregado no ponto de venda.",
+        "Pode favorecer iniciativas de treinamento e capacitação técnica direcionadas a balconistas, eletricistas, encanadores e especificadores de obras."
       ]
     },
     {
       "dimensao": "Indústria e Operações",
       "implicacoes": [
-        "Pode incentivar projetos internos de engenharia de materiais para substituição inteligente de metais condutores caros por compósitos poliméricos de alta performance.",
-        "Pode demandar contínua automação fabril para preservar ganhos de produtividade e mitigar o impacto de custos de matérias-primas nas margens brutas.",
-        "Pode impulsionar a verticalização estratégica de componentes críticos para assegurar previsibilidade de custos fabris."
+        "Pode incentivar a aceleração de programas internos de engenharia de materiais para substituição de ligas metálicas por polímeros técnicos de alto desempenho.",
+        "Pode demandar investimentos contínuos em automação fabril e eficiência nos processos industriais para compensar pressões de custos de insumos.",
+        "Pode impulsionar a gestão de manufatura enxuta com foco na mitigação de perdas materiais e no aproveitamento de sobras de processo."
       ]
     },
     {
       "dimensao": "Suprimentos e Cadeia Global",
       "implicacoes": [
-        "Pode exigir mecanismos sistemáticos de hedge e contratos de longo prazo para mitigar a volatilidade internacional de cobre, alumínio e resinas.",
-        "Pode requerer monitoramento próximo de cadeias logísticas asiáticas para assegurar regularidade no abastecimento de semicondutores e componentes eletrônicos.",
-        "Pode indicar a necessidade de diversificação preventiva de fornecedores em razão de tensões geopolíticas globais e rotas marítimas."
+        "Pode exigir mecanismos sistemáticos de hedge e contratos de fornecimento de longo prazo para gerenciar a volatilidade de commodities críticas.",
+        "Pode demandar a qualificação contínua de fornecedores alternativos na América Latina e no mercado local para reduzir a vulnerabilidade a fretes internacionais.",
+        "Pode requerer o planejamento rigoroso de estoques estratégicos de semicondutores e componentes eletrônicos importados da Ásia."
       ]
     },
     {
-      "dimensao": "Sustentabilidade e Reputação Digital",
+      "dimensao": "Sustentabilidade, Energia e Reputação Digital",
       "implicacoes": [
-        "Pode transformar o monitoramento ativo de avaliações online e canais de relacionamento digital em salvaguarda da conversão no ponto de venda.",
-        "Pode fortalecer a reputação institucional ao associar a marca a práticas comprovadas de durabilidade, circularidade e assistência técnica garantida."
+        "Pode transformar o monitoramento proativo de avaliações digitais e o atendimento pós-venda em instrumentos de proteção da reputação de marca.",
+        "Pode fortalecer o posicionamento institucional em conformidade com as diretrizes do marco legal do mercado de carbono e padrões ESG.",
+        "Pode ampliar o valor de parcerias com instaladores qualificados para assegurar a correta aplicação de produtos energeticamente eficientes."
       ]
     }
   ],
   "temasMonitoramento": {
     "prioridadeAlta": [
-      "Evolução do endividamento das famílias e inadimplência do consumidor (PEIC/CNC e Banco Central).",
-      "Cotações internacionais de commodities metálicas (cobre, alumínio) e resinas plásticas no mercado industrial.",
-      "Ritmo de lançamentos imobiliários compactos e desempenho dos financiamentos de habitação e reformas (SBPE e MCMV)."
+      "Indicadores de endividamento, comprometimento de renda e inadimplência das famílias (PEIC/CNC e Banco Central).",
+      "Cotações globais e tarifas de importação de insumos metálicos (cobre, alumínio) e resinas plásticas de engenharia.",
+      "Ritmo de lançamentos imobiliários de unidades compactas e contratações de crédito habitacional nos principais centros urbanos."
     ],
     "acompanhamento": [
-      "Trajetória da taxa básica de juros Selic e custos de crédito parcelado para bens duráveis.",
-      "Tarifas de comércio exterior, sobretaxas unilaterais e fluxo de importações eletroeletrônicas asiáticas.",
-      "Sondagens conjunturais de produção, estoques e confiança da indústria de transformação e do setor eletroeletrônico."
+      "Trajetória da taxa Selic, juros reais e spreads bancários para financiamento de bens duráveis e reformas.",
+      "Regulamentações do Sistema Brasileiro de Comércio de Emissões (SBCE) e metas de eficiência energética para edificações.",
+      "Sondagens conjunturais de produção, estoques e nível de confiança na indústria de transformação e no setor eletroeletrônico."
     ],
     "sinaisEmergentes": [
-      "Avanço de plataformas de apostas eletrônicas e seu impacto concorrente sobre o orçamento disponível das famílias.",
-      "Tendências de comportamento das novas microgerações em relação a reparos residenciais e busca por soluções do tipo \"faça você mesmo\".",
-      "Novas regulamentações técnicas e padrões de eficiência hidroenergética para edificações urbanas."
+      "Avanço de plataformas de apostas eletrônicas e seu impacto sobre a renda disponível e o consumo familiar discricionário.",
+      "Comportamento das novas gerações em relação à contratação de serviços residenciais versus tendência de reparos autônomos.",
+      "Incentivos à atração de infraestrutura de data centers de inteligência artificial e seu impacto sobre a demanda de energia elétrica."
     ]
   },
   "principaisFontes": [
     {
       "instituicao": "IBGE (Instituto Brasileiro de Geografia e Estatística)",
-      "titulo": "PNAD Contínua e Censo Demográfico: Estrutura Habitacional e Rendimento do Brasileiro",
+      "titulo": "PNAD Contínua e Censo Demográfico: Estrutura Domiciliar, Lares Unipessoais e Rendimento",
       "data": "2025/2026",
       "tipo": "Órgão Oficial de Estatística"
     },
     {
       "instituicao": "CNC (Confederação Nacional do Comércio de Bens, Serviços e Turismo)",
       "titulo": "PEIC: Pesquisa de Endividamento e Inadimplência do Consumidor",
-      "data": "Junho/Julho 2026",
+      "data": "2026",
       "tipo": "Entidade Setorial Nacional"
     },
     {
       "instituicao": "Abinee (Associação Brasileira da Indústria Elétrica e Eletrônica)",
-      "titulo": "Sondagem Conjuntural e Balança Comercial do Setor Eletroeletrônico / Decon",
-      "data": "Maio/Junho 2026",
+      "titulo": "Sondagem Conjuntural, Custos Industriais e Balança Comercial do Setor Eletroeletrônico / Decon",
+      "data": "2026",
       "tipo": "Entidade Industrial Setorial"
     },
     {
       "instituicao": "Banco Central do Brasil",
-      "titulo": "Relatório Copom, Estatísticas de Crédito e Boletim Focus",
+      "titulo": "Relatório de Política Monetária (Copom), Estatísticas de Crédito e Boletim Focus",
       "data": "2026",
       "tipo": "Autoridade Monetária Nacional"
     },
     {
-      "instituicao": "Fundação João Pinheiro (FJP)",
-      "titulo": "Déficit Habitacional no Brasil e Inadequação de Moradias",
-      "data": "2024/2025",
-      "tipo": "Instituto de Pesquisa Econômica Aplicada"
+      "instituicao": "EPE (Empresa de Pesquisa Energética) / MME",
+      "titulo": "Balanço Energético Nacional (BEN 2026) e Plano Decenal de Expansão de Energia (PDE 2035)",
+      "data": "2026",
+      "tipo": "Empresa Pública Federal"
+    },
+    {
+      "instituicao": "Ministério da Fazenda",
+      "titulo": "Sistema Brasileiro de Comércio de Emissões de Gases de Efeito Estufa (SBCE - Lei 15.042/2024)",
+      "data": "2026",
+      "tipo": "Ministério Federal"
+    },
+    {
+      "instituicao": "MDIC / Secex",
+      "titulo": "Estatísticas de Comércio Exterior do Brasil (Comex Stat) e Balança Comercial Brasil-China",
+      "data": "2026",
+      "tipo": "Ministério Federal"
     },
     {
       "instituicao": "Secovi-SP / Housi",
       "titulo": "Pesquisa do Mercado Imobiliário e Lançamentos de Unidades Compactas",
       "data": "2025/2026",
       "tipo": "Associação Imobiliária"
-    },
-    {
-      "instituicao": "MDIC (Ministério do Desenvolvimento, Indústria, Comércio e Serviços)",
-      "titulo": "Estatísticas de Comércio Exterior do Brasil (Comex Stat)",
-      "data": "2026",
-      "tipo": "Ministério Federal"
     }
   ]
 };
 
-export const PUBLISHED_AT: string | null = "2026-09-15T13:03:10.666Z";
+export const PUBLISHED_AT: string | null = "2026-09-15T16:02:39.707Z";

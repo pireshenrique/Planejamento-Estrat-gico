@@ -449,7 +449,7 @@ export function getAllSystemEvidences(): SystemEvidenceItem[] {
     
     // Create canonical string ID
     const topicPrefix = topic ? topic.toLowerCase().replace(/[^\w]/g, '-') : 'general';
-    const canonicalId = ev.id ? `${topicPrefix}::${ev.id}` : `${topicPrefix}::${titleKey.slice(0, 15)}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const canonicalId = ev.id ? ev.id : `ev-${topicPrefix}-${titleKey.replace(/\s+/g, '-').slice(0, 15)}`;
 
     list.push({
       id: canonicalId,
