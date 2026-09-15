@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { ELEICOES_EVIDENCES } from '../../data/evidences/eleicoes';
+import { ELEICOES_PAGE } from '../../data/pages/Eleicoes';
 
 interface EleicoesViewProps {
   setActivePage: (page: string) => void;

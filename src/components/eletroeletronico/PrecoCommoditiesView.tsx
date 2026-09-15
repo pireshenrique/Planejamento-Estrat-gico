@@ -1,3 +1,4 @@
+import { precoCommoditiesData } from "../../data/eletroeletronico/precoCommodities";
 import { useState } from 'react';
 import { COMMODITY_EVIDENCES } from '../../data/evidences/commodity';
 import { 
@@ -220,7 +221,7 @@ export function PrecoCommoditiesView({ setActivePage }: PrecoCommoditiesViewProp
             <div className="min-w-0 flex-1">
               <p className="text-[14px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">Maior Alta (05/25-04/26)</p>
               <div className="flex items-baseline gap-2">
-                <h3 className="text-[26px] 2xl:text-[28px] font-black text-amber-600 dark:text-amber-400 leading-none">+45,0%</h3>
+                <h3 className="text-[26px] 2xl:text-[28px] font-black text-amber-600 dark:text-amber-400 leading-none">+{precoCommoditiesData.commodities.aluminio},0%</h3>
               </div>
               <p className="text-[14px] text-slate-400 mt-0.5 leading-tight">Alumínio em Dólares</p>
             </div>

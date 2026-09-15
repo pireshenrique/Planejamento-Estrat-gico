@@ -55,20 +55,6 @@ export const PORTAL_STRATEGIC_GROUPS: StrategicGroup[] = [
     ]
   },
   {
-    name: 'Tecnologia e Novos Mercados',
-    iconName: 'Cpu',
-    subthemes: [
-      { id: 'tec-ia', name: 'Inteligência Artificial', groupName: 'Tecnologia e Novos Mercados', isPlaceholder: true },
-      { id: 'tec-datacenters', name: 'Data Centers', groupName: 'Tecnologia e Novos Mercados', isPlaceholder: true },
-      { id: 'tec-automacao', name: 'Automação industrial', groupName: 'Tecnologia e Novos Mercados', isPlaceholder: true },
-      { id: 'tec-smarthome', name: 'Smart Home', groupName: 'Tecnologia e Novos Mercados', isPlaceholder: true },
-      { id: 'tec-iot', name: 'IoT', groupName: 'Tecnologia e Novos Mercados', isPlaceholder: true },
-      { id: 'tec-semicondutores', name: 'Semicondutores', groupName: 'Tecnologia e Novos Mercados', isPlaceholder: true },
-      { id: 'tec-eletrificacao', name: 'Eletrificação', groupName: 'Tecnologia e Novos Mercados', isPlaceholder: true },
-      { id: 'tec-eficiencia', name: 'Eficiência energética', groupName: 'Tecnologia e Novos Mercados', isPlaceholder: true },
-    ]
-  },
-  {
     name: 'Cenário Habitacional',
     iconName: 'Home',
     subthemes: [

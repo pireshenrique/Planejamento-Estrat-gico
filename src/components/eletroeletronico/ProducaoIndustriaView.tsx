@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Target, TrendingDown, TrendingUp, ExternalLink, Search, Globe, Factory, FileText, Download, Building2, CheckCircle2 } from 'lucide-react';
+import { producaoData } from '../../data/eletroeletronico/producao';
 import { jsPDF } from 'jspdf';
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { PRODUCAO_EVIDENCES } from '../../data/evidences/producao';
@@ -140,7 +141,7 @@ export function ProducaoIndustriaView({ setActivePage }: ProducaoIndustriaViewPr
     currentY += 8;
 
     const tableRows = [
-      { name: 'TOTAL 26 + 27 - SETOR ELETROELETRÔNICO', m1: '+3,1%', m2: '-4,3%', m3: '-2,4%', m4: '-3,5%', bold: true, highlight: true },
+      { name: `TOTAL 26 + 27 - SETOR ELETROELETRÔNICO', m1: '+3,1%', m2: '${producaoData.totais.setor.m2}%`, m3: `${producaoData.totais.setor.m3}%`, m4: '-3,5%', bold: true, highlight: true },
       { name: 'TOTAL 26 - ÁREA ELETRÔNICA', m1: '+0,5%', m2: '-8,7%', m3: '-3,3%', m4: '-4,0%', bold: true },
       { name: '26.1 - Componentes eletrônicos', m1: '-21,1%', m2: '-24,6%', m3: '-7,0%', m4: '+8,8%' },
       { name: '26.2 - Equipamentos de informática e periféricos', m1: '+6,2%', m2: '-6,8%', m3: '-6,5%', m4: '-6,9%' },
@@ -278,10 +279,10 @@ export function ProducaoIndustriaView({ setActivePage }: ProducaoIndustriaViewPr
             <div className="min-w-0 flex-1">
               <p className="text-[12px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">Setor Eletroeletrônico</p>
               <div className="flex items-baseline gap-2">
-                <h3 className="text-[24px] 2xl:text-[26px] font-black text-red-600 dark:text-red-400 leading-none">-4,3%</h3>
+                <h3 className="text-[24px] 2xl:text-[26px] font-black text-red-600 dark:text-red-400 leading-none">${producaoData.totais.setor.m2}%</h3>
                 <span className="text-[12px] text-slate-500">vs Mai/25</span>
               </div>
-              <p className="text-[13px] text-slate-400 mt-0.5 leading-tight">Jan-Mai/26: -2,4%</p>
+              <p className="text-[13px] text-slate-400 mt-0.5 leading-tight">Jan-Mai/26: ${producaoData.totais.setor.m3}%</p>
             </div>
           </div>
           
@@ -349,7 +350,7 @@ export function ProducaoIndustriaView({ setActivePage }: ProducaoIndustriaViewPr
                 
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <p>
-                    A produção industrial do setor eletroeletrônico registrou retração de <strong>-4,3% em maio de 2026</strong> na comparação com maio de 2025. No acumulado dos primeiros cinco meses do ano (janeiro a maio de 2026), a queda foi de <strong>-2,4%</strong>. No acumulado em 12 meses, a produção apresenta recuo de <strong>-3,5%</strong>.
+                    A produção industrial do setor eletroeletrônico registrou retração de <strong>${producaoData.totais.setor.m2}% em maio de 2026</strong> na comparação com maio de 2025. No acumulado dos primeiros cinco meses do ano (janeiro a maio de 2026), a queda foi de <strong>${producaoData.totais.setor.m3}%</strong>. No acumulado em 12 meses, a produção apresenta recuo de <strong>-3,5%</strong>.
                   </p>
                   <p>
                     Na comparação mensal com ajuste sazonal (maio/2026 em relação a abril/2026), a produção teve um leve crescimento de <strong>+0,5%</strong>, impulsionada pela elevação de <strong>+2,6% na área elétrica</strong>, enquanto a área eletrônica recuou <strong>-2,0%</strong>.
@@ -412,7 +413,7 @@ export function ProducaoIndustriaView({ setActivePage }: ProducaoIndustriaViewPr
                   </div>
                   <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                     <p>
-                      A retração de -2,4% no acumulado do setor eletroeletrônico <strong className="text-slate-800 dark:text-slate-200">pode demandar acompanhamento rigoroso</strong> na gestão de estoques e ritmo fabril. O crescimento de +2,7% na produção de equipamentos para distribuição e controle de energia e +18,5% em equipamentos de iluminação <strong className="text-slate-800 dark:text-slate-200">pode criar oportunidades</strong> no segmento de materiais de instalação elétrica e soluções prediais.
+                      A retração de ${producaoData.totais.setor.m3}% no acumulado do setor eletroeletrônico <strong className="text-slate-800 dark:text-slate-200">pode demandar acompanhamento rigoroso</strong> na gestão de estoques e ritmo fabril. O crescimento de +2,7% na produção de equipamentos para distribuição e controle de energia e +18,5% em equipamentos de iluminação <strong className="text-slate-800 dark:text-slate-200">pode criar oportunidades</strong> no segmento de materiais de instalação elétrica e soluções prediais.
                     </p>
                   </div>
                 </div>
@@ -486,7 +487,7 @@ export function ProducaoIndustriaView({ setActivePage }: ProducaoIndustriaViewPr
 
                   <line x1="80" y1="35" x2="80" y2="230" stroke="#334155" strokeWidth="1.5" />
 
-                  {/* BARRA 1: Setor Eletroeletrônico (-2,4%) */}
+                  {/* BARRA 1: Setor Eletroeletrônico (${producaoData.totais.setor.m3}%) */}
                   <rect 
                     x="125" 
                     y="35" 
@@ -498,7 +499,7 @@ export function ProducaoIndustriaView({ setActivePage }: ProducaoIndustriaViewPr
                     rx="2"
                     filter="url(#barShadow)"
                   />
-                  <text x="165" y="132" textAnchor="middle" className="text-[17px] font-extrabold fill-slate-900 dark:fill-white">-2,4%</text>
+                  <text x="165" y="132" textAnchor="middle" className="text-[17px] font-extrabold fill-slate-900 dark:fill-white">${producaoData.totais.setor.m3}%</text>
                   <text x="165" y="255" textAnchor="middle" className="text-[14px] font-bold fill-slate-900 dark:fill-white">Setor</text>
                   <text x="165" y="272" textAnchor="middle" className="text-[14px] font-bold fill-slate-900 dark:fill-white">Eletroeletrônico</text>
 
@@ -548,7 +549,7 @@ export function ProducaoIndustriaView({ setActivePage }: ProducaoIndustriaViewPr
               </p>
               <ul className="space-y-2.5 text-[13px] md:text-sm">
                 <li className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-xl border border-slate-100 dark:border-slate-800/80">
-                  <strong className="text-orange-600 dark:text-orange-400">Setor Eletroeletrônico (-2,4%):</strong> A produção total do setor acumula queda de 2,4%, impulsionada pelas retrações registradas em ambas as áreas do segmento.
+                  <strong className="text-orange-600 dark:text-orange-400">Setor Eletroeletrônico (${producaoData.totais.setor.m3}%):</strong> A produção total do setor acumula queda de 2,4%, impulsionada pelas retrações registradas em ambas as áreas do segmento.
                 </li>
                 <li className="bg-slate-50 dark:bg-slate-900/60 p-3 rounded-xl border border-slate-100 dark:border-slate-800/80">
                   <strong className="text-teal-600 dark:text-teal-400">Área Eletrônica (-3,3%):</strong> Registrou o recuo mais acentuado do setor, decorrente das maiores reduções na produção de componentes eletrônicos (-7,0%), bens de informática e periféricos (-6,5%) e equipamentos de comunicação (-4,9%).

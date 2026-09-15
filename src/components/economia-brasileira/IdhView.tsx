@@ -29,6 +29,7 @@ import {
   Tooltip,
   CartesianGrid
 } from 'recharts';
+import { IDH_PAGE } from '../../data/pages/Idh';
 
 interface IdhViewProps {
   setActivePage: (page: string) => void;

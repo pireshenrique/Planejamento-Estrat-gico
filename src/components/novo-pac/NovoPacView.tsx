@@ -15,6 +15,7 @@ import {
   Sparkles,
   Layers
 } from 'lucide-react';
+import { NOVO_PAC_PAGE } from '../../data/pages/NovoPac';
 
 interface NovoPacViewProps {
   setActivePage: (page: string) => void;

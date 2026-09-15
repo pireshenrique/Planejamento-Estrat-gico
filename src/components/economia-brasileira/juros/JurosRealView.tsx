@@ -10,12 +10,14 @@ import {
   BRAZIL_REAL_INTEREST,
   LEADER_REAL_INTEREST,
 } from '../../../data/economia-brasileira/jurosReal';
+import { JUROS_REAL_PAGE } from '../../../data/pages/JurosReal';
 
 interface JurosRealViewProps {
   setActivePage: (page: string) => void;
 }
 
 export function JurosRealView({ setActivePage }: JurosRealViewProps) {
+  const getVal = (id: string) => JUROS_REAL_PAGE.factualContent.find(f => f.id === id)?.value?.toString().replace('.', ',');
   return (
     <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200">
       
@@ -32,7 +34,7 @@ export function JurosRealView({ setActivePage }: JurosRealViewProps) {
           {/* CARD 1 — PRESENTE */}
           <HeaderKpiCard
             title={JUROS_REAL_DATA.kpis.atual.title}
-            value={JUROS_REAL_DATA.kpis.atual.value}
+            value={`${getVal('juros-real::kpi::atual')}%`}
             context={JUROS_REAL_DATA.kpis.atual.subtitle}
             explanation={JUROS_REAL_DATA.kpis.atual.detail}
             icon={BarChart3}
@@ -105,7 +107,7 @@ export function JurosRealView({ setActivePage }: JurosRealViewProps) {
 
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <ul className="list-disc pl-4 space-y-2 marker:text-orange-400 dark:marker:text-orange-500/70">
-                    {JUROS_REAL_DATA.strategicAnalysis.observe.notes.map((note, index) => (
+                    {JUROS_REAL_PAGE.existingAnalysis.slice(0, 3).map((note, index) => (
                       <li key={index}>{note}</li>
                     ))}
                   </ul>
@@ -137,7 +139,7 @@ export function JurosRealView({ setActivePage }: JurosRealViewProps) {
 
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <ul className="list-disc pl-4 space-y-2 marker:text-red-400 dark:marker:text-red-500/70">
-                    {JUROS_REAL_DATA.strategicAnalysis.companyImpact.notes.map((note, index) => (
+                    {JUROS_REAL_PAGE.existingAnalysis.slice(3).map((note, index) => (
                       <li key={index}>{note}</li>
                     ))}
                   </ul>

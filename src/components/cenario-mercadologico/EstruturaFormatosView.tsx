@@ -456,185 +456,191 @@ export function EstruturaFormatosView({ setActivePage, hideHeader }: EstruturaFo
       </div>
 
       {/* BLOCO 02 · UMA REDE NACIONAL EM REDISTRIBUIÇÃO */}
-      <section className="flex flex-col gap-3 sm:gap-4 mt-2">
+      <section className="flex flex-col gap-2 mt-1.5">
         
         {/* CABEÇALHO DO BLOCO */}
-        <div className="flex flex-col gap-2">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
-            <h2 className="text-lg sm:text-[19px] font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+        <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 border-b border-slate-200 dark:border-slate-800 pb-1.5">
+            <h2 className="text-[18px] sm:text-[19px] font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
               <span className="text-indigo-600 dark:text-indigo-400">02 ·</span>
               UMA REDE NACIONAL EM REDISTRIBUIÇÃO
             </h2>
-            <div className="flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 dark:bg-slate-800/60 rounded-md shrink-0">
+            <div className="flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 dark:bg-slate-800/60 rounded-md shrink-0 self-start sm:self-auto">
               <span className="text-[10px] font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
                 INSTITUTO DE PESQUISAS ANAMACO · CENÁRIO DO VAREJO 2025
               </span>
             </div>
           </div>
-          <div className="flex flex-col gap-1 mt-1">
-            <h3 className="text-[18px] sm:text-[20px] font-bold text-slate-900 dark:text-white leading-tight">
-              O Sudeste ainda concentra quase metade das lojas, mas outras regiões ganharam participação desde 2006.
+          <div className="flex flex-col gap-1 mt-0.5">
+            <h3 className="text-[19px] sm:text-[21px] font-bold text-slate-900 dark:text-white leading-tight">
+              O Sudeste continua liderando, mas a distribuição regional da rede ficou menos concentrada entre 2006 e 2025.
             </h3>
-            <p className="text-[13.5px] sm:text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed max-w-5xl">
-              Em 2025, o Sudeste concentrava 45,7% das lojas de materiais de construção. A região segue líder, mas perdeu participação desde 2006, enquanto Nordeste, Norte e Centro-Oeste ampliaram sua presença na rede.
+            <p className="text-[14px] sm:text-[15px] text-slate-600 dark:text-slate-400 leading-snug max-w-5xl">
+              Em 2025, o Sudeste concentrava 45,7% das lojas de materiais de construção, ainda como principal região do setor. Desde 2006, porém, sua participação diminuiu, enquanto Nordeste, Norte e Centro-Oeste ampliaram presença na rede.
             </p>
           </div>
         </div>
         
         {/* CORPO DO BLOCO */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2.5 mt-0.5">
           
-          {/* PRIMEIRA LINHA - 2 CARDS */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            {/* CARD A: CONCENTRAÇÃO ATUAL E REDISTRIBUIÇÃO */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 sm:p-4 flex flex-col gap-3 shadow-sm">
-              <h4 className="text-[12.5px] sm:text-[13px] font-bold text-slate-900 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-2">
-                CONCENTRAÇÃO ATUAL E REDISTRIBUIÇÃO DA REDE
-              </h4>
-              <div className="flex w-full flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-slate-800 bg-slate-50 dark:bg-slate-800/40 rounded-lg p-2.5 border border-slate-200/60 dark:border-slate-700/60">
-                <div className="flex flex-col flex-1 items-center justify-center text-center py-2 sm:py-1 px-2">
-                  <span className="text-[26px] sm:text-[28px] font-black text-slate-900 dark:text-white leading-none">45,7%</span>
-                  <span className="text-[12.5px] sm:text-[13px] font-medium text-slate-600 dark:text-slate-400 mt-1 leading-snug">das lojas do setor estão no Sudeste em 2025</span>
-                </div>
-                <div className="flex flex-col flex-1 items-center justify-center text-center py-2 sm:py-1 px-2">
-                  <span className="text-[26px] sm:text-[28px] font-black text-slate-900 dark:text-white leading-none">35,8%</span>
-                  <span className="text-[12.5px] sm:text-[13px] font-medium text-slate-600 dark:text-slate-400 mt-1 leading-snug">das lojas estão em Norte + Nordeste + Centro-Oeste em 2025</span>
-                </div>
-                <div className="flex flex-col flex-1 items-center justify-center text-center py-2 sm:py-1 px-2">
-                  <span className="text-[26px] sm:text-[28px] font-black text-indigo-700 dark:text-indigo-400 leading-none">+6,8 p.p.</span>
-                  <span className="text-[12.5px] sm:text-[13px] font-medium text-slate-600 dark:text-slate-400 mt-1 leading-snug">ganho conjunto de participação desde 2006</span>
-                </div>
+          {/* FAIXA EXECUTIVA */}
+          <div className="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 flex flex-col gap-1.5">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-5 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-slate-700 items-stretch">
+              {/* INSIGHT 1 */}
+              <div className="flex flex-col flex-1 pt-0.5 sm:pt-0 sm:pr-2">
+                <span className="text-[28px] sm:text-[32px] font-black text-slate-900 dark:text-white leading-none">45,7%</span>
+                <span className="text-[13px] sm:text-[14px] font-bold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">das lojas estão no Sudeste em 2025</span>
+                <span className="text-[12.5px] sm:text-[13.5px] text-slate-500 dark:text-slate-400 leading-tight">a região ainda concentra quase metade da rede</span>
               </div>
-              <p className="text-[13px] sm:text-[13.5px] text-slate-700 dark:text-slate-300 font-medium leading-relaxed mt-1">
-                O Sudeste permanece como principal polo da rede, mas o crescimento relativo de Norte, Nordeste e Centro-Oeste indica uma composição regional menos concentrada do que em 2006.
-              </p>
-            </div>
-
-            {/* CARD B: EVOLUÇÃO REGIONAL 2006 -> 2025 */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 sm:p-4 flex flex-col shadow-sm">
-              <h4 className="text-[12.5px] sm:text-[13px] font-bold text-slate-900 dark:text-white uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-2 mb-3">
-                EVOLUÇÃO REGIONAL DA REDE (2006 &rarr; 2025)
-              </h4>
-              <div className="flex flex-col gap-2.5 flex-1 justify-center">
-                
-                {/* SUDESTE */}
-                <div className="flex items-center gap-3">
-                  <span className="w-20 text-[12.5px] font-semibold text-slate-700 dark:text-slate-300">Sudeste</span>
-                  <div className="flex-1 relative h-7 flex items-center bg-slate-50 dark:bg-slate-800/50 rounded px-2">
-                    <span className="absolute left-2 text-[12px] text-slate-500 font-medium">50,3%</span>
-                    <div className="absolute left-12 right-12 h-px bg-slate-200 dark:bg-slate-700"></div>
-                    <span className="absolute right-2 text-[13px] font-bold text-slate-700 dark:text-slate-200">45,7%</span>
-                  </div>
-                  <span className="w-16 text-right text-[12.5px] font-bold text-slate-500">-4,6 p.p.</span>
-                </div>
-                
-                {/* NORDESTE */}
-                <div className="flex items-center gap-3">
-                  <span className="w-20 text-[12.5px] font-semibold text-slate-700 dark:text-slate-300">Nordeste</span>
-                  <div className="flex-1 relative h-7 flex items-center bg-indigo-50/50 dark:bg-indigo-900/10 rounded px-2">
-                    <span className="absolute left-2 text-[12px] text-slate-500 font-medium">17,1%</span>
-                    <div className="absolute left-12 right-12 h-px bg-indigo-200 dark:bg-indigo-800"></div>
-                    <span className="absolute right-2 text-[13px] font-bold text-indigo-700 dark:text-indigo-400">20,0%</span>
-                  </div>
-                  <span className="w-16 text-right text-[12.5px] font-bold text-indigo-600 dark:text-indigo-400">+2,9 p.p.</span>
-                </div>
-                
-                {/* SUL */}
-                <div className="flex items-center gap-3">
-                  <span className="w-20 text-[12.5px] font-semibold text-slate-700 dark:text-slate-300">Sul</span>
-                  <div className="flex-1 relative h-7 flex items-center bg-slate-50 dark:bg-slate-800/50 rounded px-2">
-                    <span className="absolute left-2 text-[12px] text-slate-500 font-medium">20,8%</span>
-                    <div className="absolute left-12 right-12 h-px bg-slate-200 dark:bg-slate-700"></div>
-                    <span className="absolute right-2 text-[13px] font-bold text-slate-700 dark:text-slate-200">18,6%</span>
-                  </div>
-                  <span className="w-16 text-right text-[12.5px] font-bold text-slate-500">-2,2 p.p.</span>
-                </div>
-                
-                {/* CENTRO-OESTE */}
-                <div className="flex items-center gap-3">
-                  <span className="w-20 text-[12.5px] font-semibold text-slate-700 dark:text-slate-300">Centro-Oeste</span>
-                  <div className="flex-1 relative h-7 flex items-center bg-indigo-50/50 dark:bg-indigo-900/10 rounded px-2">
-                    <span className="absolute left-2 text-[12px] text-slate-500 font-medium">7,9%</span>
-                    <div className="absolute left-12 right-12 h-px bg-indigo-200 dark:bg-indigo-800"></div>
-                    <span className="absolute right-2 text-[13px] font-bold text-indigo-700 dark:text-indigo-400">9,8%</span>
-                  </div>
-                  <span className="w-16 text-right text-[12.5px] font-bold text-indigo-600 dark:text-indigo-400">+1,9 p.p.</span>
-                </div>
-                
-                {/* NORTE */}
-                <div className="flex items-center gap-3">
-                  <span className="w-20 text-[12.5px] font-semibold text-slate-700 dark:text-slate-300">Norte</span>
-                  <div className="flex-1 relative h-7 flex items-center bg-indigo-50/50 dark:bg-indigo-900/10 rounded px-2">
-                    <span className="absolute left-2 text-[12px] text-slate-500 font-medium">4,0%</span>
-                    <div className="absolute left-12 right-12 h-px bg-indigo-200 dark:bg-indigo-800"></div>
-                    <span className="absolute right-2 text-[13px] font-bold text-indigo-700 dark:text-indigo-400">6,0%</span>
-                  </div>
-                  <span className="w-16 text-right text-[12.5px] font-bold text-indigo-600 dark:text-indigo-400">+2,0 p.p.</span>
-                </div>
+              {/* INSIGHT 2 */}
+              <div className="flex flex-col flex-1 pt-2 sm:pt-0 sm:pl-4">
+                <span className="text-[28px] sm:text-[32px] font-black text-indigo-600 dark:text-indigo-400 leading-none">+6,8 p.p.</span>
+                <span className="text-[13px] sm:text-[14px] font-bold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">ganho conjunto de Norte + Nordeste + Centro-Oeste desde 2006</span>
+                <span className="text-[12.5px] sm:text-[13.5px] text-slate-500 dark:text-slate-400 leading-tight">29,0% &rarr; 35,8%</span>
               </div>
-              <p className="text-[12.5px] sm:text-[13px] text-slate-600 dark:text-slate-400 font-medium leading-relaxed mt-3 border-t border-slate-100 dark:border-slate-800 pt-2">
-                O Sudeste e o Sul perderam participação relativa, enquanto Nordeste, Norte e Centro-Oeste ampliaram sua representatividade.
-              </p>
             </div>
+            <p className="text-[13px] sm:text-[14px] text-slate-700 dark:text-slate-300 font-medium leading-snug border-t border-slate-200 dark:border-slate-700 pt-1.5 mt-0.5">
+              O Sudeste continua liderando, mas sua participação relativa diminuiu enquanto Norte, Nordeste e Centro-Oeste ganharam espaço na composição da rede.
+            </p>
           </div>
 
-          {/* SEGUNDA LINHA - 2 CARDS COMPLEMENTARES */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-            {/* CARD C: REDISTRIBUIÇÃO EM NÚMEROS */}
-            <div className="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-xl p-3 sm:p-3.5 flex flex-col gap-2.5">
-              <h4 className="text-[12px] sm:text-[12.5px] font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                REDISTRIBUIÇÃO EM NÚMEROS
-              </h4>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <div className="flex-1 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/60 rounded p-2.5 flex flex-col justify-center text-center">
-                  <span className="text-[11.5px] font-semibold text-slate-500 mb-0.5">Sudeste</span>
-                  <span className="text-[13px] font-bold text-slate-800 dark:text-slate-200">50,3% &rarr; 45,7%</span>
-                  <span className="text-[13.5px] font-black text-slate-500 mt-0.5">-4,6 p.p.</span>
-                </div>
-                <div className="flex-1 bg-indigo-50/50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/50 rounded p-2.5 flex flex-col justify-center text-center">
-                  <span className="text-[11.5px] font-semibold text-indigo-600 dark:text-indigo-400 mb-0.5">Norte + Nordeste + Centro-Oeste</span>
-                  <span className="text-[13px] font-bold text-slate-800 dark:text-slate-200">29,0% &rarr; 35,8%</span>
-                  <span className="text-[13.5px] font-black text-indigo-600 dark:text-indigo-400 mt-0.5">+6,8 p.p.</span>
-                </div>
+          {/* GRÁFICO REGIONAL */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2.5 sm:px-4 sm:py-3 flex flex-col">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2">
+              <div className="flex flex-col gap-0.5">
+                <h4 className="text-[14px] sm:text-[15px] font-bold text-slate-900 dark:text-white uppercase tracking-wider leading-tight">
+                  EVOLUÇÃO REGIONAL DA REDE &middot; 2006 &rarr; 2025
+                </h4>
+                <span className="text-[12.5px] sm:text-[13.5px] text-slate-500 dark:text-slate-400 leading-tight">
+                  Participação de cada região no universo de lojas do setor
+                </span>
               </div>
-              <p className="text-[12.5px] text-slate-600 dark:text-slate-400 font-medium leading-snug">
-                A redistribuição não elimina a liderança do Sudeste, mas mostra avanço consistente das regiões fora do eixo mais tradicional.
-              </p>
+              <div className="flex items-center gap-3 text-[11px] sm:text-[12px] font-medium text-slate-500 self-end sm:self-center">
+                <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-slate-200 dark:bg-slate-700"></div>2006</div>
+                <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded-sm bg-indigo-500"></div>2025</div>
+              </div>
             </div>
+            
+            <div className="flex flex-col gap-1 w-full">
+              {/* SUDESTE */}
+              <div className="flex items-center h-[27px]">
+                <span className="w-[85px] shrink-0 text-[13.5px] sm:text-[14.5px] font-semibold text-slate-700 dark:text-slate-300 text-right">Sudeste</span>
+                <div className="flex-1 flex flex-col justify-center gap-0.5 mx-3 sm:mx-5 h-full">
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-r-sm" style={{ width: '80%' }}></div>
+                    <span className="text-[11px] sm:text-[12px] font-medium text-slate-400 leading-none">50,3%</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-indigo-500 rounded-r-sm" style={{ width: '72.68%' }}></div>
+                    <span className="text-[12px] sm:text-[13px] font-bold text-indigo-700 dark:text-indigo-400 leading-none">45,7%</span>
+                  </div>
+                </div>
+                <span className="w-[65px] shrink-0 text-right text-[13.5px] sm:text-[14px] font-bold text-slate-500 dark:text-slate-400">-4,6 p.p.</span>
+              </div>
 
-            {/* CARD D: BASE OPERACIONAL DA REDE */}
-            <div className="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-xl p-3 sm:p-3.5 flex flex-col gap-2.5">
-              <h4 className="text-[12px] sm:text-[12.5px] font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                BASE OPERACIONAL DA REDE
-              </h4>
-              <div className="flex flex-col sm:flex-row gap-2 h-full">
-                <div className="flex-1 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/60 rounded p-2.5 flex flex-col justify-center items-center text-center">
-                  <span className="text-[22px] font-black text-slate-800 dark:text-slate-100 leading-none">69,5%</span>
-                  <span className="text-[11.5px] font-medium text-slate-500 dark:text-slate-400 mt-1 leading-snug">das lojas têm até 4 funcionários</span>
+              {/* SUL */}
+              <div className="flex items-center h-[27px]">
+                <span className="w-[85px] shrink-0 text-[13.5px] sm:text-[14.5px] font-semibold text-slate-700 dark:text-slate-300 text-right">Sul</span>
+                <div className="flex-1 flex flex-col justify-center gap-0.5 mx-3 sm:mx-5 h-full">
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-r-sm" style={{ width: '33.08%' }}></div>
+                    <span className="text-[11px] sm:text-[12px] font-medium text-slate-400 leading-none">20,8%</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-indigo-500 rounded-r-sm" style={{ width: '29.58%' }}></div>
+                    <span className="text-[12px] sm:text-[13px] font-bold text-indigo-700 dark:text-indigo-400 leading-none">18,6%</span>
+                  </div>
                 </div>
-                <div className="flex-1 bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-700/60 rounded p-2.5 flex flex-col justify-center items-center text-center">
-                  <span className="text-[22px] font-black text-slate-800 dark:text-slate-100 leading-none">5,03</span>
-                  <span className="text-[11.5px] font-medium text-slate-500 dark:text-slate-400 mt-1 leading-snug">funcionários por loja, em média</span>
-                </div>
+                <span className="w-[65px] shrink-0 text-right text-[13.5px] sm:text-[14px] font-bold text-slate-500 dark:text-slate-400">-2,2 p.p.</span>
               </div>
-              <p className="text-[12.5px] text-slate-600 dark:text-slate-400 font-medium leading-snug mt-auto">
-                A redistribuição regional ocorre sobre uma base varejista predominantemente formada por operações pequenas e equipes enxutas.
-              </p>
+
+              {/* NORDESTE */}
+              <div className="flex items-center h-[27px]">
+                <span className="w-[85px] shrink-0 text-[13.5px] sm:text-[14.5px] font-semibold text-slate-700 dark:text-slate-300 text-right">Nordeste</span>
+                <div className="flex-1 flex flex-col justify-center gap-0.5 mx-3 sm:mx-5 h-full">
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-r-sm" style={{ width: '27.19%' }}></div>
+                    <span className="text-[11px] sm:text-[12px] font-medium text-slate-400 leading-none">17,1%</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-indigo-500 rounded-r-sm" style={{ width: '31.80%' }}></div>
+                    <span className="text-[12px] sm:text-[13px] font-bold text-indigo-700 dark:text-indigo-400 leading-none">20,0%</span>
+                  </div>
+                </div>
+                <span className="w-[65px] shrink-0 text-right text-[13.5px] sm:text-[14px] font-bold text-indigo-600 dark:text-indigo-400">+2,9 p.p.</span>
+              </div>
+
+              {/* CENTRO-OESTE */}
+              <div className="flex items-center h-[27px]">
+                <span className="w-[85px] shrink-0 text-[13.5px] sm:text-[14.5px] font-semibold text-slate-700 dark:text-slate-300 text-right">Centro-Oeste</span>
+                <div className="flex-1 flex flex-col justify-center gap-0.5 mx-3 sm:mx-5 h-full">
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-r-sm" style={{ width: '12.56%' }}></div>
+                    <span className="text-[11px] sm:text-[12px] font-medium text-slate-400 leading-none">7,9%</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-indigo-500 rounded-r-sm" style={{ width: '15.58%' }}></div>
+                    <span className="text-[12px] sm:text-[13px] font-bold text-indigo-700 dark:text-indigo-400 leading-none">9,8%</span>
+                  </div>
+                </div>
+                <span className="w-[65px] shrink-0 text-right text-[13.5px] sm:text-[14px] font-bold text-indigo-600 dark:text-indigo-400">+1,9 p.p.</span>
+              </div>
+
+              {/* NORTE */}
+              <div className="flex items-center h-[27px]">
+                <span className="w-[85px] shrink-0 text-[13.5px] sm:text-[14.5px] font-semibold text-slate-700 dark:text-slate-300 text-right">Norte</span>
+                <div className="flex-1 flex flex-col justify-center gap-0.5 mx-3 sm:mx-5 h-full">
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-r-sm" style={{ width: '6.36%' }}></div>
+                    <span className="text-[11px] sm:text-[12px] font-medium text-slate-400 leading-none">4,0%</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 bg-indigo-500 rounded-r-sm" style={{ width: '9.54%' }}></div>
+                    <span className="text-[12px] sm:text-[13px] font-bold text-indigo-700 dark:text-indigo-400 leading-none">6,0%</span>
+                  </div>
+                </div>
+                <span className="w-[65px] shrink-0 text-right text-[13.5px] sm:text-[14px] font-bold text-indigo-600 dark:text-indigo-400">+2,0 p.p.</span>
+              </div>
             </div>
+            
+            <p className="text-[13px] sm:text-[14px] text-slate-700 dark:text-slate-300 font-medium leading-snug mt-2 border-t border-slate-100 dark:border-slate-800 pt-2">
+              Entre 2006 e 2025, Sudeste e Sul perderam participação relativa, enquanto Nordeste, Norte e Centro-Oeste ampliaram sua presença na composição da rede.
+            </p>
+          </div>
+
+          {/* PERFIL DA REDE (FAIXA) */}
+          <div className="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 rounded-xl px-3.5 py-2 sm:px-4 sm:py-2.5 flex flex-col gap-1">
+            <h4 className="text-[12.5px] sm:text-[13px] font-bold text-slate-900 dark:text-white uppercase tracking-wider leading-tight">
+              PERFIL DA REDE
+            </h4>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 dark:divide-slate-700">
+              <div className="flex items-center gap-2 pt-0.5 sm:pt-0">
+                <span className="text-[18px] sm:text-[20px] font-black text-slate-900 dark:text-white leading-none">69,5%</span>
+                <span className="text-[13.5px] sm:text-[14px] font-medium text-slate-700 dark:text-slate-300 leading-tight">das lojas têm até 4 funcionários</span>
+              </div>
+              <div className="flex items-center gap-2 pt-1 sm:pt-0 sm:pl-4">
+                <span className="text-[18px] sm:text-[20px] font-black text-slate-900 dark:text-white leading-none">5,03</span>
+                <span className="text-[13.5px] sm:text-[14px] font-medium text-slate-700 dark:text-slate-300 leading-tight">funcionários por loja, em média</span>
+              </div>
+            </div>
+            <p className="text-[13px] sm:text-[14px] text-slate-600 dark:text-slate-400 font-medium leading-tight mt-0.5 border-t border-slate-200/60 dark:border-slate-700/60 pt-1.5">
+              A redistribuição regional ocorre em uma estrutura varejista predominantemente formada por pequenas operações.
+            </p>
           </div>
 
           {/* SÍNTESE FINAL DA SEÇÃO 02 */}
-          <div className="border-l-[3px] border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/20 rounded-r-lg px-3 py-2 sm:px-4 sm:py-2.5 mt-1">
-            <p className="text-[13px] sm:text-[13.5px] font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
-              A rede de materiais de construção continua concentrada no Sudeste, mas sua composição regional ficou menos concentrada entre 2006 e 2025, com avanço de Nordeste, Norte e Centro-Oeste sobre uma base predominantemente formada por pequenas operações.
+          <div className="border-l-[3px] border-indigo-500 bg-indigo-50/40 dark:bg-indigo-950/20 rounded-r-lg px-3 py-1.5 sm:px-3.5 sm:py-2">
+            <p className="text-[13px] sm:text-[14px] font-medium text-slate-800 dark:text-slate-200 leading-snug">
+              A rede permanece concentrada no Sudeste, mas sua distribuição regional tornou-se menos concentrada entre 2006 e 2025, com avanço de Nordeste, Norte e Centro-Oeste.
             </p>
           </div>
 
         </div>
 
         {/* Nota Metodológica do Bloco 02 */}
-        <div className="text-[11.5px] sm:text-[12px] text-slate-400 dark:text-slate-500 leading-relaxed max-w-5xl mt-1">
-          * Nota metodológica: os dados regionais e de porte utilizam o levantamento Anamaco/RAIS 2025. As participações regionais comparam 2006 e 2025. O indicador agregado de Norte + Nordeste + Centro-Oeste foi calculado a partir dos percentuais regionais divulgados pela Anamaco. Esses dados não devem ser comparados diretamente ao total de unidades locais da PAC/IBGE 2024, pois as bases e métricas são diferentes.
+        <div className="text-[11.5px] sm:text-[12px] text-slate-400 dark:text-slate-500 leading-tight max-w-5xl mt-0.5">
+          Nota metodológica: os dados regionais comparam 2006 e 2025 no levantamento Anamaco/RAIS. O agregado Norte + Nordeste + Centro-Oeste foi calculado a partir dos percentuais regionais divulgados pela Anamaco. Os dados não devem ser comparados diretamente às unidades locais da PAC/IBGE 2024 do Bloco 01.
         </div>
       </section>
 

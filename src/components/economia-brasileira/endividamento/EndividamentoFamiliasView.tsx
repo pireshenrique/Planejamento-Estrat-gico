@@ -4,6 +4,7 @@ import { HeaderKpiCard } from '../../layout/HeaderKpiCard';
 import { EvidenceCard } from '../../layout/EvidenceCard';
 import { ENDIVIDAMENTO_FAMILIAS_EVIDENCES } from '../../../data/evidences/endividamento_familias';
 import { ENDIVIDAMENTO_DATA } from '../../../data/economia-brasileira/endividamento';
+import { ENDIVIDAMENTO_FAMILIAS_PAGE } from '../../../data/pages/EndividamentoFamilias';
 import { 
   CreditCard, 
   Wallet, 
@@ -32,10 +33,8 @@ const formatPercent = (value: number) =>
     maximumFractionDigits: 1,
   })}%`;
 
-export const EndividamentoFamiliasView: React.FC<EndividamentoFamiliasViewProps> = ({ 
-  setActivePage,
-  embedded = false 
-}) => {
+export const EndividamentoFamiliasView: React.FC<EndividamentoFamiliasViewProps> = ({ setActivePage, embedded = false }) => {
+  const getVal = (id: string) => ENDIVIDAMENTO_FAMILIAS_PAGE.factualContent.find(f => f.id === id)?.value?.toString().replace(".", ",");
   const modalidadesDivida = ENDIVIDAMENTO_DATA.familias.modalidadesDivida;
   const causasEndividamento = ENDIVIDAMENTO_DATA.familias.causasEndividamento;
   const custoCredito = ENDIVIDAMENTO_DATA.familias.custoCredito;
@@ -104,7 +103,7 @@ export const EndividamentoFamiliasView: React.FC<EndividamentoFamiliasViewProps>
             {/* Card 1: Endividamento 2025 */}
             <HeaderKpiCard
               title={ENDIVIDAMENTO_DATA.familias.kpis.endividamentoBacen.title}
-              value={ENDIVIDAMENTO_DATA.familias.kpis.endividamentoBacen.value}
+              value={`${getVal('endividamento-familias::kpi::bacen')}%`}
               context={ENDIVIDAMENTO_DATA.familias.kpis.endividamentoBacen.context}
               explanation={ENDIVIDAMENTO_DATA.familias.kpis.endividamentoBacen.explanation}
               source={ENDIVIDAMENTO_DATA.familias.kpis.endividamentoBacen.source}
@@ -115,7 +114,7 @@ export const EndividamentoFamiliasView: React.FC<EndividamentoFamiliasViewProps>
             {/* Card 2: Famílias Endividadas */}
             <HeaderKpiCard
               title={ENDIVIDAMENTO_DATA.familias.kpis.familiasEndividadas.title}
-              value={ENDIVIDAMENTO_DATA.familias.kpis.familiasEndividadas.value}
+              value={`${getVal('endividamento-familias::kpi::familias-endividadas')}%`}
               context={ENDIVIDAMENTO_DATA.familias.kpis.familiasEndividadas.context}
               explanation={ENDIVIDAMENTO_DATA.familias.kpis.familiasEndividadas.explanation}
               source={ENDIVIDAMENTO_DATA.familias.kpis.familiasEndividadas.source}
@@ -126,7 +125,7 @@ export const EndividamentoFamiliasView: React.FC<EndividamentoFamiliasViewProps>
             {/* Card 3: Renda Comprometida */}
             <HeaderKpiCard
               title={ENDIVIDAMENTO_DATA.familias.kpis.rendaComprometida.title}
-              value={ENDIVIDAMENTO_DATA.familias.kpis.rendaComprometida.value}
+              value={`${getVal('endividamento-familias::kpi::renda-comprometida')}%`}
               context={ENDIVIDAMENTO_DATA.familias.kpis.rendaComprometida.context}
               explanation={ENDIVIDAMENTO_DATA.familias.kpis.rendaComprometida.explanation}
               source={ENDIVIDAMENTO_DATA.familias.kpis.rendaComprometida.source}
@@ -229,13 +228,13 @@ export const EndividamentoFamiliasView: React.FC<EndividamentoFamiliasViewProps>
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <ul className="list-disc pl-4 space-y-2.5 marker:text-orange-400 dark:marker:text-orange-500/70">
                     <li>
-                      Acompanhar a evolução do endividamento das famílias. Em julho de 2026, 82% das famílias possuíam algum tipo de dívida, enquanto 29,5% do orçamento médio estava comprometido com pagamentos.
+                      {ENDIVIDAMENTO_FAMILIAS_PAGE.existingAnalysis[0]}
                     </li>
                     <li>
-                      Monitorar a trajetória da inadimplência. Apesar do endividamento recorde, a inadimplência estava em 29,8%; para o 3º trimestre de 2026, os bancos projetam piora desse indicador.
+                      {ENDIVIDAMENTO_FAMILIAS_PAGE.existingAnalysis[1]}
                     </li>
                     <li>
-                      Observar o custo e a duração das dívidas. Juros elevados, especialmente no crédito rotativo, e o prolongamento das dívidas podem dificultar a redução do comprometimento financeiro das famílias.
+                      {ENDIVIDAMENTO_FAMILIAS_PAGE.existingAnalysis[2]}
                     </li>
                   </ul>
                   <div className="pt-2 border-t border-slate-100 dark:border-slate-800 text-[12px] text-slate-400">
@@ -270,13 +269,13 @@ export const EndividamentoFamiliasView: React.FC<EndividamentoFamiliasViewProps>
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <ul className="list-disc pl-4 space-y-2.5 marker:text-red-400 dark:marker:text-red-500/70">
                     <li>
-                      O elevado comprometimento da renda pode tornar o consumidor mais sensível ao preço e às condições de pagamento, especialmente em compras de maior valor.
+                      {ENDIVIDAMENTO_FAMILIAS_PAGE.existingAnalysis[3]}
                     </li>
                     <li>
-                      Juros elevados podem favorecer decisões de compra mais cautelosas, aumentando a importância de propostas com boa relação entre preço, benefício e durabilidade.
+                      {ENDIVIDAMENTO_FAMILIAS_PAGE.existingAnalysis[4]}
                     </li>
                     <li>
-                      O impacto do endividamento tende a variar entre os perfis de consumidor, reforçando a necessidade de acompanhar diferenças de renda, capacidade de pagamento e sensibilidade a preço.
+                      {ENDIVIDAMENTO_FAMILIAS_PAGE.existingAnalysis[5]}
                     </li>
                   </ul>
                   

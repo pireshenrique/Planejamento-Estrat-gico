@@ -2,8 +2,17 @@ import React, { useState } from 'react';
 import { TrendingUp, Globe, Cpu, Building2, ArrowRight, Activity, ChevronRight, X, ExternalLink, Info, Lightbulb, Zap, ShoppingCart, Target, Pickaxe, MapPin, BarChart3, ShieldAlert, Search } from 'lucide-react';
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { EUA_EVIDENCES } from '../../data/evidences/eua';
+import { EUA_INDICADORES, EUA_PANORAMA, EUA_TEMAS_ESTRATEGICOS } from '../../data/economia-mundial/estadosUnidos';
 
-
+const ICON_MAP = {
+  TrendingUp,
+  Globe,
+  ShieldAlert,
+  Zap,
+  Cpu,
+  Building2,
+  Target
+};
 
 export const EstadosUnidosView = ({ setActivePage }: { setActivePage: (page: string) => void }) => {
   const [selectedEvidence, setSelectedEvidence] = useState<{
@@ -75,7 +84,8 @@ export const EstadosUnidosView = ({ setActivePage }: { setActivePage: (page: str
         </div>
       </div>
 
-      <div className="p-4 lg:py-10 lg:px-6 print:py-10 print:px-6 max-w-[1600px] mx-auto w-full flex flex-col gap-14">
+      {/* CONTEÚDO PRINCIPAL */}
+      <div className="max-w-[1600px] mx-auto w-full p-4 lg:p-6 print:p-6 flex flex-col gap-10">
         
         {/* ROW 1: Panorama e Destaques */}
         <div className="flex flex-col gap-6">
@@ -88,62 +98,32 @@ export const EstadosUnidosView = ({ setActivePage }: { setActivePage: (page: str
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-              
-              <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex items-start gap-4">
-                <div className="w-12 h-12 bg-slate-50 dark:bg-slate-900/50 rounded-xl flex items-center justify-center shrink-0">
-                  <TrendingUp className="w-6 h-6 text-slate-600 dark:text-slate-400" />
-                </div>
-                <div>
-                  <p className="text-[15px] font-bold text-slate-700 dark:text-slate-300 mb-1">Juros EUA (Fed)</p>
-                  <h3 className="text-[30px] font-bold text-slate-800 dark:text-slate-200 leading-none mb-1.5">Risco</h3>
-                  <p className="text-[14px] text-slate-500 dark:text-slate-400">Metade prevê nova alta</p>
-                  <p className="text-[13px] text-slate-400 dark:text-slate-500 mt-0.5">Última Atualização: 17/06/2026</p>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex items-start gap-4">
-                <div className="w-12 h-12 bg-slate-50 dark:bg-slate-900/50 rounded-xl flex items-center justify-center shrink-0">
-                  <Globe className="w-6 h-6 text-slate-600 dark:text-slate-400" />
-                </div>
-                <div>
-                  <p className="text-[15px] font-bold text-slate-700 dark:text-slate-300 mb-1">Data Centers</p>
-                  <h3 className="text-[30px] font-bold text-slate-800 dark:text-slate-200 leading-none mb-1.5">US$ 3 Tri</h3>
-                  <p className="text-[14px] text-slate-500 dark:text-slate-400">Projeção de investimentos</p>
-                  <p className="text-[13px] text-slate-400 dark:text-slate-500 mt-0.5">Última Atualização: 12/01/2026</p>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex items-start gap-4">
-                <div className="w-12 h-12 bg-slate-50 dark:bg-slate-900/50 rounded-xl flex items-center justify-center shrink-0">
-                  <ShieldAlert className="w-6 h-6 text-slate-600 dark:text-slate-400" />
-                </div>
-                <div>
-                  <p className="text-[15px] font-bold text-slate-700 dark:text-slate-300 mb-1">Tarifas (BR)</p>
-                  <h3 className="text-[30px] font-bold text-slate-800 dark:text-slate-200 leading-none mb-1.5">Até 25%</h3>
-                  <p className="text-[14px] text-slate-500 dark:text-slate-400">Risco p/ exportações</p>
-                  <p className="text-[13px] text-slate-400 dark:text-slate-500 mt-0.5">Última Atualização: 02/06/2026</p>
-                </div>
-              </div>
-
-              <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex items-start gap-4">
-                <div className="w-12 h-12 bg-slate-50 dark:bg-slate-900/50 rounded-xl flex items-center justify-center shrink-0">
-                  <Zap className="w-6 h-6 text-slate-600 dark:text-slate-400" />
-                </div>
-                <div>
-                  <p className="text-[15px] font-bold text-slate-700 dark:text-slate-300 mb-1">Infra Elétrica</p>
-                  <h3 className="text-[30px] font-bold text-slate-800 dark:text-slate-200 leading-none mb-1.5">Urgência</h3>
-                  <p className="text-[14px] text-slate-500 dark:text-slate-400">Pressão regulatória p/ IA</p>
-                  <p className="text-[13px] text-slate-400 dark:text-slate-500 mt-0.5">Última Atualização: 18/06/2026</p>
-                </div>
-              </div>
-
+              {EUA_INDICADORES.map((ind) => {
+                const IconComponent = ind.id === 'juros-fed' ? TrendingUp
+                  : ind.id === 'data-centers' ? Globe
+                  : ind.id === 'tarifas-br' ? ShieldAlert
+                  : Zap;
+                return (
+                  <div key={ind.id} className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex items-start gap-4">
+                    <div className="w-12 h-12 bg-slate-50 dark:bg-slate-900/50 rounded-xl flex items-center justify-center shrink-0">
+                      <IconComponent className="w-6 h-6 text-slate-600 dark:text-slate-400" />
+                    </div>
+                    <div>
+                      <p className="text-[15px] font-bold text-slate-700 dark:text-slate-300 mb-1">{ind.label}</p>
+                      <h3 className="text-[30px] font-bold text-slate-800 dark:text-slate-200 leading-none mb-1.5">{ind.valueStr}</h3>
+                      <p className="text-[14px] text-slate-500 dark:text-slate-400">{ind.description}</p>
+                      <p className="text-[13px] text-slate-400 dark:text-slate-500 mt-0.5">Última Atualização: {ind.lastUpdate}</p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
             <h3 className="text-2xl md:text-3xl print:text-3xl font-bold text-slate-900 dark:text-white mb-4 leading-tight mt-2">
-              Os Estados Unidos enfrentam pressões inflacionárias, juros altos e intensa corrida por infraestrutura de IA.
+              {EUA_PANORAMA.headline}
             </h3>
             <p className="text-slate-600 dark:text-slate-400 text-lg mb-4 leading-relaxed max-w-3xl">
-              O cenário econômico apresenta crescimento resiliente, mas impulsionado por uma forte demanda energética e investimentos focados em data centers. Tensões geopolíticas e discussões tarifárias indicam possíveis impactos sobre exportações e competitividade.
+              {EUA_PANORAMA.description}
             </p>
           </section>
 
@@ -156,37 +136,16 @@ export const EstadosUnidosView = ({ setActivePage }: { setActivePage: (page: str
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 print:grid-cols-5 gap-4">
-            
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col hover:shadow-md transition-shadow">
-              <ShieldAlert className="w-6 h-6 text-red-500 mb-4" />
-              <h3 className="font-bold text-slate-900 dark:text-white text-[17px] mb-2">1. Guerra Comercial e Tarifas</h3>
-              <p className="text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">Possíveis tarifas de 25% sobre o Brasil afetam competitividade e pressionam setores como o metalúrgico.</p>
-            </div>
-
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col hover:shadow-md transition-shadow">
-              <Cpu className="w-6 h-6 text-purple-500 mb-4" />
-              <h3 className="font-bold text-slate-900 dark:text-white text-[17px] mb-2">2. Corrida por IA</h3>
-              <p className="text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">Demanda intensa por data centers impulsiona consumo de equipamentos elétricos, cobre e obras industriais.</p>
-            </div>
-
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col hover:shadow-md transition-shadow">
-              <Building2 className="w-6 h-6 text-emerald-500 mb-4" />
-              <h3 className="font-bold text-slate-900 dark:text-white text-[17px] mb-2">3. Expansão Bilionária</h3>
-              <p className="text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">Investimentos trilionários em infraestrutura digital pressionam modernização de redes elétricas no mundo.</p>
-            </div>
-
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col hover:shadow-md transition-shadow">
-              <Target className="w-6 h-6 text-orange-500 mb-4" />
-              <h3 className="font-bold text-slate-900 dark:text-white text-[17px] mb-2">4. Juros Elevados nos EUA</h3>
-              <p className="text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">Altas taxas fortalecem o dólar, elevando o custo de financiamento no Brasil e pressionando o câmbio.</p>
-            </div>
-
-            <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col hover:shadow-md transition-shadow">
-              <Zap className="w-6 h-6 text-blue-500 mb-4" />
-              <h3 className="font-bold text-slate-900 dark:text-white text-[17px] mb-2">5. Demanda por Energia</h3>
-              <p className="text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">Novas necessidades para suporte de IA geram demandas expressivas por renováveis e equipamentos do setor elétrico.</p>
-            </div>
-
+            {EUA_TEMAS_ESTRATEGICOS.map((tema) => {
+              const IconComp = ICON_MAP[tema.iconName] || ShieldAlert;
+              return (
+                <div key={tema.id} className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col hover:shadow-md transition-shadow">
+                  <IconComp className={`w-6 h-6 ${tema.color} mb-4`} />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-[17px] mb-2">{tema.title}</h3>
+                  <p className="text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed">{tema.description}</p>
+                </div>
+              );
+            })}
           </div>
         </section>
 
@@ -210,8 +169,8 @@ export const EstadosUnidosView = ({ setActivePage }: { setActivePage: (page: str
             {/* Lista de Evidências */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 w-full relative z-0">
               {EUA_EVIDENCES.map((ev) => (
-            <EvidenceCard key={ev.id} evidence={ev} />
-          ))}
+                <EvidenceCard key={ev.id} evidence={ev} />
+              ))}
             </div>
 
             {/* Painel de Detalhes (Side by Side) */}
@@ -252,59 +211,40 @@ export const EstadosUnidosView = ({ setActivePage }: { setActivePage: (page: str
                     </div>
                   </div>
 
-                  <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-xl p-4">
-                    <h4 className="text-[12px] font-bold uppercase tracking-widest text-blue-800 dark:text-blue-400 mb-3">Possíveis impactos Brasil</h4>
-                    <ul className="space-y-3">
-                      {selectedEvidence.data.impacts.map((imp, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1 shrink-0" />
-                          {imp}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <div className="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-xl border border-slate-100 dark:border-slate-800/80 flex flex-col gap-4">
+                    <div>
+                      <h5 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1">Impacto no Brasil</h5>
+                      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                        {selectedEvidence.data.brazilImpact}
+                      </p>
+                    </div>
 
-                  <div>
-                    <h4 className="text-[12px] font-bold uppercase tracking-widest text-slate-900 dark:text-slate-200 mb-3">Temas Relacionados</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedEvidence.data.themes.map((theme, idx) => (
-                        <span key={idx} className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800/50 text-slate-600 dark:text-slate-300 text-[13px] rounded-md font-bold uppercase tracking-wide">
-                          {theme}
-                        </span>
-                      ))}
+                    <div>
+                      <h5 className="text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1">Impacto Lorenzetti</h5>
+                      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                        {selectedEvidence.data.lorenzettiImpact}
+                      </p>
                     </div>
                   </div>
-                </div>
-                
-                <div className="p-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-[#111827]">
-                  <a 
-                    href={selectedEvidence.data.url} 
-                    onClick={(e) => handleLinkClick(e, selectedEvidence.data.url)}
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center justify-center gap-2 w-full py-3 bg-slate-900 hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-xl text-sm font-bold transition-all shadow-sm border-b-[4px] border-slate-700 dark:border-blue-800 active:border-b-0 active:translate-y-[4px] cursor-pointer"
-                  >
-                    Notícia completa
-                    <ExternalLink className="w-4 h-4 text-slate-400 dark:text-white/80" />
-                  </a>
+
+                  <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                    <span className="text-xs text-slate-400">ID da Evidência: #{selectedEvidence.data.id}</span>
+                    <a
+                      href={selectedEvidence.data.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => handleLinkClick(e, selectedEvidence.data.url)}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline"
+                    >
+                      Acessar Fonte Original
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
                 </div>
               </div>
             )}
           </div>
         </section>
-
-        {/* GUIDELINES FOOTER */}
-        <div className="flex bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-2xl p-5 md:p-6 mt-4 gap-4 items-start">
-           <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5">
-             <Info className="w-4 h-4" />
-           </div>
-           <div>
-             <h4 className="text-[15px] font-bold text-slate-900 dark:text-slate-200 mb-1">Nota Metodológica de Inteligência</h4>
-             <p className="text-[15px] text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-               As análises apresentadas nesta página foram geradas por Inteligência Artificial a partir da base de evidências contida neste sistema, sendo posteriormente revisadas, checadas e aprovadas por nossa equipe de planejamento.
-             </p>
-           </div>
-        </div>
 
       </div>
     </div>

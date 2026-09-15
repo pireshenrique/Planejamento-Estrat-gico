@@ -5,6 +5,7 @@ import { TrendingUp, BarChart3, Target, ShoppingCart, Factory, Building2, Users,
 import { getEvidencesForTopic } from '../../../data/evidencesRegistry';
 import { EvidenceLink } from '../../layout/EvidenceLink';
 import { EvidenceCard } from '../../layout/EvidenceCard';
+import { PIB_PAGE } from '../../../data/pages/Pib';
 
 interface PibViewProps {
   setActivePage: (page: string) => void;

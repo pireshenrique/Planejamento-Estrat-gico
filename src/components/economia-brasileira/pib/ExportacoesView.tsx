@@ -2,6 +2,7 @@ import React from 'react';
 import { Target, TrendingUp, BarChart3, Info, Globe, ExternalLink, Factory, ShoppingCart, Users, Briefcase, DollarSign, Activity, Wheat, AlertTriangle, ShieldCheck, Eye, Quote, BookOpen, ChevronRight, BarChart2, Ship, Map, Truck, PackageOpen, RefreshCw, Trophy, Award, Star, Leaf, Search } from 'lucide-react';
 import { EvidenceCard } from '../../layout/EvidenceCard';
 import { EXPORTACOES_EVIDENCES } from '../../../data/evidences/exportacoes';
+import { EXPORTACOES_PAGE } from '../../../data/pages/Exportacoes';
 
 interface ExportacoesViewProps {
   setActivePage: (page: string) => void;

@@ -52,6 +52,7 @@ import { ListChecks, Link2, Wallet, ArrowLeftRight,
 import { ResponsiveContainer } from '../layout/ResponsiveContainer';
 import { HeaderKpiCard } from '../layout/HeaderKpiCard';
 import { EvidenceCard, Evidence } from '../layout/EvidenceCard';
+import { REFORMA_TRIBUTARIA_PAGE } from '../../data/pages/ReformaTributaria';
 
 interface ReformaTributariaViewProps {
   setActivePage: (page: string) => void;

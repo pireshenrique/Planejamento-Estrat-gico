@@ -6,6 +6,7 @@ import { Landmark, Target, BarChart3, TrendingUp, Search, ArrowUpRight, ArrowRig
 import { EvidenceCard } from '../../layout/EvidenceCard';
 import { JUROS_EVIDENCES, SELIC_DATA, SelicPoint } from '../../../data/evidences/juros';
 import { JUROS_DATA } from '../../../data/economia-brasileira/juros';
+import { JUROS_SELIC_PAGE } from '../../../data/pages/JurosSelic';
 
 interface JurosViewProps {
   setActivePage: (page: string) => void;
@@ -173,6 +174,7 @@ const renderProjectionLabel = (props: any) => {
 };
 
 export function JurosView({ setActivePage }: JurosViewProps) {
+  const getVal = (id: string) => JUROS_SELIC_PAGE.factualContent.find(f => f.id === id)?.value?.toString().replace('.', ',');
   return (
     <div className="w-full flex flex-col gap-8 font-sans text-slate-800 dark:text-slate-200">
       
@@ -189,7 +191,7 @@ export function JurosView({ setActivePage }: JurosViewProps) {
           {/* Card 1 */}
           <HeaderKpiCard
             title={JUROS_DATA.kpis.focus.title}
-            value={JUROS_DATA.kpis.focus.value}
+            value={`${getVal('juros-selic::kpi::focus')}%`}
             context={JUROS_DATA.kpis.focus.context}
             explanation={JUROS_DATA.kpis.focus.explanation}
             source={JUROS_DATA.kpis.focus.source}

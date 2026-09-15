@@ -20,7 +20,10 @@ import {
   FileText,
   ExternalLink,
   HelpCircle,
-  Database
+  Database,
+  Download,
+  Copy,
+  Check
 } from 'lucide-react';
 import {
   getStrategicReportData,
@@ -28,10 +31,12 @@ import {
   subscribeToReportUpdates,
   StrategicReportData,
   LeituraEstrategica,
-  computeEvidencesHash,
-  isStrategicallyUsableEvidence
+  computeStrategicContextHash,
+  isStrategicallyUsableEvidence,
+  isEditorialMode
 } from '../../data/strategicReportState';
 import { getPortalMetricsSummary, getAllSystemEvidences, SystemEvidenceItem } from '../../data/portalMetrics';
+import { getStrategicPagesContext } from '../../data/pages/strategicPagesRegistry';
 
 interface StrategicReportViewProps {
   setActivePage?: (page: string) => void;
@@ -39,12 +44,17 @@ interface StrategicReportViewProps {
 
 export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setActivePage }) => {
   const [reportData, setReportData] = useState<StrategicReportData>(getStrategicReportData());
+  const [isEditorial, setIsEditorial] = useState<boolean>(isEditorialMode());
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateFeedback, setUpdateFeedback] = useState<{
     type: 'success' | 'info' | 'error';
     message: string;
     allowForce?: boolean;
   } | null>(null);
+
+  // Fonte de dados de evidências e páginas do sistema
+  const allEvs = React.useMemo(() => getAllSystemEvidences(), []);
+  const strategicPages = React.useMemo(() => getStrategicPagesContext(), []);
 
   // Modal de todas as fontes
   const [showSourcesModal, setShowSourcesModal] = useState(false);
@@ -56,6 +66,10 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
   // Modal de detalhes de governança do relatório
   const [showGovernanceModal, setShowGovernanceModal] = useState(false);
 
+  // Modal de exportação de relatório publicado
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [copiedExport, setCopiedExport] = useState(false);
+
   // Cache de todas as evidências do sistema para busca rápida por ID
   const [evidenceMap, setEvidenceMap] = useState<Map<string, SystemEvidenceItem>>(new Map());
   const [allEvidencesCount, setAllEvidencesCount] = useState<number>(0);
@@ -63,6 +77,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
   const [currentHash, setCurrentHash] = useState<string>('');
 
   useEffect(() => {
+    setIsEditorial(isEditorialMode());
     const report = getStrategicReportData();
     setReportData(report);
 
@@ -73,7 +88,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
     setAllEvidencesCount(allEvs.length);
     setValidEvidencesCount(allEvs.filter(isStrategicallyUsableEvidence).length);
 
-    const hash = computeEvidencesHash(allEvs);
+    const hash = computeStrategicContextHash(allEvs);
     setCurrentHash(hash);
 
     const map = new Map<string, SystemEvidenceItem>();
@@ -90,10 +105,63 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
   }, []);
 
   /**
+   * Gera o conteúdo completo em TypeScript para o arquivo src/data/publishedReport.ts
+   */
+  const getPublishedReportFileContent = () => {
+    const now = new Date().toISOString();
+    return `import { StrategicReportData } from './strategicReportState';
+
+/**
+ * RELATÓRIO ESTRATÉGICO PUBLICADO
+ *
+ * Este arquivo é o relatório oficial exibido a todos os usuários do portal.
+ * NÃO é editado à mão e NÃO é gerado em tempo de execução.
+ *
+ * Fluxo de atualização:
+ *   1. abrir o portal em modo editorial (?editorial=1)
+ *   2. clicar em "Atualizar análise"
+ *   3. revisar o resultado
+ *   4. clicar em "Exportar relatório publicado"
+ *   5. substituir o conteúdo deste arquivo pelo texto exportado
+ *   6. republicar
+ *
+ * null = nenhum relatório publicado ainda.
+ */
+export const PUBLISHED_REPORT: StrategicReportData | null = ${JSON.stringify(reportData, null, 2)};
+
+export const PUBLISHED_AT: string | null = ${JSON.stringify(now)};
+`;
+  };
+
+  const handleCopyExportText = async () => {
+    const content = getPublishedReportFileContent();
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopiedExport(true);
+      setTimeout(() => setCopiedExport(false), 3000);
+    } catch (err) {
+      console.error('Falha ao copiar texto do relatório:', err);
+    }
+  };
+
+  const handleDownloadExportFile = () => {
+    const content = getPublishedReportFileContent();
+    const blob = new Blob([content], { type: 'text/typescript;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'publishedReport.ts';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  /**
    * Atualização com Governança das Evidências (Regras 18 a 34):
    * - Verifica hash da base (detecta se mudou).
    * - Se inalterado, não recalcula arbitrariamente.
-   * - Se forçado ou com novos dados, faz atualização incremental preservando IDs (MT-001 a MT-008).
+   * - Se forçado ou com novos dados, faz atualização incremental preservando IDs existentes.
    */
   const handleUpdateAnalysis = async (force: boolean = false) => {
     if (isUpdating) return;
@@ -107,7 +175,8 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
     const formattedDate = `${day}/${month}/${year}`;
 
     const allEvs = getAllSystemEvidences();
-    const hash = computeEvidencesHash(allEvs);
+    const strategicPages = getStrategicPagesContext();
+    const hash = computeStrategicContextHash(allEvs, strategicPages);
     const previousHash = reportData.governance?.evidenceHash;
 
     try {
@@ -121,6 +190,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
           previousEvidenceHash: previousHash,
           previousReport: reportData,
           totalEvidencias: allEvs.length,
+          strategicPages: strategicPages,
           evidencesCatalog: allEvs.map((e) => ({
             id: e.id || '',
             title: e.title,
@@ -138,6 +208,15 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
 
       const data = await res.json();
 
+      // TRATAMENTO HONESTO DE ERRO (NÃO MASCARAR ERRO COMO SUCESSO)
+      if (data && data.status === 'error') {
+        setUpdateFeedback({
+          type: 'error',
+          message: data.mensagem || 'Não foi possível atualizar a análise. O relatório anterior foi preservado.'
+        });
+        return;
+      }
+
       // REGRA 26: BASE INALTERADA
       if (data && data.status === 'unmodified') {
         setUpdateFeedback({
@@ -148,8 +227,8 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
         return;
       }
 
-      // REGRA 25, 30 & 32: ATUALIZAÇÃO INCREMENTAL BEM-SUCEDIDA
-      if (data && (data.status === 'updated' || data.status === 'success')) {
+      // ATUALIZAÇÃO INCREMENTAL BEM-SUCEDIDA
+      if (data && data.status === 'updated') {
         const updatedReport: StrategicReportData = {
           ultimaAnalise: data.dataAnalise || formattedDate,
           governance: data.governance || {
@@ -157,14 +236,15 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
             previousHash: previousHash,
             totalEvidenciasAnalisadas: allEvs.length,
             dataVersion: `2026.09.14-v${Date.now()}`,
-            statusGovernança: 'atualizado_incremental',
+            statusGovernança: data.leiturasEstrategicas?.length > 0 ? 'atualizado_incremental' : 'insuficiente',
             alteracoes: {
               mantidas: reportData.leiturasEstrategicas.map((l) => l.id),
               atualizadas: [],
               novas: [],
               removidas: []
             },
-            observacao: 'Análise estratégica incremental validada contra a base de dados.'
+            observacao: 'Análise estratégica incremental validada contra a base de dados.',
+            diagnostico: data.diagnostico
           },
           resumoExecutivo: data.resumoExecutivo || reportData.resumoExecutivo,
           leiturasEstrategicas: Array.isArray(data.leiturasEstrategicas) ? data.leiturasEstrategicas : reportData.leiturasEstrategicas,
@@ -185,18 +265,25 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
           ? ` (${alt.mantidas?.length || 0} mantidas, ${alt.atualizadas?.length || 0} refinadas, ${alt.novas?.length || 0} novas)`
           : '';
 
-        setUpdateFeedback({
-          type: 'success',
-          message: `Análise estratégica atualizada incrementalmente com governança factual${diffDesc} (${formattedDate}).`
-        });
+        if (data.leiturasEstrategicas?.length === 0) {
+          setUpdateFeedback({
+            type: 'info',
+            message: `Avaliação concluída: nenhuma macrotendência atingiu validação factual suficiente (${formattedDate}).`
+          });
+        } else {
+          setUpdateFeedback({
+            type: 'success',
+            message: `Análise estratégica atualizada incrementalmente com governança factual${diffDesc} (${formattedDate}).`
+          });
+        }
       } else {
-        throw new Error(data?.error || 'Erro na resposta do serviço de análise.');
+        throw new Error(data?.detalhe || data?.error || 'Erro na resposta do serviço de análise.');
       }
     } catch (err: any) {
       console.error('Falha ao atualizar relatório estratégico:', err);
       setUpdateFeedback({
-        type: 'info',
-        message: `A análise estratégica permanece consistente e auditada na base de evidências atual (${formattedDate}).`
+        type: 'error',
+        message: 'Falha na comunicação com o serviço de inteligência estratégica. O relatório anterior foi preservado.'
       });
     } finally {
       setIsUpdating(false);
@@ -212,6 +299,23 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-20 print:p-0 print:space-y-6 print:max-w-full">
+      {/* =========================================================================
+          INDICADOR VISUAL DISCRETO DO MODO EDITORIAL (REGRA 5)
+          ========================================================================= */}
+      {isEditorial && (
+        <div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-xl p-3 sm:p-4 text-xs sm:text-sm text-amber-900 dark:text-amber-200 flex items-center justify-between gap-3 shadow-sm print:hidden">
+          <div className="flex items-center gap-2.5 font-medium">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0 animate-pulse" />
+            <span>
+              <strong>Modo editorial ativo</strong> — as alterações não são visíveis para os demais usuários até que o relatório seja exportado e publicado.
+            </span>
+          </div>
+          <span className="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300 font-mono text-[11px] font-bold shrink-0">
+            ?editorial=1
+          </span>
+        </div>
+      )}
+
       {/* =========================================================================
           CABEÇALHO SIMPLES E EXECUTIVO COM GOVERNANÇA INTEGRADA
           ========================================================================= */}
@@ -230,7 +334,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
               <span>•</span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-slate-400" />
-                Última atualização: {reportData.ultimaAnalise}
+                Última atualização: {reportData.ultimaAnalise || 'Pendente de publicação'}
               </span>
               <span>•</span>
               <button
@@ -265,15 +369,29 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
               <span>Imprimir / Salvar PDF</span>
             </button>
 
-            <button
-              onClick={() => handleUpdateAnalysis(false)}
-              disabled={isUpdating}
-              className="px-3.5 py-2 rounded-lg bg-[#0c162c] hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-2 transition-all shadow-sm disabled:opacity-60"
-              title="Verifica se há novas evidências e atualiza incrementalmente a análise"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${isUpdating ? 'animate-spin' : ''}`} />
-              <span>{isUpdating ? 'Verificando...' : 'Atualizar análise'}</span>
-            </button>
+            {/* BOTÕES CONDICIONAIS EXCLUSIVOS DO MODO EDITORIAL (REGRAS 3 E 4) */}
+            {isEditorial && (
+              <>
+                <button
+                  onClick={() => setShowExportModal(true)}
+                  className="px-3 py-2 rounded-lg bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 transition-colors shadow-sm"
+                  title="Exporta o relatório atual como código TypeScript para publicação"
+                >
+                  <Download className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span>Exportar relatório publicado</span>
+                </button>
+
+                <button
+                  onClick={() => handleUpdateAnalysis(false)}
+                  disabled={isUpdating}
+                  className="px-3.5 py-2 rounded-lg bg-[#0c162c] hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-2 transition-all shadow-sm disabled:opacity-60"
+                  title="Verifica se há novas evidências e atualiza incrementalmente a análise"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${isUpdating ? 'animate-spin' : ''}`} />
+                  <span>{isUpdating ? 'Verificando...' : 'Atualizar análise'}</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
 
@@ -346,7 +464,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
       </section>
 
       {/* =========================================================================
-          2. PRINCIPAIS LEITURAS ESTRATÉGICAS (COM IDENTIDADE ESTÁVEL MT-001... E RASTREABILIDADE)
+          2. PRINCIPAIS LEITURAS ESTRATÉGICAS (COM IDENTIDADE ESTÁVEL E RASTREABILIDADE)
           ========================================================================= */}
       <section className="space-y-5">
         <div className="border-b border-slate-200 dark:border-slate-800 pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
@@ -542,18 +660,18 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
         </div>
 
         <div className="bg-white dark:bg-[#121c32] p-5 sm:p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-          {reportData.conexoesEstrategicas?.map((conn, idx) => (
+          {(reportData.conexoesEstrategicas || []).map((conn, idx) => (
             <div
               key={idx}
-              className={`pb-4 ${idx < reportData.conexoesEstrategicas.length - 1 ? 'border-b border-slate-100 dark:border-slate-800/80' : ''}`}
+              className={`pb-4 ${idx < (reportData.conexoesEstrategicas?.length || 0) - 1 ? 'border-b border-slate-100 dark:border-slate-800/80' : ''}`}
             >
               <div className="flex flex-wrap items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">
-                {conn.temas.map((t, i) => (
+                {(conn.temas || []).map((t, i) => (
                   <React.Fragment key={i}>
                     <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-[11px] font-medium">
                       {t}
                     </span>
-                    {i < conn.temas.length - 1 && <span className="text-slate-400 font-bold">+</span>}
+                    {i < (conn.temas?.length || 0) - 1 && <span className="text-slate-400 font-bold">+</span>}
                   </React.Fragment>
                 ))}
               </div>
@@ -581,7 +699,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {reportData.implicacoesLorenzetti?.map((dim, idx) => (
+          {(reportData.implicacoesLorenzetti || []).map((dim, idx) => (
             <div
               key={idx}
               className="bg-white dark:bg-[#121c32] p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-2.5"
@@ -591,7 +709,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
                 {dim.dimensao}
               </h3>
               <ul className="space-y-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                {dim.implicacoes.map((imp, i) => (
+                {(dim.implicacoes || []).map((imp, i) => (
                   <li key={i} className="flex items-start gap-2.5 leading-relaxed">
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" />
                     <span>{imp}</span>
@@ -625,7 +743,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
               Prioridade Alta
             </div>
             <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
-              {reportData.temasMonitoramento?.prioridadeAlta.map((t, idx) => (
+              {(reportData.temasMonitoramento?.prioridadeAlta || []).map((t, idx) => (
                 <li key={idx} className="flex items-start gap-2 leading-relaxed">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-1.5 shrink-0" />
                   <span>{t}</span>
@@ -641,7 +759,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
               Acompanhamento
             </div>
             <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
-              {reportData.temasMonitoramento?.acompanhamento.map((t, idx) => (
+              {(reportData.temasMonitoramento?.acompanhamento || []).map((t, idx) => (
                 <li key={idx} className="flex items-start gap-2 leading-relaxed">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>{t}</span>
@@ -657,7 +775,7 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
               Sinais Emergentes
             </div>
             <ul className="space-y-2 text-xs text-slate-700 dark:text-slate-300">
-              {reportData.temasMonitoramento?.sinaisEmergentes.map((t, idx) => (
+              {(reportData.temasMonitoramento?.sinaisEmergentes || []).map((t, idx) => (
                 <li key={idx} className="flex items-start gap-2 leading-relaxed">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
                   <span>{t}</span>
@@ -725,16 +843,14 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
             <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/30">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-[#0c162c] text-white">
-                    {selectedLeituraAudit.id}
-                  </span>
-                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                    Auditoria de Evidências Documentais
-                  </span>
+                  <ShieldCheck className="w-5 h-5 text-blue-600" />
+                  <h3 className="text-base font-bold text-[#0c162c] dark:text-white">
+                    Auditoria de Fundamentação
+                  </h3>
                 </div>
-                <h3 className="text-base font-bold text-[#0c162c] dark:text-white leading-snug">
-                  {selectedLeituraAudit.titulo}
-                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-mono font-medium">
+                  {selectedLeituraAudit.id} — {selectedLeituraAudit.titulo}
+                </p>
               </div>
               <button
                 onClick={() => setSelectedLeituraAudit(null)}
@@ -743,134 +859,92 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
                 <X className="w-5 h-5" />
               </button>
             </div>
-
-            <div className="p-5 overflow-y-auto space-y-4 text-xs">
-              <div className="p-3 bg-blue-50 dark:bg-blue-950/40 rounded-lg border border-blue-100 dark:border-blue-900/60 text-blue-900 dark:text-blue-200 leading-relaxed">
-                <strong>Regra de Governança (Item 20):</strong> Nenhuma leitura estratégica existe sem evidências
-                rastreáveis no sistema. Abaixo estão as fontes e registros factuais cadastrados que sustentam esta macrotendência:
-              </div>
-
-              {(() => {
-                const validLinkedEvs = (selectedLeituraAudit.evidenceIds || []).filter(evId => {
-                  const ev = evidenceMap.get(evId); if (!ev) return null;
-                  return isStrategicallyUsableEvidence(ev);
-                });
-                
-                const hasInsufficientSupport = validLinkedEvs.length < 2;
-
-                return (
-                  <>
-                    {hasInsufficientSupport && (
-                      <div className="p-3 bg-red-50 dark:bg-red-950/40 text-red-900 dark:text-red-200 border border-red-200 dark:border-red-900/60 rounded-lg flex gap-2">
-                        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" /> 
-                        <span>
-                          <strong>Leitura com sustentação insuficiente — revisão necessária.</strong>
-                          <br />
-                          Esta macrotendência possui menos de 2 evidências válidas.
-                        </span>
-                      </div>
-                    )}
-
-                    <div className="space-y-3">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                        {selectedLeituraAudit.fundamentacao ? 'Fundamentação Factual' : 'Evidências Vinculadas Válidas'} ({selectedLeituraAudit.fundamentacao ? selectedLeituraAudit.fundamentacao.length : validLinkedEvs.length})
-                      </h4>
-
-                      {selectedLeituraAudit.fundamentacao ? (
-                        selectedLeituraAudit.fundamentacao.map((f, idx) => {
-                          const ev = evidenceMap.get(f.evidenceId); if (!ev && !f.source) return null;
-                          return (
-                            <div
-                              key={idx}
-                              className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-2"
-                            >
-                              <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                                Fato utilizado
-                              </div>
-                              <div className="font-medium text-slate-900 dark:text-white text-xs sm:text-sm bg-slate-50 dark:bg-slate-800/50 p-2 rounded border border-slate-100 dark:border-slate-800">
-                                "{f.afirmacao}"
-                              </div>
-                              <div className="flex flex-col gap-1 mt-2 pt-2 border-t border-slate-100 dark:border-slate-800/80">
-                                <div className="flex items-center justify-between gap-2">
-                                  <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px] font-bold text-slate-700 dark:text-slate-300">
-                                    ID: {f.evidenceId}
-                                  </span>
-                                  <span className="text-[11px] font-semibold text-blue-600 dark:text-blue-400">
-                                    {f.source || ev?.source}
-                                  </span>
-                                </div>
-                                <div className="text-xs text-slate-700 dark:text-slate-300 mt-1">
-                                  {ev?.title || f?.afirmacao || ''}
-                                </div>
-                                {ev?.url && (
-                                  <div className="pt-1">
-                                    <a
-                                      href={ev.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="inline-flex items-center gap-1 text-[11px] text-blue-600 dark:text-blue-400 hover:underline font-medium"
-                                    >
-                                      <span>Ver link original da fonte</span>
-                                      <ExternalLink className="w-3 h-3" />
-                                    </a>
-                                  </div>
-                                )}
-                              </div>
+            
+            <div className="p-4 sm:p-5 overflow-y-auto space-y-6">
+              
+              {/* PÁGINAS UTILIZADAS */}
+              {selectedLeituraAudit.supportingPageIds && selectedLeituraAudit.supportingPageIds.length > 0 && (
+                <div className="space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    Páginas Utilizadas
+                  </h4>
+                  <div className="space-y-3">
+                    {selectedLeituraAudit.supportingPageIds.map(pageId => {
+                      const page = strategicPages.find(p => p.pageId === pageId);
+                      if (!page) return null;
+                      
+                      const usedFacts = (page.factualContent || []).filter(f => selectedLeituraAudit.supportingFactIds?.includes(f.id));
+                      
+                      return (
+                        <div key={pageId} className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+                          <div className="font-bold text-slate-900 dark:text-white text-sm mb-2">{page.pageTitle}</div>
+                          {usedFacts.length > 0 ? (
+                            <div className="space-y-2">
+                              <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Fatos utilizados:</div>
+                              <ul className="space-y-2">
+                                {usedFacts.map(fact => {
+                                  const factSource = (fact as any).source || fact.sourceId;
+                                  return (
+                                    <li key={fact.id} className="text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50 p-2 rounded border border-slate-100 dark:border-slate-800/80">
+                                      <span className="block font-medium mb-1">- {fact.statement}</span>
+                                      {factSource && <span className="block text-[10px] text-blue-600 dark:text-blue-400 font-semibold">Fonte: {factSource}</span>}
+                                    </li>
+                                  );
+                                })}
+                              </ul>
                             </div>
-                          );
-                        })
-                      ) : (
-                        validLinkedEvs.map((evId) => {
-                          const ev = evidenceMap.get(evId); if (!ev) return null;
-                          return (
-                            <div
-                              key={evId}
-                              className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-1.5"
-                            >
-                              <div className="flex items-center justify-between gap-2">
-                                <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px] font-bold text-slate-700 dark:text-slate-300">
-                                  ID: {evId}
-                                </span>
-                                <span className="text-[11px] font-semibold text-blue-600 dark:text-blue-400">
-                                  {ev?.source}
-                                </span>
-                              </div>
+                          ) : (
+                            <div className="text-xs text-slate-500 italic">Análise estrutural da página utilizada como contexto.</div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
-                              <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
-                                {ev?.title || ''}
-                              </div>
+              {/* EVIDÊNCIAS VINCULADAS */}
+              {selectedLeituraAudit.evidenceIds && selectedLeituraAudit.evidenceIds.length > 0 && (
+                <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    Evidências Vinculadas
+                  </h4>
+                  <div className="space-y-2">
+                    {selectedLeituraAudit.evidenceIds.map(evId => {
+                      const ev = allEvs.find(e => e.id === evId);
+                      if (!ev) return null;
+                      return (
+                        <div key={evId} className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 space-y-1.5">
+                           <div className="flex items-center justify-between gap-2">
+                             <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[10px] font-bold text-slate-700 dark:text-slate-300">
+                               ID: {evId}
+                             </span>
+                             <span className="text-[11px] font-semibold text-blue-600 dark:text-blue-400">
+                               {ev.source}
+                             </span>
+                           </div>
+                           <div className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+                             {ev.title}
+                           </div>
+                           {ev.url && (
+                             <div className="pt-1">
+                               <a href={ev.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-[11px] text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                                 <span>Ver link original da fonte</span>
+                                 <ExternalLink className="w-3 h-3" />
+                               </a>
+                             </div>
+                           )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
-                              {ev?.topic && (
-                                <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                                  Tópico / Eixo: {ev.topic}
-                                </div>
-                              )}
-
-                              {ev?.url && (
-                                <div className="pt-1">
-                                  <a
-                                    href={ev.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-[11px] text-blue-600 dark:text-blue-400 hover:underline font-medium"
-                                  >
-                                    <span>Ver link original da fonte</span>
-                                    <ExternalLink className="w-3 h-3" />
-                                  </a>
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })
-                      )}
-                    </div>
-                  </>
-                );
-              })()}
-
-              <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
+              {/* FONTES INSTITUCIONAIS */}
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
-                  Fontes Institucionais Declaradas
+                  Fontes Declaradas
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedLeituraAudit.sourceIds?.map((s, idx) => (
@@ -881,10 +955,13 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
                       {s}
                     </span>
                   ))}
+                  {(!selectedLeituraAudit.sourceIds || selectedLeituraAudit.sourceIds.length === 0) && (
+                    <span className="text-xs text-slate-500 italic">Fontes herdadas das páginas/evidências acima.</span>
+                  )}
                 </div>
               </div>
             </div>
-
+            
             <div className="p-3.5 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex justify-end">
               <button
                 onClick={() => setSelectedLeituraAudit(null)}
@@ -951,7 +1028,11 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
 
                 <div className="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
                   <span className="text-slate-500 dark:text-slate-400">Leituras Estratégicas Persistentes:</span>
-                  <span className="font-mono text-slate-700 dark:text-slate-300">MT-001 a MT-008 (8 ativas)</span>
+                  <span className="font-mono text-slate-700 dark:text-slate-300">
+                    {reportData.leiturasEstrategicas?.length
+                      ? `${reportData.leiturasEstrategicas.map(l => l.id).join(', ')} (${reportData.leiturasEstrategicas.length} ativas)`
+                      : 'Nenhuma leitura ativa'}
+                  </span>
                 </div>
               </div>
 
@@ -971,6 +1052,34 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
                   {reportData.governance.alteracoes.novas?.length > 0 && (
                     <div className="text-[11px] text-emerald-600 dark:text-emerald-400">
                       • Novas: {reportData.governance.alteracoes.novas.join(', ')}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {reportData.governance?.diagnostico && (
+                <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-2 border border-slate-100 dark:border-slate-700">
+                  <div className="font-bold text-slate-700 dark:text-slate-300 text-[11px] uppercase tracking-wider">
+                    Diagnóstico do Gate de Governança:
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600 dark:text-slate-400">
+                    <div>• Candidatas Propostas: <strong>{reportData.governance.diagnostico.candidatasPropostas}</strong></div>
+                    <div>• Candidatas Validadas: <strong>{reportData.governance.diagnostico.candidatasValidadas}</strong></div>
+                    <div>• Páginas Analisadas: <strong>{reportData.governance.diagnostico.paginasUtilizadas}</strong></div>
+                    <div>• Fatos Mapeados: <strong>{reportData.governance.diagnostico.fatosDisponiveis}</strong></div>
+                  </div>
+                  {reportData.governance.diagnostico.candidatasRejeitadas?.length > 0 && (
+                    <div className="pt-1 border-t border-slate-200 dark:border-slate-700 space-y-1">
+                      <span className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider">
+                        Rejeições no Gate ({reportData.governance.diagnostico.candidatasRejeitadas.length}):
+                      </span>
+                      <ul className="space-y-1 text-[10px] text-slate-600 dark:text-slate-400">
+                        {reportData.governance.diagnostico.candidatasRejeitadas.map((rej, rIdx) => (
+                          <li key={rIdx} className="leading-tight">
+                            • <strong>{rej.idProposto} ({rej.titulo})</strong>: {rej.motivo}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   )}
                 </div>
@@ -1038,6 +1147,97 @@ export const StrategicReportView: React.FC<StrategicReportViewProps> = ({ setAct
               >
                 Fechar
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          MODAL: EXPORTAR RELATÓRIO PUBLICADO (REGRA 4)
+          ========================================================================= */}
+      {showExportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-white dark:bg-[#121c32] w-full max-w-3xl max-h-[85vh] rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col overflow-hidden">
+            <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-200 dark:border-blue-800">
+                  <Download className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-[#0c162c] dark:text-white">
+                    Exportar Relatório Publicado
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Gere o código TypeScript para substituir em <code className="px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-[11px]">src/data/publishedReport.ts</code>
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowExportModal(false)}
+                className="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-4 sm:p-5 overflow-y-auto space-y-4">
+              <div className="bg-slate-50 dark:bg-slate-900/60 p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-300 space-y-1.5 leading-relaxed">
+                <div className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
+                  Instruções para Publicação Oficial:
+                </div>
+                <ol className="list-decimal pl-4 space-y-1 text-[11px]">
+                  <li>Copie o código gerado abaixo ou baixe o arquivo <code>publishedReport.ts</code>.</li>
+                  <li>Substitua o arquivo em <code>src/data/publishedReport.ts</code> no repositório.</li>
+                  <li>Faça a compilação e deploy — o relatório passará a ser exibido para todos os usuários automaticamente sem depender de <code>localStorage</code>.</li>
+                </ol>
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span>Prévia do arquivo gerado ({reportData.leiturasEstrategicas?.length || 0} macrotendências ativas):</span>
+                  <span className="font-mono text-[11px]">src/data/publishedReport.ts</span>
+                </div>
+                <pre className="p-4 rounded-lg bg-slate-900 text-slate-100 font-mono text-xs overflow-x-auto max-h-72 border border-slate-800">
+                  <code>{getPublishedReportFileContent()}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div className="p-3.5 sm:p-4 bg-slate-50 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+              <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                {copiedExport ? (
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
+                    <Check className="w-3.5 h-3.5" /> Código copiado para a área de transferência!
+                  </span>
+                ) : (
+                  'Pronto para substituição no código.'
+                )}
+              </span>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleCopyExportText}
+                  className="px-3.5 py-2 rounded-lg bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 transition-colors shadow-sm"
+                >
+                  {copiedExport ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-slate-500" />}
+                  <span>{copiedExport ? 'Copiado!' : 'Copiar código'}</span>
+                </button>
+
+                <button
+                  onClick={handleDownloadExportFile}
+                  className="px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Baixar publishedReport.ts</span>
+                </button>
+
+                <button
+                  onClick={() => setShowExportModal(false)}
+                  className="px-3.5 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors"
+                >
+                  Fechar
+                </button>
+              </div>
             </div>
           </div>
         </div>

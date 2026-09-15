@@ -1,6 +1,7 @@
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { useState } from 'react';
 import { Target, TrendingUp, Search, Globe, FileText, Scale, ShieldCheck, DollarSign, Layers, Percent, ArrowUpRight, AlertTriangle, CheckCircle2, Building2, BarChart2, Download, Eye, X, Printer, FileCheck, ExternalLink } from 'lucide-react';
+import { sobretaxasData } from '../../data/eletroeletronico/sobretaxas';
 import { SOBRETAXAS_EVIDENCES } from '../../data/evidences/sobretaxas';
 
 interface ImposicaoSobretaxasViewProps {
@@ -130,7 +131,7 @@ export function ImposicaoSobretaxasView({ setActivePage }: ImposicaoSobretaxasVi
               </div>
             </div>
             <div>
-              <h3 className="text-[26px] 2xl:text-[30px] font-black text-red-600 dark:text-red-400 leading-none">Até 37,5%</h3>
+              <h3 className="text-[26px] 2xl:text-[30px] font-black text-red-600 dark:text-red-400 leading-none">Até ${sobretaxasData.tarifas.acumulada}%</h3>
               <p className="text-[12px] text-slate-500 mt-2 font-medium">Impacto acumulado das medidas tarifárias</p>
             </div>
           </div>
@@ -142,7 +143,7 @@ export function ImposicaoSobretaxasView({ setActivePage }: ImposicaoSobretaxasVi
         <div className="flex items-center gap-3 mb-5">
           <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-700 dark:text-blue-400 font-bold text-sm shrink-0">1</div>
           <h2 className="text-[26px] md:text-[30px] font-extrabold text-slate-900 dark:text-white leading-tight">
-            Sobretaxas dos EUA elevam tarifa a 37,5% <span className="text-red-600 dark:text-red-400">e atingem 70% dos subitens NCM do setor</span>.
+            Sobretaxas dos EUA elevam tarifa a ${sobretaxasData.tarifas.acumulada}% <span className="text-red-600 dark:text-red-400">e atingem 70% dos subitens NCM do setor</span>.
           </h2>
         </div>
         
@@ -171,7 +172,7 @@ export function ImposicaoSobretaxasView({ setActivePage }: ImposicaoSobretaxasVi
                 
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <p>
-                    Os Estados Unidos anunciaram novas sobretaxas sobre produtos brasileiros exportados, elevando a carga tarifária acumulada para até <strong className="text-slate-800 dark:text-slate-200">37,5%</strong> em grande parte dos produtos eletroeletrônicos. A medida ocorre no âmbito das Seções 301 e 232 do USTR, afetando <strong className="text-slate-800 dark:text-slate-200">864 dos 1.240 subitens NCM do setor</strong>, aproximadamente 70% do universo tarifário analisado.
+                    Os Estados Unidos anunciaram novas sobretaxas sobre produtos brasileiros exportados, elevando a carga tarifária acumulada para até <strong className="text-slate-800 dark:text-slate-200">{sobretaxasData.tarifas.acumulada}%</strong> em grande parte dos produtos eletroeletrônicos. A medida ocorre no âmbito das Seções 301 e 232 do USTR, afetando <strong className="text-slate-800 dark:text-slate-200">864 dos 1.240 subitens NCM do setor</strong>, aproximadamente 70% do universo tarifário analisado.
                   </p>
                   <p>
                     O impacto é relevante porque o mercado americano representa um dos principais destinos das exportações brasileiras do setor. Em 2025, as exportações eletroeletrônicas brasileiras totalizaram <strong className="text-slate-800 dark:text-slate-200">US$ 8,1 bilhões</strong>, sendo <strong className="text-slate-800 dark:text-slate-200">US$ 2,1 bilhões</strong> destinados aos Estados Unidos (26%). Deste valor, aproximadamente <strong className="text-slate-800 dark:text-slate-200">US$ 1,9 bilhão</strong> estava relacionado aos produtos atingidos pelas novas tarifas.
@@ -747,7 +748,7 @@ export function ImposicaoSobretaxasView({ setActivePage }: ImposicaoSobretaxasVi
                       Porém, no dia <strong>23 de julho</strong>, os Estados Unidos anunciaram a aplicação de uma tarifa adicional de <strong>12,5%</strong> sobre produtos brasileiros, com vigência a partir de 24 de julho, conduzida sob a Seção 301 sob o argumento de combate ao comércio de bens produzidos com trabalho forçado.
                     </p>
                     <p className="bg-amber-50 dark:bg-amber-950/40 p-3 rounded-lg border border-amber-200 dark:border-amber-900/50 font-semibold text-amber-900 dark:text-amber-200">
-                      Com a nova sobretaxa eleva-se para <strong>37,5%</strong> a carga sobre grande parte das exportações de produtos do setor, comprometendo ainda mais a competitividade dos produtos fabricados no país no mercado dos Estados Unidos.
+                      Com a nova sobretaxa eleva-se para <strong>{sobretaxasData.tarifas.acumulada}%</strong> a carga sobre grande parte das exportações de produtos do setor, comprometendo ainda mais a competitividade dos produtos fabricados no país no mercado dos Estados Unidos.
                     </p>
 
                     <h3 className="font-extrabold text-slate-900 dark:text-white text-base mt-4 border-b border-slate-100 dark:border-slate-800 pb-1">

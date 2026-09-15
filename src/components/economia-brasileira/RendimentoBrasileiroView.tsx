@@ -4,6 +4,7 @@ import { HeaderKpiCard } from '../layout/HeaderKpiCard';
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { RENDIMENTO_EVIDENCES } from '../../data/evidences/rendimento';
 import { RENDIMENTO_DATA } from '../../data/economia-brasileira/rendimento';
+import { RENDIMENTO_BRASILEIRO_PAGE } from '../../data/pages/RendimentoBrasileiro';
 import { 
   DollarSign, 
   BarChart3, 
@@ -29,6 +30,7 @@ interface RendimentoBrasileiroViewProps {
 const formatBRLInteger = (value: number) => `R$ ${value.toLocaleString('pt-BR')}`;
 
 export const RendimentoBrasileiroView: React.FC<RendimentoBrasileiroViewProps> = ({ setActivePage }) => {
+  const getVal = (id: string) => RENDIMENTO_BRASILEIRO_PAGE.factualContent.find(f => f.id === id)?.value;
   const maxRegionalIncome = Math.max(...RENDIMENTO_DATA.regionalIncome.map(item => item.value));
 
   return (
@@ -49,7 +51,7 @@ export const RendimentoBrasileiroView: React.FC<RendimentoBrasileiroViewProps> =
           {/* Card 1: Rendimento Médio */}
           <HeaderKpiCard
             title={RENDIMENTO_DATA.kpis.rendimentoMedio.title}
-            value={RENDIMENTO_DATA.kpis.rendimentoMedio.value}
+            value={`R$ ${getVal('rendimento-brasileiro::kpi::rendimento-medio')?.toString().replace('.', ',')}`}
             context={RENDIMENTO_DATA.kpis.rendimentoMedio.context}
             explanation={RENDIMENTO_DATA.kpis.rendimentoMedio.explanation}
             source={RENDIMENTO_DATA.kpis.rendimentoMedio.source}
@@ -138,13 +140,13 @@ export const RendimentoBrasileiroView: React.FC<RendimentoBrasileiroViewProps> =
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <ul className="list-disc pl-4 space-y-2.5 marker:text-orange-400 dark:marker:text-orange-500/70">
                     <li>
-                      <strong>Acompanhar a desaceleração do crescimento da renda.</strong> As projeções indicam avanço do rendimento real do trabalho em 2026, porém em ritmo inferior ao observado em 2025.
+                      <strong>Acompanhar a desaceleração do crescimento da renda.</strong> {RENDIMENTO_BRASILEIRO_PAGE.existingAnalysis[0].replace('Acompanhar a desaceleração do crescimento da renda. ', '')}
                     </li>
                     <li>
-                      <strong>Monitorar se o atual patamar de renda se sustenta.</strong> O rendimento real permanece elevado em 2026, enquanto a massa salarial continua crescendo, ampliando o volume de renda na economia.
+                      <strong>Monitorar se o atual patamar de renda se sustenta.</strong> {RENDIMENTO_BRASILEIRO_PAGE.existingAnalysis[1].replace('Monitorar se o atual patamar de renda se sustenta. ', '')}
                     </li>
                     <li>
-                      <strong>Observar a distribuição dos ganhos.</strong> Apesar do avanço médio dos rendimentos, a desigualdade permanece elevada, indicando que a evolução da renda pode gerar impactos distintos entre os diferentes grupos de consumidores.
+                      <strong>Observar a distribuição dos ganhos.</strong> {RENDIMENTO_BRASILEIRO_PAGE.existingAnalysis[2].replace('Observar a distribuição dos ganhos. ', '')}
                     </li>
                   </ul>
                   <div className="pt-2 border-t border-slate-100 dark:border-slate-800 text-[12px] text-slate-400">

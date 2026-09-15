@@ -1,3 +1,4 @@
+import { balancoComercialData } from "../../data/eletroeletronico/balancoComercial";
 import { useState } from 'react';
 import { BALANCO_EVIDENCES } from '../../data/evidences/balanco';
 import { 
@@ -401,7 +402,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
         <div className="flex items-center gap-3 mb-5">
           <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-blue-700 dark:text-blue-400 font-bold text-sm shrink-0">1</div>
           <h2 className="text-[26px] md:text-[30px] font-extrabold text-slate-900 dark:text-white leading-tight">
-            Balanço Comercial registra <span className="text-blue-600 dark:text-blue-400">exportações de US$ 4,12 bi</span> e importações de US$ 25,77 bi com déficit de US$ 21,64 bi no 1º semestre de 2026.
+            Balanço Comercial registra <span className="text-blue-600 dark:text-blue-400">exportações de US$ {balancoComercialData.exportacoes.valor} bi</span> e importações de US$ {balancoComercialData.importacoes.valor} bi com déficit de US$ {balancoComercialData.deficit.valor} bi no 1º semestre de 2026.
           </h2>
         </div>
         
@@ -430,7 +431,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
                 
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <p>
-                    No acumulado do 1º semestre de 2026 (Janeiro a Junho), as exportações de produtos eletroeletrônicos somaram <strong>US$ 4,12 bilhões (+8,2%)</strong>, enquanto as importações atingiram <strong>US$ 25,77 bilhões (+7,1%)</strong>, resultando em um déficit comercial setorial de <strong>US$ 21,64 bilhões</strong> (+6,9% de elevação no déficit comercial frente a igual período de 2025).
+                    No acumulado do 1º semestre de 2026 (Janeiro a Junho), as exportações de produtos eletroeletrônicos somaram <strong>US$ {balancoComercialData.exportacoes.valor} bilhões (+8,2%)</strong>, enquanto as importações atingiram <strong>US$ {balancoComercialData.importacoes.valor} bilhões (+7,1%)</strong>, resultando em um déficit comercial setorial de <strong>US$ {balancoComercialData.deficit.valor} bilhões</strong> (+6,9% de elevação no déficit comercial frente a igual período de 2025).
                   </p>
                   <p>
                     Os <strong>Estados Unidos figuram como o principal destino das exportações</strong> brasileiras do setor, somando US$ 1,2 bilhão (29% do total exportado, +9,9%), impulsionados sobretudo por transformadores elétricos (US$ 399 milhões destinados aos EUA do total de US$ 533 milhões exportados), motores elétricos e equipamentos de medição.
@@ -548,7 +549,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
             <div className="bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800/80 px-4 py-2 rounded-xl flex items-center gap-4 shrink-0 shadow-xs">
               <div>
                 <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">TOTAL EXPORTADO (1º SEM/26)</p>
-                <p className="text-xl md:text-2xl font-black text-emerald-600 dark:text-emerald-400">US$ 4,12 bi</p>
+                <p className="text-xl md:text-2xl font-black text-emerald-600 dark:text-emerald-400">US$ {balancoComercialData.exportacoes.valor} bi</p>
               </div>
               <div className="h-8 w-px bg-slate-200 dark:bg-slate-800"></div>
               <div>
@@ -966,7 +967,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
             <div className="bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800/80 px-4 py-2 rounded-xl flex items-center gap-4 shrink-0 shadow-xs">
               <div>
                 <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">TOTAL IMPORTADO (1º SEM/26)</p>
-                <p className="text-xl md:text-2xl font-black text-amber-600 dark:text-amber-400">US$ 25,77 bi</p>
+                <p className="text-xl md:text-2xl font-black text-amber-600 dark:text-amber-400">US$ {balancoComercialData.importacoes.valor} bi</p>
               </div>
               <div className="h-8 w-px bg-slate-200 dark:bg-slate-800"></div>
               <div>
@@ -1409,7 +1410,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
               <Star className="w-4 h-4 fill-amber-600/30" />
             </div>
             <p className="text-xs md:text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-medium">
-              <strong className="font-black text-slate-900 dark:text-white">Conclusão:</strong> As importações (US$ 25,77 bi, +7,1%) sustentam a produção eletroeletrônica nacional, porém demandam monitoramento ostensivo devido ao forte salto em semicondutores (+45%) e à elevada dependência da pauta produtiva em relação ao fornecimento asiático (70%).
+              <strong className="font-black text-slate-900 dark:text-white">Conclusão:</strong> As importações (US$ {balancoComercialData.importacoes.valor} bi, +7,1%) sustentam a produção eletroeletrônica nacional, porém demandam monitoramento ostensivo devido ao forte salto em semicondutores (+45%) e à elevada dependência da pauta produtiva em relação ao fornecimento asiático (70%).
             </p>
           </div>
         </div>
@@ -1445,7 +1446,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
                     EXPORTAÇÕES
                   </span>
                   <span className="text-2xl md:text-3xl font-black text-emerald-600 dark:text-emerald-400">
-                    US$ 4,12 bi
+                    US$ {balancoComercialData.exportacoes.valor} bi
                   </span>
                 </div>
               </div>
@@ -1470,7 +1471,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
                     IMPORTAÇÕES
                   </span>
                   <span className="text-2xl md:text-3xl font-black text-amber-600 dark:text-amber-400">
-                    US$ 25,77 bi
+                    US$ {balancoComercialData.importacoes.valor} bi
                   </span>
                 </div>
               </div>
@@ -1495,7 +1496,7 @@ export function BalancoComercialView({ setActivePage }: BalancoComercialViewProp
                     SALDO COMERCIAL
                   </span>
                   <span className="text-2xl md:text-3xl font-black text-rose-600 dark:text-rose-400">
-                    -US$ 21,64 bi
+                    -US$ {balancoComercialData.deficit.valor} bi
                   </span>
                 </div>
               </div>

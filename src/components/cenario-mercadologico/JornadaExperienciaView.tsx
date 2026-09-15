@@ -3,6 +3,7 @@ import {
   ChevronRight, ExternalLink, ChevronDown, ChevronUp, Search, CalendarCheck, ShieldCheck
 } from 'lucide-react';
 import { EvidenceCard, Evidence } from '../layout/EvidenceCard';
+import { JORNADA_COMPRA_PAGE } from '../../data/pages/JornadaCompra';
 
 const EVIDENCIA_INTENCAO: Evidence = {
   id: 'ev-globo-casa-construcao-2025',
@@ -48,6 +49,14 @@ interface JornadaExperienciaViewProps {
 }
 
 export function JornadaExperienciaView({ setActivePage }: JornadaExperienciaViewProps) {
+  const getVal = (id: string) => JORNADA_COMPRA_PAGE.factualContent.find(f => f.id === id)?.value;
+  const getStr = (id: string) => getVal(id)?.toFixed(1).replace('.', ',');
+  const getMeta = (id: string, key: string) => JORNADA_COMPRA_PAGE.factualContent.find(f => f.id === id)?.metadata?.[key];
+  const getHistVal = (id: string) => getMeta(id, 'valorHistorico');
+  const getHistStr = (id: string) => {
+    const v = getHistVal(id);
+    return v !== undefined && v !== null ? `${v.toFixed(1).replace('.', ',')}%` : '—';
+  };
   // Estado da navegação interna entre blocos - Nova ordem: 1. Intenção e Planejamento, 2. Pesquisa e Comparação, 3. Confiança e Decisão
   const [subTab, setSubTab] = useState<'intencao' | 'pesquisa' | 'confianca'>('intencao');
 
@@ -58,39 +67,39 @@ export function JornadaExperienciaView({ setActivePage }: JornadaExperienciaView
   const topMeiosG1 = [
     {
       nome: 'Lojas físicas de materiais de construção',
-      val2025: 69.7,
-      valHistorico: 69.7,
-      label2025: '69,7%',
-      labelHistorico: '69,7%',
+      val2025: getVal('jornada-compra::pesquisa::loja-fisica-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::loja-fisica-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::loja-fisica-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::loja-fisica-2025'),
     },
     {
       nome: 'Sites / e-commerces de materiais de construção',
-      val2025: 34.0,
-      valHistorico: 41.2,
-      label2025: '34,0%',
-      labelHistorico: '41,2%',
+      val2025: getVal('jornada-compra::pesquisa::ecommerce-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::ecommerce-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::ecommerce-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::ecommerce-2025'),
     },
     {
       nome: 'YouTube',
-      val2025: 25.5,
-      valHistorico: 34.2,
-      label2025: '25,5%',
-      labelHistorico: '34,2%',
+      val2025: getVal('jornada-compra::pesquisa::youtube-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::youtube-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::youtube-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::youtube-2025'),
     },
     {
       nome: 'Sites das empresas fabricantes',
-      val2025: 24.1,
-      valHistorico: 31.3,
-      label2025: '24,1%',
-      labelHistorico: '31,3%',
+      val2025: getVal('jornada-compra::pesquisa::sites-fabricantes-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::sites-fabricantes-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::sites-fabricantes-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::sites-fabricantes-2025'),
       destaqueFabricante: true,
     },
     {
       nome: 'Instagram',
-      val2025: 24.7,
-      valHistorico: 24.1,
-      label2025: '24,7%',
-      labelHistorico: '24,1%',
+      val2025: getVal('jornada-compra::pesquisa::instagram-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::instagram-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::instagram-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::instagram-2025'),
     },
   ];
 
@@ -98,45 +107,45 @@ export function JornadaExperienciaView({ setActivePage }: JornadaExperienciaView
   const complementaresG1 = [
     {
       nome: 'Pinterest',
-      val2025: 15.8,
-      valHistorico: 15.9,
-      label2025: '15,8%',
-      labelHistorico: '15,9%',
+      val2025: getVal('jornada-compra::pesquisa::pinterest-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::pinterest-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::pinterest-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::pinterest-2025'),
     },
     {
       nome: 'Aplicativos de construção e reforma',
-      val2025: 15.3,
-      valHistorico: 17.6,
-      label2025: '15,3%',
-      labelHistorico: '17,6%',
+      val2025: getVal('jornada-compra::pesquisa::apps-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::apps-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::apps-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::apps-2025'),
     },
     {
       nome: 'Tablóides / folhetos de ofertas',
-      val2025: 14.6,
-      valHistorico: 14.0,
-      label2025: '14,6%',
-      labelHistorico: '14,0%',
+      val2025: getVal('jornada-compra::pesquisa::tabloides-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::tabloides-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::tabloides-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::tabloides-2025'),
     },
     {
       nome: 'TikTok',
-      val2025: 14.5,
+      val2025: getVal('jornada-compra::pesquisa::tiktok-2025')!,
       valHistorico: null,
-      label2025: '14,5%',
-      labelHistorico: '—',
+      label2025: `${getStr('jornada-compra::pesquisa::tiktok-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::tiktok-2025'),
     },
     {
       nome: 'Programas de TV sobre decoração, reforma e construção',
-      val2025: 12.6,
-      valHistorico: 14.1,
-      label2025: '12,6%',
-      labelHistorico: '14,1%',
+      val2025: getVal('jornada-compra::pesquisa::tv-2025')!,
+      valHistorico: getHistVal('jornada-compra::pesquisa::tv-2025'),
+      label2025: `${getStr('jornada-compra::pesquisa::tv-2025')}%`,
+      labelHistorico: getHistStr('jornada-compra::pesquisa::tv-2025'),
     },
     {
       nome: 'Facebook (média histórica 2022–2024)',
       val2025: null,
-      valHistorico: 16.3,
+      valHistorico: getHistVal('jornada-compra::pesquisa::facebook-historico'),
       label2025: '—',
-      labelHistorico: '16,3%',
+      labelHistorico: getHistStr('jornada-compra::pesquisa::facebook-historico'),
     },
   ];
 
@@ -144,16 +153,16 @@ export function JornadaExperienciaView({ setActivePage }: JornadaExperienciaView
   const matrizClasses = [
     {
       nome: 'Loja física',
-      classeA: 62.9,
-      classeB: 66.2,
-      classeC: 71.9,
+      classeA: getMeta('jornada-compra::pesquisa::matriz-loja-fisica', 'classeA'),
+      classeB: getMeta('jornada-compra::pesquisa::matriz-loja-fisica', 'classeB'),
+      classeC: getMeta('jornada-compra::pesquisa::matriz-loja-fisica', 'classeC'),
       isFabricante: false,
     },
     {
       nome: 'Sites / e-commerces',
-      classeA: 47.8,
-      classeB: 39.1,
-      classeC: 30.7,
+      classeA: getMeta('jornada-compra::pesquisa::matriz-ecommerce', 'classeA'),
+      classeB: getMeta('jornada-compra::pesquisa::matriz-ecommerce', 'classeB'),
+      classeC: getMeta('jornada-compra::pesquisa::matriz-ecommerce', 'classeC'),
       isFabricante: false,
     },
     {
@@ -165,23 +174,23 @@ export function JornadaExperienciaView({ setActivePage }: JornadaExperienciaView
     },
     {
       nome: 'YouTube',
-      classeA: 38.5,
-      classeB: 31.1,
-      classeC: 22.0,
+      classeA: getMeta('jornada-compra::pesquisa::matriz-youtube', 'classeA'),
+      classeB: getMeta('jornada-compra::pesquisa::matriz-youtube', 'classeB'),
+      classeC: getMeta('jornada-compra::pesquisa::matriz-youtube', 'classeC'),
       isFabricante: false,
     },
     {
       nome: 'Instagram',
-      classeA: 35.6,
-      classeB: 29.6,
-      classeC: 21.6,
+      classeA: getMeta('jornada-compra::pesquisa::matriz-instagram', 'classeA'),
+      classeB: getMeta('jornada-compra::pesquisa::matriz-instagram', 'classeB'),
+      classeC: getMeta('jornada-compra::pesquisa::matriz-instagram', 'classeC'),
       isFabricante: false,
     },
     {
       nome: 'Aplicativos de construção/reforma',
-      classeA: 36.9,
-      classeB: 17.2,
-      classeC: 13.0,
+      classeA: getMeta('jornada-compra::pesquisa::matriz-apps', 'classeA'),
+      classeB: getMeta('jornada-compra::pesquisa::matriz-apps', 'classeB'),
+      classeC: getMeta('jornada-compra::pesquisa::matriz-apps', 'classeC'),
       isFabricante: false,
     },
   ];
@@ -325,17 +334,13 @@ export function JornadaExperienciaView({ setActivePage }: JornadaExperienciaView
             </span>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-5">
               <div className="sm:w-[48%] shrink-0 flex items-center gap-3 sm:border-r border-slate-200 dark:border-slate-700/60 sm:pr-4">
-                <span className="text-3xl sm:text-[34px] font-extrabold text-blue-600 dark:text-blue-400 tracking-tight leading-none">
-                  86%
-                </span>
+                <span className="text-3xl sm:text-[34px] font-extrabold text-blue-600 dark:text-blue-400 tracking-tight leading-none">{getVal("jornada-compra::intencao::busca-melhorar-lar")}%</span>
                 <p className="text-[13.5px] sm:text-[14px] font-medium text-slate-700 dark:text-slate-300 leading-snug">
                   buscam constantemente novas formas de melhorar o lar.
                 </p>
               </div>
               <div className="sm:w-[48%] flex items-center gap-3">
-                <span className="text-3xl sm:text-[34px] font-extrabold text-blue-600 dark:text-blue-400 tracking-tight leading-none">
-                  82%
-                </span>
+                <span className="text-3xl sm:text-[34px] font-extrabold text-blue-600 dark:text-blue-400 tracking-tight leading-none">{getVal("jornada-compra::intencao::obra-12-meses")}%</span>
                 <p className="text-[13.5px] sm:text-[14px] font-medium text-slate-700 dark:text-slate-300 leading-snug">
                   realizaram alguma obra ou reforma no imóvel nos últimos 12 meses.
                 </p>
@@ -403,11 +408,11 @@ export function JornadaExperienciaView({ setActivePage }: JornadaExperienciaView
 
                 <div className="flex flex-col gap-1.5 pt-0.5">
                   {[
-                    { label: 'Sudeste', val: 48 },
-                    { label: 'Nordeste', val: 24 },
-                    { label: 'Sul', val: 17 },
-                    { label: 'Norte', val: 6 },
-                    { label: 'Centro-Oeste', val: 5 },
+                    { label: 'Sudeste', val: getVal('jornada-compra::intencao::regiao-sudeste')! },
+                    { label: 'Nordeste', val: getVal('jornada-compra::intencao::regiao-nordeste')! },
+                    { label: 'Sul', val: getVal('jornada-compra::intencao::regiao-sul')! },
+                    { label: 'Norte', val: getVal('jornada-compra::intencao::regiao-norte')! },
+                    { label: 'Centro-Oeste', val: getVal('jornada-compra::intencao::regiao-centro-oeste')! },
                   ].map((item, idx) => (
                     <div key={idx} className="flex items-center gap-2.5 text-[12.5px]">
                       <span className="w-24 shrink-0 truncate font-medium text-slate-600 dark:text-slate-300">
@@ -1361,10 +1366,10 @@ export function JornadaExperienciaView({ setActivePage }: JornadaExperienciaView
 
               {[
                 { nome: 'Qualidade do produto', val: 22, destaque: true },
-                { nome: 'Preço baixo', val: 19, destaque: true },
-                { nome: 'Frete grátis', val: 13, destaque: false },
-                { nome: 'Confiança na marca', val: 10, destaque: false },
-                { nome: 'Descontos', val: 6, destaque: false },
+                { nome: 'Preço baixo', val: getVal('jornada-compra::confianca::criterio-preco')!, destaque: true },
+                { nome: 'Frete grátis', val: getVal('jornada-compra::confianca::criterio-frete-gratis')!, destaque: false },
+                { nome: 'Confiança na marca', val: getVal('jornada-compra::confianca::criterio-confianca-marca')!, destaque: false },
+                { nome: 'Descontos', val: getVal('jornada-compra::confianca::criterio-descontos')!, destaque: false },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-[13.5px] sm:text-[14px]">
                   <span className="w-44 sm:w-52 shrink-0 font-medium text-slate-800 dark:text-slate-200">

@@ -1,4 +1,4 @@
-import { EvidenciaAssociada } from '../types';
+import { EvidenciaAssociada } from './types';
 
 export interface EvidenciaEstrategica {
   id: string;

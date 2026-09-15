@@ -2,12 +2,14 @@ import React from 'react';
 import { Compass } from 'lucide-react';
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { LARES_UNIPESSOAIS_DATA } from '../../data/cenario-habitacional/laresUnipessoais';
+import { LARES_UNIPESSOAIS_PAGE } from '../../data/pages/LaresUnipessoais';
 
 interface LaresUnipessoaisViewProps {
   setActivePage?: (page: string) => void;
 }
 
 export function LaresUnipessoaisView({ setActivePage }: LaresUnipessoaisViewProps) {
+  const getVal = (id: string) => LARES_UNIPESSOAIS_PAGE.factualContent.find(f => f.id === id)?.value;
   const currentData = LARES_UNIPESSOAIS_DATA;
 
   return (
@@ -21,7 +23,7 @@ export function LaresUnipessoaisView({ setActivePage }: LaresUnipessoaisViewProp
               Lares Unipessoais
             </h1>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
-              O avanço dos domicílios com apenas um morador superou 15 milhões em 2025 (19,5% das residências no Brasil), enquanto unidades de até 40 m² já concentram 41,1% das intenções de novos lançamentos imobiliários.
+              O avanço dos domicílios com apenas um morador superou {getVal('lares-unipessoais::kpi::total-domicilios')} milhões em 2025 (19,5% das residências no Brasil), enquanto unidades de até 40 m² já concentram 41,1% das intenções de novos lançamentos imobiliários.
             </p>
           </div>
         </div>

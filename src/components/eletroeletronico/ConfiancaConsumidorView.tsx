@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Target, TrendingDown, ExternalLink, Search, Globe, Factory, FileText, Download, Eye, X, Printer, Building2, CheckCircle2, FileCheck } from 'lucide-react';
+import { iceiData } from '../../data/eletroeletronico/icei';
 import { jsPDF } from 'jspdf';
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { CONFIANCA_EVIDENCES } from '../../data/evidences/confianca';
@@ -33,7 +34,7 @@ export function ConfiancaConsumidorView({ setActivePage }: ConfiancaConsumidorVi
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(51, 65, 85);
-    const textP1 = 'O Índice de Confiança do Empresário Industrial (ICEI) do Setor Eletroeletrônico, conforme dados da CNI agregados pela Abinee, registrou 47,9 pontos no mês de abril de 2026, queda de 1,1 ponto em relação a março (49 pontos).\n\nCom a terceira queda consecutiva no ano, o ICEI do setor se distanciou ainda mais dos 50 pontos, reforçando o cenário de falta de confiança.\n\nÉ importante destacar que o índice de confiança do setor ficou abaixo da linha divisória de 50 pontos em quase todos os meses de 2025, com exceção apenas do mês de março (51,7 pontos), permanecendo nessa situação há treze meses seguidos.\n\nDADOS DE ABRIL/2026:\n- Setor Eletroeletrônico: 47,9 pts\n- Área Elétrica: 49,3 pts\n- Área Eletrônica: 46,3 pts\n- Indústria Geral: 45,2 pts\n\nFonte: Abinee/Decon – 29/04/2026';
+    const textP1 = `O Índice de Confiança do Empresário Industrial (ICEI) do Setor Eletroeletrônico, conforme dados da CNI agregados pela Abinee, registrou ${iceiData.valores.setorEletroeletronico} pontos no mês de abril de 2026, queda de ${iceiData.variacoes.quedaSetorVsMarco} ponto em relação a março (${iceiData.valores.marco} pontos).\n\nCom a terceira queda consecutiva no ano, o ICEI do setor se distanciou ainda mais dos 50 pontos, reforçando o cenário de falta de confiança.\n\nÉ importante destacar que o índice de confiança do setor ficou abaixo da linha divisória de 50 pontos em quase todos os meses de 2025, com exceção apenas do mês de março (51,7 pontos), permanecendo nessa situação há treze meses seguidos.\n\nDADOS DE ABRIL/2026:\n- Setor Eletroeletrônico: ${iceiData.valores.setorEletroeletronico} pts\n- Área Elétrica: ${iceiData.valores.areaEletrica} pts\n- Área Eletrônica: ${iceiData.valores.areaEletronica} pts\n- Indústria Geral: ${iceiData.valores.industriaGeral} pts\n\nFonte: ${iceiData.fonte}`;
     
     doc.text(doc.splitTextToSize(textP1, 180), 15, 55);
     doc.save('Relatorio_Abinee_ICEI_Abril_2026.pdf');
@@ -74,7 +75,7 @@ export function ConfiancaConsumidorView({ setActivePage }: ConfiancaConsumidorVi
             <div className="min-w-0 flex-1">
               <p className="text-[14px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">Setor Eletroeletrônico</p>
               <div className="flex items-baseline gap-2">
-                <h3 className="text-[26px] 2xl:text-[28px] font-black text-slate-700 dark:text-slate-300 leading-none">47,9 pts</h3>
+                <h3 className="text-[26px] 2xl:text-[28px] font-black text-slate-700 dark:text-slate-300 leading-none">{iceiData.valores.setorEletroeletronico} pts</h3>
               </div>
               <p className="text-[14px] text-slate-400 mt-0.5 leading-tight">Abaixo de 50 (Falta de Confiança)</p>
             </div>
@@ -87,7 +88,7 @@ export function ConfiancaConsumidorView({ setActivePage }: ConfiancaConsumidorVi
             <div className="min-w-0 flex-1">
               <p className="text-[14px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">Área Elétrica</p>
               <div className="flex items-baseline gap-2">
-                <h3 className="text-[26px] 2xl:text-[28px] font-black text-orange-600 dark:text-orange-400 leading-none">49,3 pts</h3>
+                <h3 className="text-[26px] 2xl:text-[28px] font-black text-orange-600 dark:text-orange-400 leading-none">{iceiData.valores.areaEletrica} pts</h3>
               </div>
               <p className="text-[14px] text-slate-400 mt-0.5 leading-tight">Migrou para falta de confiança</p>
             </div>
@@ -100,7 +101,7 @@ export function ConfiancaConsumidorView({ setActivePage }: ConfiancaConsumidorVi
             <div className="min-w-0 flex-1">
               <p className="text-[14px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">Área Eletrônica</p>
               <div className="flex items-baseline gap-2">
-                <h3 className="text-[26px] 2xl:text-[28px] font-black text-red-600 dark:text-red-400 leading-none">46,3 pts</h3>
+                <h3 className="text-[26px] 2xl:text-[28px] font-black text-red-600 dark:text-red-400 leading-none">{iceiData.valores.areaEletronica} pts</h3>
               </div>
               <p className="text-[14px] text-slate-400 mt-0.5 leading-tight">Queda agravada</p>
             </div>
@@ -138,8 +139,8 @@ export function ConfiancaConsumidorView({ setActivePage }: ConfiancaConsumidorVi
                 </div>
               </div>
               <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
-                <p>O ICEI do Setor Eletroeletrônico registrou <strong className="text-slate-800 dark:text-slate-200">47,9 pontos em abril de 2026</strong>, uma queda de 1,1 ponto em relação a março. A área elétrica recuou de 50,4 para 49,3 pontos, migrando de volta para o estado de falta de confiança, enquanto a área eletrônica caiu de 47,4 para 46,3 pontos.</p>
-                <p>Esses resultados apontam que, com exceção de março de 2025, o setor eletroeletrônico permanece em estado de pessimismo ininterrupto, refletindo também a queda do ICEI da Indústria Geral, que marcou 45,2 pontos em abril.</p>
+                <p>O ICEI do Setor Eletroeletrônico registrou <strong className="text-slate-800 dark:text-slate-200">{iceiData.valores.setorEletroeletronico} pontos em abril de 2026</strong>, uma queda de {iceiData.variacoes.quedaSetorVsMarco} ponto em relação a março. A área elétrica recuou de 50,4 para {iceiData.valores.areaEletrica} pontos, migrando de volta para o estado de falta de confiança, enquanto a área eletrônica caiu de 47,4 para {iceiData.valores.areaEletronica} pontos.</p>
+                <p>Esses resultados apontam que, com exceção de março de 2025, o setor eletroeletrônico permanece em estado de pessimismo ininterrupto, refletindo também a queda do ICEI da Indústria Geral, que marcou {iceiData.valores.industriaGeral} pontos em abril.</p>
               </div>
             </div>
           </div>
@@ -269,7 +270,7 @@ export function ConfiancaConsumidorView({ setActivePage }: ConfiancaConsumidorVi
 
                   {/* VALORES DESTAQUE EM AZUL */}
                   <text x="495" y="174" fill="#0284c7" fontSize="13" fontWeight="black">48,6</text>
-                  <text x="588" y="174" fill="#0284c7" fontSize="13" fontWeight="black">47,9</text>
+                  <text x="588" y="174" fill="#0284c7" fontSize="13" fontWeight="black">{iceiData.valores.setorEletroeletronico}</text>
 
                   {/* LINHA 1: INDÚSTRIA GERAL (CINZA) */}
                   <path
@@ -354,32 +355,32 @@ export function ConfiancaConsumidorView({ setActivePage }: ConfiancaConsumidorVi
                 <div className="bg-white dark:bg-[#111827] p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-[13px] font-bold text-slate-800 dark:text-slate-200">Setor Eletroeletrônico</span>
-                    <span className="text-[14px] font-black text-amber-600 dark:text-amber-400">47,9 pts</span>
+                    <span className="text-[14px] font-black text-amber-600 dark:text-amber-400">{iceiData.valores.setorEletroeletronico} pts</span>
                   </div>
                   <p className="text-[12px] text-slate-500 dark:text-slate-400 leading-tight">
-                    Recuo de 2,2 pontos em relação a março/26 (50,1 pts), retornando à zona de falta de confiança.
+                    Recuo de {iceiData.variacoes.quedaSetorVsMarco} ponto em relação a {iceiData.referenciaAnterior} ({iceiData.valores.marco} pts), retornando à zona de falta de confiança.
                   </p>
                 </div>
 
                 <div className="bg-white dark:bg-[#111827] p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-[13px] font-bold text-slate-800 dark:text-slate-200">Indústria Geral (CNI)</span>
-                    <span className="text-[14px] font-black text-amber-600 dark:text-amber-400">48,6 pts</span>
+                    <span className="text-[14px] font-black text-amber-600 dark:text-amber-400">{iceiData.valores.industriaGeral} pts</span>
                   </div>
                   <p className="text-[12px] text-slate-500 dark:text-slate-400 leading-tight">
-                    Recuo de 2,3 pontos comparado a março/26 (50,9 pts), sinalizando cautela abrangente na indústria.
+                    Dado referente a {iceiData.referenciaCurta}, sinalizando cautela abrangente na indústria.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 pt-1">
                   <div className="bg-white dark:bg-[#111827] p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-center">
                     <span className="text-[11px] font-bold text-slate-500 uppercase block">Área Elétrica</span>
-                    <span className="text-[15px] font-black text-slate-800 dark:text-slate-200">49,6 pts</span>
+                    <span className="text-[15px] font-black text-slate-800 dark:text-slate-200">{iceiData.valores.areaEletrica} pts</span>
                     <span className="text-[10px] text-amber-600 dark:text-amber-400 block font-semibold">Falta de confiança</span>
                   </div>
                   <div className="bg-white dark:bg-[#111827] p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-center">
                     <span className="text-[11px] font-bold text-slate-500 uppercase block">Área Eletrônica</span>
-                    <span className="text-[15px] font-black text-slate-800 dark:text-slate-200">46,7 pts</span>
+                    <span className="text-[15px] font-black text-slate-800 dark:text-slate-200">{iceiData.valores.areaEletronica} pts</span>
                     <span className="text-[10px] text-amber-600 dark:text-amber-400 block font-semibold">Falta de confiança</span>
                   </div>
                 </div>

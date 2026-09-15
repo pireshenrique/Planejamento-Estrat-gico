@@ -244,11 +244,6 @@ const sidebarGroups = [
     ]
   },
   {
-    name: 'Tecnologia e Novos Mercados',
-    icon: Cpu,
-    children: ['Inteligência Artificial', 'Data Centers', 'Automação industrial', 'Smart Home', 'IoT', 'Semicondutores', 'Eletrificação', 'Eficiência energética']
-  },
-  {
     name: 'Cenário Habitacional',
     icon: Home,
     children: ['Mercado Imobiliário', 'Déficit Habitacional', 'Programas Sociais', 'Lares Unipessoais']
@@ -558,7 +553,6 @@ export function StrategicPortal() {
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
     'Geopolítica & Economia Global': false,
     'Economia Brasileira': false,
-    'Tecnologia e Novos Mercados': false,
     'Cenário Habitacional': false,
     'Cenário Mercadológico': false,
     'Meio Ambiente e Clima': false,
@@ -1003,15 +997,6 @@ export function StrategicPortal() {
       'Eficiência hídrica': Recycle,
       'Reúso de água': Recycle,
       'Regulamentações do setor': Scale,
-      // Tecnologia e Novos Mercados
-      'Inteligência Artificial': Brain,
-      'Data Centers': Server,
-      'Automação industrial': Settings,
-      'Smart Home': Home,
-      'IoT': Wifi,
-      'Semicondutores': Cpu,
-      'Eletrificação': Zap,
-      'Eficiência energética': Activity,
       // Regulação e Sustentabilidade
       'Logística reversa': ArrowRightLeft,
       'Economia circular': Recycle,

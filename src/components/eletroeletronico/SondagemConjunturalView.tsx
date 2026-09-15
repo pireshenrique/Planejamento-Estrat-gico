@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Target, TrendingUp, Search, Globe, FileText, Download, Building2, Activity, BarChart3, AlertTriangle, ArrowUpRight } from 'lucide-react';
+import { sondagemData } from '../../data/eletroeletronico/sondagem';
 import { jsPDF } from 'jspdf';
 import { EvidenceCard } from '../layout/EvidenceCard';
 import { SONDAGEM_EVIDENCES } from '../../data/evidences/sondagem';
@@ -331,9 +332,9 @@ export function SondagemConjunturalView({ setActivePage }: SondagemConjunturalVi
     doc.setTextColor(51, 65, 85);
     
     const p1Body = [
-      '• Vendas e Encomendas: 52% das empresas indicaram crescimento nas vendas em relação a maio de 2025 (ante 46% na pesquisa anterior). Na comparação com o mês anterior (abr/26), 44% indicaram crescimento (ante 26%). Porém, 53% relataram negócios abaixo do esperado no mercado interno.',
+      `• Vendas e Encomendas: ${sondagemData.vendas.crescimentoAnual}% das empresas indicaram crescimento nas vendas em relação a maio de 2025 (ante 46% na pesquisa anterior). Na comparação com o mês anterior (abr/26), 44% indicaram crescimento (ante 26%). Porém, 53% relataram negócios abaixo do esperado no mercado interno.`,
       '',
-      '• Capacidade Instalada: A utilização da capacidade instalada (UCI) recuou 1 p.p., passando de 77% em abril para 76% em maio.',
+      `• Capacidade Instalada: A utilização da capacidade instalada (UCI) recuou 1 p.p., passando de 77% em abril para ${sondagemData.uci.atual}% em maio.`,
       '',
       '• Emprego: 83% das empresas apontaram estabilidade no nível de pessoal. 12% relataram crescimento no número de funcionários e 5% indicaram queda.',
       '',
@@ -442,7 +443,7 @@ export function SondagemConjunturalView({ setActivePage }: SondagemConjunturalVi
             <div className="min-w-0 flex-1">
               <p className="text-[12px] font-bold text-slate-500 dark:text-slate-400 mb-0.5 uppercase tracking-wider">Capacidade Instalada (UCI)</p>
               <div className="flex items-baseline gap-2">
-                <h3 className="text-[24px] 2xl:text-[26px] font-black text-blue-600 dark:text-blue-400 leading-none">76%</h3>
+                <h3 className="text-[24px] 2xl:text-[26px] font-black text-blue-600 dark:text-blue-400 leading-none">{sondagemData.uci.atual}%</h3>
                 <span className="text-[12px] text-slate-500">(-1 p.p.)</span>
               </div>
               <p className="text-[13px] text-slate-400 mt-0.5 leading-tight">UCI em Maio/2026</p>
@@ -511,10 +512,10 @@ export function SondagemConjunturalView({ setActivePage }: SondagemConjunturalVi
                 
                 <div className="flex flex-col gap-4 text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed md:pl-[64px]">
                   <p>
-                    A Sondagem de maio apontou que <strong>52% das empresas relataram crescimento nas vendas e encomendas</strong> em relação ao mesmo mês do ano anterior (avanço de 6 p.p. em relação aos 46% de abril). Frente ao mês imediatamente anterior, <strong>44% indicaram alta</strong> (subindo de 26% em abril). Por outro lado, <strong>53% relataram negócios abaixo do esperado</strong> no mercado interno.
+                    A Sondagem de maio apontou que <strong>{sondagemData.vendas.crescimentoAnual}% das empresas relataram crescimento nas vendas e encomendas</strong> em relação ao mesmo mês do ano anterior (avanço de 6 p.p. em relação aos 46% de abril). Frente ao mês imediatamente anterior, <strong>44% indicaram alta</strong> (subindo de 26% em abril). Por outro lado, <strong>53% relataram negócios abaixo do esperado</strong> no mercado interno.
                   </p>
                   <p>
-                    A <strong>Utilização da Capacidade Instalada (UCI)</strong> teve ligeira redução de 1 p.p., recuando de 77% em abril para <strong>76% em maio de 2026</strong>. No nível de emprego, a maioria absoluta (83%) registrou estabilidade, enquanto 12% relataram aumento de vagas.
+                    A <strong>Utilização da Capacidade Instalada (UCI)</strong> teve ligeira redução de 1 p.p., recuando de 77% em abril para <strong>{sondagemData.uci.atual}% em maio de 2026</strong>. No nível de emprego, a maioria absoluta (83%) registrou estabilidade, enquanto 12% relataram aumento de vagas.
                   </p>
                   <p>
                     Quanto aos <strong>custos de componentes e matérias-primas</strong>, 57% das empresas relataram pressões de alta em maio. Embora seja uma redução após 5 aumentos consecutivos, o patamar permanece elevado, impulsionado por memórias, plásticos, polímeros, PVC, resinas, derivados de petróleo e cobre. Como resposta, <strong>62% das empresas já reajustaram os preços de seus produtos finais</strong> (sendo 63% dos reajustes situados na faixa de até 10%).
